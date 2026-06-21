@@ -1,0 +1,379 @@
+{
+  "info": {
+    "_postman_id": "b6f2a1d4-9c3e-4a17-8e21-2f4c7d9e1a55",
+    "name": "Metriport API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Metriport is an open-source, universal API for healthcare data. Medical API for patient record exchange and consolidated FHIR data, plus Devices API for wearable and mHealth data hydration.\n\nContact Support:\n Name: Metriport Support\n Email: contact@metriport.com",
+      "type": "text/plain"
+    }
+  },
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.metriport.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "event": [],
+  "item": [
+    {
+      "name": "Patient",
+      "description": {
+        "content": "Medical API patient management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "name": "Create Patient",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/medical/v1/patient?facilityId=",
+              "host": ["{{baseUrl}}"],
+              "path": ["medical", "v1", "patient"],
+              "query": [
+                { "key": "facilityId", "value": "" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"dob\": \"1980-01-01\",\n  \"genderAtBirth\": \"M\",\n  \"address\": [\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\"\n    }\n  ]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Creates a Patient in Metriport for the specified Facility."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Patient",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medical/v1/patient/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["medical", "v1", "patient", ":id"],
+              "variable": [ { "key": "id", "value": "" } ]
+            },
+            "description": "Gets a Patient by their Metriport ID."
+          },
+          "response": []
+        },
+        {
+          "name": "List Patients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medical/v1/patient?facilityId=",
+              "host": ["{{baseUrl}}"],
+              "path": ["medical", "v1", "patient"],
+              "query": [ { "key": "facilityId", "value": "" } ]
+            },
+            "description": "Lists all Patients at the specified Facility."
+          },
+          "response": []
+        },
+        {
+          "name": "Match Patient",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": {
+              "raw": "{{baseUrl}}/medical/v1/patient/match",
+              "host": ["{{baseUrl}}"],
+              "path": ["medical", "v1", "patient", "match"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"dob\": \"1980-01-01\",\n  \"genderAtBirth\": \"M\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Searches for an existing Patient by demographics."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Facility",
+      "description": { "content": "Medical API facility management.", "type": "text/plain" },
+      "item": [
+        {
+          "name": "Create Facility",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": {
+              "raw": "{{baseUrl}}/medical/v1/facility",
+              "host": ["{{baseUrl}}"],
+              "path": ["medical", "v1", "facility"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"npi\": \"<string>\",\n  \"address\": {\n    \"addressLine1\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zip\": \"<string>\",\n    \"country\": \"USA\"\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Creates a Facility under your Organization."
+          },
+          "response": []
+        },
+        {
+          "name": "List Facilities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medical/v1/facility",
+              "host": ["{{baseUrl}}"],
+              "path": ["medical", "v1", "facility"]
+            },
+            "description": "Lists all Facilities under your Organization."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Document",
+      "description": { "content": "Medical API document query and retrieval.", "type": "text/plain" },
+      "item": [
+        {
+          "name": "Start Document Query",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medical/v1/document/query?patientId=&facilityId=",
+              "host": ["{{baseUrl}}"],
+              "path": ["medical", "v1", "document", "query"],
+              "query": [
+                { "key": "patientId", "value": "" },
+                { "key": "facilityId", "value": "" }
+              ]
+            },
+            "description": "Triggers a network query for a Patient's clinical documents."
+          },
+          "response": []
+        },
+        {
+          "name": "List Documents",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medical/v1/document?patientId=",
+              "host": ["{{baseUrl}}"],
+              "path": ["medical", "v1", "document"],
+              "query": [ { "key": "patientId", "value": "" } ]
+            },
+            "description": "Lists the available DocumentReferences for a Patient."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Document URL",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medical/v1/document/download-url?fileName=",
+              "host": ["{{baseUrl}}"],
+              "path": ["medical", "v1", "document", "download-url"],
+              "query": [ { "key": "fileName", "value": "" } ]
+            },
+            "description": "Returns a signed URL to download a specific document."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Consolidated",
+      "description": { "content": "Medical API consolidated FHIR data.", "type": "text/plain" },
+      "item": [
+        {
+          "name": "Start Consolidated Data Query",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medical/v1/patient/:id/consolidated/query?conversionType=json",
+              "host": ["{{baseUrl}}"],
+              "path": ["medical", "v1", "patient", ":id", "consolidated", "query"],
+              "query": [ { "key": "conversionType", "value": "json" } ],
+              "variable": [ { "key": "id", "value": "" } ]
+            },
+            "description": "Triggers a consolidated FHIR data query for a Patient."
+          },
+          "response": []
+        },
+        {
+          "name": "Count Patient Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medical/v1/patient/:id/consolidated/count",
+              "host": ["{{baseUrl}}"],
+              "path": ["medical", "v1", "patient", ":id", "consolidated", "count"],
+              "variable": [ { "key": "id", "value": "" } ]
+            },
+            "description": "Returns the count of a Patient's consolidated FHIR resources."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Devices",
+      "description": { "content": "Devices API users and normalized health data.", "type": "text/plain" },
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/user?appUserId=",
+              "host": ["{{baseUrl}}"],
+              "path": ["user"],
+              "query": [ { "key": "appUserId", "value": "" } ]
+            },
+            "description": "Creates a Metriport user for connected device data."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Connect Token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/user/connect/token?userId=",
+              "host": ["{{baseUrl}}"],
+              "path": ["user", "connect", "token"],
+              "query": [ { "key": "userId", "value": "" } ]
+            },
+            "description": "Generates a Connect Widget session token."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Activity Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/activity?userId=&date=",
+              "host": ["{{baseUrl}}"],
+              "path": ["activity"],
+              "query": [
+                { "key": "userId", "value": "" },
+                { "key": "date", "value": "" }
+              ]
+            },
+            "description": "Retrieves normalized activity data for a user."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Biometrics Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/biometrics?userId=&date=",
+              "host": ["{{baseUrl}}"],
+              "path": ["biometrics"],
+              "query": [
+                { "key": "userId", "value": "" },
+                { "key": "date", "value": "" }
+              ]
+            },
+            "description": "Retrieves normalized biometrics data for a user."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Sleep Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/sleep?userId=&date=",
+              "host": ["{{baseUrl}}"],
+              "path": ["sleep"],
+              "query": [
+                { "key": "userId", "value": "" },
+                { "key": "date", "value": "" }
+              ]
+            },
+            "description": "Retrieves normalized sleep data for a user."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Settings",
+      "description": { "content": "Account settings and webhooks.", "type": "text/plain" },
+      "item": [
+        {
+          "name": "Get Settings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/settings",
+              "host": ["{{baseUrl}}"],
+              "path": ["settings"]
+            },
+            "description": "Returns the account settings including the webhook URL."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Settings",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": {
+              "raw": "{{baseUrl}}/settings",
+              "host": ["{{baseUrl}}"],
+              "path": ["settings"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"webhookUrl\": \"https://example.com/webhook\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Updates the account webhook URL."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

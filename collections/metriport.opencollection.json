@@ -1,0 +1,195 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Metriport API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{apiKey}}",
+      "in": "header"
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Patient", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create Patient", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.metriport.com/medical/v1/patient?facilityId=",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Creates a Patient in Metriport for the specified Facility."
+        },
+        {
+          "info": { "name": "Get Patient", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/patient/{id}"
+          },
+          "docs": "Gets a Patient by their Metriport ID."
+        },
+        {
+          "info": { "name": "List Patients", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/patient?facilityId="
+          },
+          "docs": "Lists all Patients at the specified Facility."
+        },
+        {
+          "info": { "name": "Match Patient", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.metriport.com/medical/v1/patient/match",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Searches for an existing Patient by demographics."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Facility", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create Facility", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.metriport.com/medical/v1/facility",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Creates a Facility under your Organization."
+        },
+        {
+          "info": { "name": "List Facilities", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/facility"
+          },
+          "docs": "Lists all Facilities under your Organization."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Document", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Start Document Query", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.metriport.com/medical/v1/document/query?patientId=&facilityId="
+          },
+          "docs": "Triggers a network query for a Patient's clinical documents."
+        },
+        {
+          "info": { "name": "List Documents", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/document?patientId="
+          },
+          "docs": "Lists the available DocumentReferences for a Patient."
+        },
+        {
+          "info": { "name": "Get Document URL", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/document/download-url?fileName="
+          },
+          "docs": "Returns a signed URL to download a specific document."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Consolidated", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Start Consolidated Data Query", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.metriport.com/medical/v1/patient/{id}/consolidated/query?conversionType=json"
+          },
+          "docs": "Triggers a consolidated FHIR data query for a Patient."
+        },
+        {
+          "info": { "name": "Count Patient Data", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/patient/{id}/consolidated/count"
+          },
+          "docs": "Returns the count of a Patient's consolidated FHIR resources."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Devices", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create User", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.metriport.com/user?appUserId="
+          },
+          "docs": "Creates a Metriport user for connected device data."
+        },
+        {
+          "info": { "name": "Get Connect Token", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/user/connect/token?userId="
+          },
+          "docs": "Generates a Connect Widget session token."
+        },
+        {
+          "info": { "name": "Get Activity Data", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/activity?userId=&date="
+          },
+          "docs": "Retrieves normalized activity data for a user."
+        },
+        {
+          "info": { "name": "Get Biometrics Data", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/biometrics?userId=&date="
+          },
+          "docs": "Retrieves normalized biometrics data for a user."
+        },
+        {
+          "info": { "name": "Get Sleep Data", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/sleep?userId=&date="
+          },
+          "docs": "Retrieves normalized sleep data for a user."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Settings", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get Settings", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/settings"
+          },
+          "docs": "Returns the account settings including the webhook URL."
+        },
+        {
+          "info": { "name": "Update Settings", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.metriport.com/settings",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Updates the account webhook URL."
+        }
+      ]
+    }
+  ]
+}

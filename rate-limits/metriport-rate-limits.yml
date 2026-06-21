@@ -1,0 +1,73 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Metriport
+providerId: metriport
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Healthcare
+- Medical Records
+- FHIR
+- Health Data
+- Wearables
+- Open Source
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Metriport authenticates every request to https://api.metriport.com with an
+  x-api-key header. The hosted cloud applies account-level rate limits and
+  asynchronous processing - document queries and consolidated data queries run
+  in the background and return results via webhook rather than synchronously -
+  which naturally throttles heavy network operations. Self-hosted deployments
+  enforce whatever limits the operator configures. Specific published per-account
+  request-per-second or per-minute thresholds are not documented and are not
+  reconciled in this artifact.
+notes: >-
+  Confirm any per-account or per-endpoint limits with Metriport during
+  reconciliation. Heavy operations (document query, consolidated query) are
+  asynchronous and webhook-delivered. Self-hosted limits are operator-defined.
+sources:
+- https://docs.metriport.com/medical-api/getting-started/quickstart
+- https://docs.metriport.com/medical-api/more-info/webhooks
+- https://github.com/metriport/metriport
+responseCodes:
+  throttled: 429
+limits:
+- name: API Key Requests
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: Account-level limits applied to the hosted cloud; not publicly itemized.
+- name: Document Query
+  scope: account
+  metric: queries
+  limit: asynchronous
+  notes: Document queries run in the background and return results via webhook; they do not block synchronously.
+- name: Consolidated Data Query
+  scope: account
+  metric: queries
+  limit: asynchronous
+  notes: Consolidated FHIR queries run in the background and return results via webhook.
+- name: Devices Data
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: Per-account limits on hosted Devices API data reads.
+- name: Self-Hosted
+  scope: deployment
+  metric: requests
+  limit: operator-defined
+  notes: Self-hosted deployments enforce whatever limits the operator configures.
+policies:
+- name: Authentication
+  description: Every request requires a valid x-api-key header issued from the Metriport developer dashboard.
+- name: Asynchronous Processing
+  description: Long-running network operations return immediately and deliver results via webhook to reduce synchronous load.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

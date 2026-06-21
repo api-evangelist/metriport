@@ -1,0 +1,121 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Metriport
+providerId: metriport
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Healthcare
+- Medical Records
+- FHIR
+- Health Data
+- Wearables
+- Open Source
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Metriport spend. Cost depends on the deployment model:
+  self-hosting the open-source code shifts spend to your own infrastructure and
+  third-party network fees (no per-call charge from Metriport), while the hosted
+  Metriport cloud is usage-based - the Medical API is quoted on monthly patient
+  volume and the Devices API on connected users per month. Document and
+  consolidated queries are asynchronous, so volume drives both compute and any
+  per-patient cloud charges.
+notes: >-
+  Distinguish self-hosted infrastructure spend from hosted cloud usage charges.
+  Cloud rates are custom-quoted; reconcile exact figures with Metriport.
+sources:
+- https://www.metriport.com/pricing
+- https://github.com/metriport/metriport
+- https://docs.metriport.com/home/welcome
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Metriport
+serviceCategory: Healthcare and Life Sciences
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Metriport
+  ServiceCategory: Healthcare and Life Sciences
+  ProviderName: Metriport
+  PublisherName: Metriport
+  InvoiceIssuerName: Metriport
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: patients
+  description: Patients managed in the hosted Medical API, a primary driver of Medical API cloud cost.
+  unit: patients
+  aggregation: sum
+  dimensions:
+  - account
+  - facility
+- name: document_queries
+  description: Network document queries triggered per patient across the HIE networks.
+  unit: queries
+  aggregation: sum
+  dimensions:
+  - account
+  - patient
+- name: consolidated_queries
+  description: Consolidated FHIR data queries assembling a patient's medical history.
+  unit: queries
+  aggregation: sum
+  dimensions:
+  - account
+  - patient
+- name: medical_record_summaries
+  description: AI medical record summaries generated from consolidated data.
+  unit: summaries
+  aggregation: sum
+  dimensions:
+  - account
+  - patient
+- name: connected_users
+  description: Devices API users with at least one connected provider, billed per user per month.
+  unit: users
+  aggregation: sum
+  dimensions:
+  - account
+  - provider
+- name: devices_data_reads
+  description: Reads of normalized activity, biometrics, body, nutrition, and sleep data.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - dataType
+- name: self_hosted_infrastructure
+  description: Infrastructure and third-party network costs for self-hosted deployments (not billed by Metriport).
+  unit: hours
+  aggregation: sum
+  dimensions:
+  - account
+  - environment
+principles:
+- name: Visibility
+  description: Track patient volume, document/consolidated query counts, and connected users; for self-hosting, monitor your own cloud infrastructure spend.
+- name: Allocation
+  description: Tag API keys and facilities per workload/team; map patient and connected-user volume to internal cost centers.
+- name: Optimization
+  description: Self-host to avoid per-call cloud charges where scale justifies it; scope consolidated queries by resource type and date range; only query documents for active patients.
+- name: Accountability
+  description: Assign owners per facility/project; review patient volume and connected-user counts monthly against budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,93 @@
+aid: metriport
+name: Metriport
+review:
+  question: Does Metriport expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. Metriport's asynchronous surface is
+    delivered as outbound HTTP webhooks (the account POSTs document-query,
+    consolidated-data, and devices-data results to a configured webhook URL),
+    not as a WebSocket or Server-Sent Events stream. Outbound webhooks are not
+    in the AsyncAPI streaming-transport scope used for this catalog, so none
+    was modeled.
+findings:
+  summary: |
+    Metriport does not publish a documented public WebSocket API. Both the
+    Medical API and the Devices API are REST (HTTPS) services hosted at
+    https://api.metriport.com, authenticated with an x-api-key header. The
+    same open-source code can be self-hosted, in which case the operator runs
+    the identical REST surface on their own infrastructure. Long-running
+    operations - document queries and consolidated FHIR data queries - are
+    processed asynchronously and their results are delivered via outbound HTTP
+    webhooks to a customer-configured URL, not over a WebSocket or SSE channel.
+    No realtime, bidirectional, or streaming WebSocket (ws:// or wss://)
+    endpoint is documented.
+  deployment:
+    - model: Hosted Cloud
+      baseURL: https://api.metriport.com
+      note: Metriport-operated SaaS; usage-based commercial pricing.
+    - model: Self-Hosted (Open Source)
+      note: Same code deployed by the customer; identical REST surface, operator-defined limits.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.metriport.com
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: Outbound HTTP POST callbacks deliver async document-query, consolidated-data, and devices-data results. Not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in Metriport's Medical API or Devices API reference as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://api.metriport.com/medical/v1/patient
+    - GET    https://api.metriport.com/medical/v1/patient
+    - GET    https://api.metriport.com/medical/v1/patient/{id}
+    - PUT    https://api.metriport.com/medical/v1/patient/{id}
+    - DELETE https://api.metriport.com/medical/v1/patient/{id}
+    - POST   https://api.metriport.com/medical/v1/patient/match
+    - POST   https://api.metriport.com/medical/v1/facility
+    - GET    https://api.metriport.com/medical/v1/facility
+    - GET    https://api.metriport.com/medical/v1/facility/{id}
+    - POST   https://api.metriport.com/medical/v1/document/query
+    - GET    https://api.metriport.com/medical/v1/document/query
+    - GET    https://api.metriport.com/medical/v1/document
+    - GET    https://api.metriport.com/medical/v1/document/download-url
+    - POST   https://api.metriport.com/medical/v1/patient/{id}/consolidated/query
+    - GET    https://api.metriport.com/medical/v1/patient/{id}/consolidated/query
+    - GET    https://api.metriport.com/medical/v1/patient/{id}/consolidated/count
+    - POST   https://api.metriport.com/user
+    - GET    https://api.metriport.com/user/connect/token
+    - GET    https://api.metriport.com/activity
+    - GET    https://api.metriport.com/biometrics
+    - GET    https://api.metriport.com/body
+    - GET    https://api.metriport.com/nutrition
+    - GET    https://api.metriport.com/sleep
+    - GET    https://api.metriport.com/settings
+    - POST   https://api.metriport.com/settings
+sources:
+  - url: https://docs.metriport.com/home/welcome
+    type: Documentation
+    note: Overview of the universal healthcare data API; REST base URL https://api.metriport.com.
+  - url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+    type: APIReference
+    note: Medical API endpoints under /medical/v1 with x-api-key auth; all HTTPS REST.
+  - url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+    type: Documentation
+    note: Devices API connect flow and normalized data reads over HTTPS REST.
+  - url: https://github.com/metriport/metriport
+    type: SourceCode
+    note: Open-source monorepo; the same REST API can be self-hosted.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists, and Metriport's asynchronous results
+    are delivered via outbound HTTP webhooks rather than a streaming channel,
+    so no AsyncAPI document was authored. The REST surface is captured in
+    openapi/metriport-openapi.yml.

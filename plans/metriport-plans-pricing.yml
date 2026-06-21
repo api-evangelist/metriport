@@ -1,0 +1,133 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Metriport
+providerId: metriport
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Healthcare
+- Medical Records
+- FHIR
+- Health Data
+- Wearables
+- Open Source
+- Plans
+description: >-
+  Metriport is offered in two deployment models. The open-source code (Medical
+  API and Devices API) can be self-hosted for free under the company's source
+  license, so there is no per-call charge - you pay only for your own
+  infrastructure and any third-party network fees. The hosted Metriport cloud is
+  sold through usage-based, custom-quoted commercial agreements (the Devices API
+  cloud has historically been listed around $0.20 per connected user per month,
+  and the Medical API is quoted based on monthly patient volume and use case).
+  Public, fully itemized cloud rate cards are not published; pricing is obtained
+  by contacting Metriport. Specific cloud dollar amounts are not reconciled in
+  this artifact.
+notes: >-
+  Distinguish OSS (self-host, free code) from the hosted Metriport cloud
+  (usage-based, contact sales). Verify current cloud rates with Metriport during
+  reconciliation; published figures are limited.
+sources:
+- https://www.metriport.com/pricing
+- https://github.com/metriport/metriport
+- https://docs.metriport.com/home/welcome
+plans:
+- id: metriport-open-source
+  name: Open Source (Self-Hosted)
+  type: free
+  description: >-
+    Self-host the open-source Medical API and Devices API. No license fee for
+    the code; you operate your own infrastructure and are responsible for any
+    HIE network, conversion, or third-party costs.
+  entries:
+  - label: Self-Hosted Code
+    name: self_hosted
+    type: flat
+    metric: deployment
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0 (self-hosted; infrastructure and third-party costs not included)
+    userMultiplied: false
+  elements:
+  - name: Medical API
+  - name: Devices API
+  - name: FHIR Consolidated Data
+  - name: Connect Widget
+- id: metriport-medical-cloud
+  name: Medical API Cloud
+  type: usage
+  description: >-
+    Hosted Medical API for patient record exchange across CommonWell and
+    Carequality, consolidated FHIR data, and AI medical record summaries.
+    Custom-quoted based on monthly patient volume and use case.
+  entries:
+  - label: Patient Volume
+    name: patient_volume
+    type: usage
+    metric: patients
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: custom (based on monthly patient volume; contact sales)
+    userMultiplied: false
+  elements:
+  - name: Patients
+  - name: Facilities
+  - name: Document Query
+  - name: Consolidated FHIR
+  - name: Medical Record Summary
+- id: metriport-devices-cloud
+  name: Devices API Cloud
+  type: usage
+  description: >-
+    Hosted Devices API that hydrates activity, biometrics, body, nutrition, and
+    sleep data from connected wearables and mHealth apps, billed per connected
+    user.
+  entries:
+  - label: Connected User
+    name: connected_user
+    type: usage
+    metric: users
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: usage-based per connected user per month (historically listed ~$0.20; contact sales)
+    userMultiplied: true
+  elements:
+  - name: Connect Widget
+  - name: Activity Data
+  - name: Biometrics Data
+  - name: Body Data
+  - name: Nutrition Data
+  - name: Sleep Data
+- id: metriport-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom commercial agreements with negotiated volume pricing, SLAs, BAA /
+    HIPAA terms, SOC 2 documentation, and dedicated support. Contact Metriport
+    sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Volume Pricing
+  - name: BAA / HIPAA
+  - name: Dedicated Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
