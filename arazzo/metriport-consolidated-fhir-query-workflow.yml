@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Metriport Consolidated FHIR Query
+  summary: Register a patient, start a consolidated FHIR R4 query for the requested resources, poll until conversion completes, then count the consolidated data.
+  description: >-
+    The canonical Metriport consolidated-record flow over the FHIR R4 data model.
+    A patient is created under a facility, a consolidated query is started to
+    assemble the requested US Core resource types as a JSON FHIR bundle, the query
+    is polled until its status reports complete, and a per-resource count of the
+    consolidated data is retrieved. Every step inlines its request so the flow is
+    self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: metriportApi
+  url: ../openapi/metriport-openapi.yml
+  type: openapi
+workflows:
+- workflowId: consolidated-fhir-query
+  summary: Create a patient, run a consolidated FHIR R4 query, then count the assembled resources.
+  description: >-
+    Implements the Metriport consolidated FHIR R4 sequence end to end: patient
+    registration, consolidated query launch, status polling, and resource
+    counting.
+  inputs:
+    type: object
+    required:
+    - facilityId
+    - patient
+    - resources
+    properties:
+      facilityId:
+        type: string
+        description: Identifier of the facility the patient is registered under.
+      patient:
+        type: object
+        description: Patient demographic packet used to create the Metriport patient.
+      resources:
+        type: string
+        description: Comma-separated list of FHIR R4 resource types to assemble (e.g. Condition,Observation,MedicationRequest).
+  steps:
+  - stepId: createPatient
+    description: Register the patient under the given facility so a consolidated query can be assembled.
+    operationId: createPatient
+    parameters:
+    - name: facilityId
+      in: query
+      value: $inputs.facilityId
+    requestBody:
+      contentType: application/json
+      payload: $inputs.patient
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      patientId: $response.body#/id
+  - stepId: startConsolidated
+    description: Start a consolidated FHIR R4 query that assembles the requested resource types as a JSON bundle.
+    operationId: startConsolidatedQuery
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createPatient.outputs.patientId
+    - name: resources
+      in: query
+      value: $inputs.resources
+    - name: conversionType
+      in: query
+      value: json
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: pollConsolidated
+    description: Poll the consolidated query until its status reports complete.
+    operationId: getConsolidatedQueryStatus
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createPatient.outputs.patientId
+    successCriteria:
+    - context: $response.body
+      condition: $.queries[0].status == "completed"
+      type: jsonpath
+    outputs:
+      status: $response.body#/queries/0/status
+  - stepId: countData
+    description: Count the consolidated FHIR R4 resources assembled for the patient.
+    operationId: countConsolidatedData
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createPatient.outputs.patientId
+    - name: resources
+      in: query
+      value: $inputs.resources
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      counts: $response.body
+  outputs:
+    patientId: $steps.createPatient.outputs.patientId
+    counts: $steps.countData.outputs.counts

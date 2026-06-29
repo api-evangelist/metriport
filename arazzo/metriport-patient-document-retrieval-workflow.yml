@@ -1,0 +1,113 @@
+arazzo: 1.0.1
+info:
+  title: Metriport Patient Document Retrieval
+  summary: Register a patient, trigger an IHE document query across the networks, poll until retrieval completes, list the resulting documents, and obtain a signed download URL.
+  description: >-
+    The canonical Metriport document-retrieval flow, modeled on the IHE
+    cross-community document query (XCA) pattern. A patient is created under a
+    facility, a document query is started to gather clinical documents from the
+    connected health information networks, the query is polled until the download
+    progress reports complete, the retrieved FHIR R4 DocumentReferences are
+    listed, and a signed download URL is requested for a specific file. Every step
+    inlines its request so the flow is self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: metriportApi
+  url: ../openapi/metriport-openapi.yml
+  type: openapi
+workflows:
+- workflowId: patient-document-retrieval
+  summary: Create a patient, run an IHE document query, then list and download the retrieved documents.
+  description: >-
+    Implements the Metriport document-retrieval sequence end to end: patient
+    registration, document query launch, status polling, document listing, and
+    signed download URL retrieval.
+  inputs:
+    type: object
+    required:
+    - facilityId
+    - patient
+    - fileName
+    - conversionType
+    properties:
+      facilityId:
+        type: string
+        description: Identifier of the facility the patient is registered under.
+      patient:
+        type: object
+        description: Patient demographic packet used to create the Metriport patient.
+      fileName:
+        type: string
+        description: File name of the retrieved document to request a download URL for.
+      conversionType:
+        type: string
+        description: Desired conversion type for the downloaded document (e.g. pdf, html).
+  steps:
+  - stepId: createPatient
+    description: Register the patient under the given facility so document queries can resolve against the networks.
+    operationId: createPatient
+    parameters:
+    - name: facilityId
+      in: query
+      value: $inputs.facilityId
+    requestBody:
+      contentType: application/json
+      payload: $inputs.patient
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      patientId: $response.body#/id
+  - stepId: startDocQuery
+    description: Start an IHE document query that fans the patient out to the connected health information networks.
+    operationId: startDocumentQuery
+    parameters:
+    - name: patientId
+      in: query
+      value: $steps.createPatient.outputs.patientId
+    - name: facilityId
+      in: query
+      value: $inputs.facilityId
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: pollDocQuery
+    description: Poll the document query until the download progress reports complete.
+    operationId: getDocumentQueryStatus
+    parameters:
+    - name: patientId
+      in: query
+      value: $steps.createPatient.outputs.patientId
+    successCriteria:
+    - context: $response.body
+      condition: $.download.status == "completed"
+      type: jsonpath
+    outputs:
+      status: $response.body#/download/status
+  - stepId: listDocs
+    description: List the retrieved FHIR R4 DocumentReferences available for the patient.
+    operationId: listDocuments
+    parameters:
+    - name: patientId
+      in: query
+      value: $steps.createPatient.outputs.patientId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      documents: $response.body#/documents
+  - stepId: getDownloadUrl
+    description: Request a signed download URL for a specific retrieved document.
+    operationId: getDocumentUrl
+    parameters:
+    - name: fileName
+      in: query
+      value: $inputs.fileName
+    - name: conversionType
+      in: query
+      value: $inputs.conversionType
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      url: $response.body#/url
+  outputs:
+    patientId: $steps.createPatient.outputs.patientId
+    documents: $steps.listDocs.outputs.documents
+    url: $steps.getDownloadUrl.outputs.url

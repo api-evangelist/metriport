@@ -194,6 +194,20 @@ common:
   url: rate-limits/metriport-rate-limits.yml
 - type: FinOps
   url: finops/metriport-finops.yml
+- type: ArazzoWorkflows
+  workflows:
+  - url: arazzo/metriport-consolidated-fhir-query-workflow.yml
+    name: Metriport Consolidated FHIR Query
+    summary: "Register a patient, start a consolidated FHIR R4 query for the requested resources, poll until conversion completes, then count the consolidated data."
+  - url: arazzo/metriport-patient-document-retrieval-workflow.yml
+    name: Metriport Patient Document Retrieval
+    summary: "Register a patient, trigger an IHE document query across the networks, poll until retrieval completes, list the resulting documents, and obtain a signed download URL."
+  - url: arazzo/metriport-patient-matching-workflow.yml
+    name: Metriport Patient Matching
+    summary: "Create a facility, register a patient under it, then run an MPI demographic match to resolve an existing patient record."
+  - url: arazzo/metriport-wearables-connect-workflow.yml
+    name: Metriport Wearables Connect
+    summary: "Create a devices user, mint a Connect Widget session token, then pull the user's activity and biometrics data from connected wearables."
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

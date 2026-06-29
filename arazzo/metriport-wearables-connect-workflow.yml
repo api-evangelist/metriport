@@ -1,0 +1,71 @@
+arazzo: 1.0.1
+info:
+  title: Metriport Wearables Connect
+  summary: Create a devices user, mint a Connect Widget session token, then pull the user's activity and biometrics data from connected wearables.
+  description: >-
+    The canonical Metriport devices flow for wearable and consumer health data. A
+    devices user is created from an application user id, a Connect Widget session
+    token is generated so the user can link providers, and the aggregated activity
+    and biometrics datasets are retrieved across the connected wearables. Every
+    step inlines its request so the flow is self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: metriportApi
+  url: ../openapi/metriport-openapi.yml
+  type: openapi
+workflows:
+- workflowId: wearables-connect
+  summary: Create a devices user, mint a connect token, then pull activity and biometrics data.
+  description: >-
+    Implements the Metriport devices sequence end to end: devices user creation,
+    Connect Widget token generation, and activity and biometrics retrieval.
+  inputs:
+    type: object
+    required:
+    - appUserId
+    properties:
+      appUserId:
+        type: string
+        description: Application-side user identifier mapped to a Metriport devices user.
+  steps:
+  - stepId: createUser
+    description: Create a Metriport devices user mapped to the application user identifier.
+    operationId: createDevicesUser
+    parameters:
+    - name: appUserId
+      in: query
+      value: $inputs.appUserId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      userId: $response.body#/userId
+  - stepId: getToken
+    description: Generate a Connect Widget session token so the user can link wearable providers.
+    operationId: getConnectToken
+    parameters:
+    - name: userId
+      in: query
+      value: $steps.createUser.outputs.userId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      connectToken: $response.body#/token
+  - stepId: getActivity
+    description: Retrieve the aggregated activity data across the user's connected wearables.
+    operationId: getActivity
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      activity: $response.body
+  - stepId: getBiometrics
+    description: Retrieve the aggregated biometrics data across the user's connected wearables.
+    operationId: getBiometrics
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      biometrics: $response.body
+  outputs:
+    userId: $steps.createUser.outputs.userId
+    connectToken: $steps.getToken.outputs.connectToken
+    activity: $steps.getActivity.outputs.activity
+    biometrics: $steps.getBiometrics.outputs.biometrics

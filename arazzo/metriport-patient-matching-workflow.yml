@@ -1,0 +1,76 @@
+arazzo: 1.0.1
+info:
+  title: Metriport Patient Matching
+  summary: Create a facility, register a patient under it, then run an MPI demographic match to resolve an existing patient record.
+  description: >-
+    The canonical Metriport master patient index (MPI) flow. A facility is created
+    to scope patient registration, a patient is created under that facility, and a
+    demographic packet is submitted to the MPI match endpoint to resolve an
+    existing patient without creating a duplicate. Every step inlines its request
+    so the flow is self-contained.
+  version: 1.0.0
+sourceDescriptions:
+- name: metriportApi
+  url: ../openapi/metriport-openapi.yml
+  type: openapi
+workflows:
+- workflowId: patient-matching
+  summary: Create a facility, register a patient, then run an MPI demographic match.
+  description: >-
+    Implements the Metriport MPI sequence end to end: facility creation, patient
+    registration, and demographic patient matching.
+  inputs:
+    type: object
+    required:
+    - facility
+    - patient
+    - demographics
+    properties:
+      facility:
+        type: object
+        description: Facility packet used to create the Metriport facility.
+      patient:
+        type: object
+        description: Patient demographic packet used to create the Metriport patient.
+      demographics:
+        type: object
+        description: Demographic packet submitted to the MPI match endpoint to resolve an existing patient.
+  steps:
+  - stepId: createFacility
+    description: Create the facility that scopes subsequent patient registration.
+    operationId: createFacility
+    requestBody:
+      contentType: application/json
+      payload: $inputs.facility
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      facilityId: $response.body#/id
+  - stepId: createPatient
+    description: Register the patient under the newly created facility.
+    operationId: createPatient
+    parameters:
+    - name: facilityId
+      in: query
+      value: $steps.createFacility.outputs.facilityId
+    requestBody:
+      contentType: application/json
+      payload: $inputs.patient
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      patientId: $response.body#/id
+  - stepId: matchPatient
+    description: Submit a demographic packet to the MPI match endpoint to resolve an existing patient without creating a duplicate.
+    operationId: matchPatient
+    requestBody:
+      contentType: application/json
+      payload: $inputs.demographics
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedPatient: $response.body
+  outputs:
+    facilityId: $steps.createFacility.outputs.facilityId
+    patientId: $steps.createPatient.outputs.patientId
+    matchedPatient: $steps.matchPatient.outputs.matchedPatient
