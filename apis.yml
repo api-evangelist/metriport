@@ -180,6 +180,10 @@ apis:
     and retry failed webhook requests so document-query, consolidated-data, and devices-data
     events are delivered asynchronously to your application.
 common:
+- type: DomainSecurity
+  url: security/metriport-domain-security.yml
+- type: Authentication
+  url: authentication/metriport-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/metriport
 - type: LinkedIn
@@ -208,6 +212,8 @@ common:
   - url: arazzo/metriport-wearables-connect-workflow.yml
     name: Metriport Wearables Connect
     summary: "Create a devices user, mint a Connect Widget session token, then pull the user's activity and biometrics data from connected wearables."
+- url: https://www.metriport.com/blog
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
