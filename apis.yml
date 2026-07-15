@@ -180,6 +180,8 @@ apis:
     and retry failed webhook requests so document-query, consolidated-data, and devices-data
     events are delivered asynchronously to your application.
 common:
+- type: AgenticAccess
+  url: agentic-access/metriport-agentic-access.yml
 - type: DomainSecurity
   url: security/metriport-domain-security.yml
 - type: Authentication
