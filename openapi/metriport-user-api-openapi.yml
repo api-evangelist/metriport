@@ -1,0 +1,105 @@
+openapi: 3.0.1
+info:
+  title: Metriport Consolidated User API
+  description: Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data; the Devices API hydrates activity, biometrics, nutrition, and sleep data from connected wearables and mHealth apps. This specification documents the hosted Metriport cloud surface at https://api.metriport.com. The same code may be self-hosted from the open-source repository.
+  termsOfService: https://www.metriport.com/terms
+  contact:
+    name: Metriport Support
+    email: contact@metriport.com
+    url: https://docs.metriport.com
+  version: '1.0'
+servers:
+- url: https://api.metriport.com
+  description: Metriport hosted production API
+- url: https://api.sandbox.metriport.com
+  description: Metriport sandbox API
+security:
+- ApiKeyAuth: []
+tags:
+- name: User
+  description: Devices API user and connect management.
+paths:
+  /user:
+    post:
+      operationId: createDevicesUser
+      tags:
+      - User
+      summary: Create User
+      description: Creates a Metriport user that connected wearable and mHealth data will be associated with.
+      parameters:
+      - name: appUserId
+        in: query
+        required: true
+        description: An ID that uniquely identifies the user in your application.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The created Metriport user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DevicesUser'
+  /user/connect/token:
+    get:
+      operationId: getConnectToken
+      tags:
+      - User
+      summary: Get Connect Token
+      description: Generates a session token for the Metriport Connect Widget so an end user can link their wearables and mHealth apps.
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        description: The Metriport user ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A connect session token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+  /user/revoke:
+    delete:
+      operationId: revokeUserAccess
+      tags:
+      - User
+      summary: Revoke User Access
+      description: Revokes a connected provider's access for a Metriport user.
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: provider
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Access revoked.
+components:
+  schemas:
+    DevicesUser:
+      type: object
+      properties:
+        userId:
+          type: string
+        appUserId:
+          type: string
+        connectedProviders:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key

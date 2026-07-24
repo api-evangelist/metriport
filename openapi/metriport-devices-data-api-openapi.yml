@@ -1,0 +1,162 @@
+openapi: 3.0.1
+info:
+  title: Metriport Consolidated Devices Data API
+  description: Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data; the Devices API hydrates activity, biometrics, nutrition, and sleep data from connected wearables and mHealth apps. This specification documents the hosted Metriport cloud surface at https://api.metriport.com. The same code may be self-hosted from the open-source repository.
+  termsOfService: https://www.metriport.com/terms
+  contact:
+    name: Metriport Support
+    email: contact@metriport.com
+    url: https://docs.metriport.com
+  version: '1.0'
+servers:
+- url: https://api.metriport.com
+  description: Metriport hosted production API
+- url: https://api.sandbox.metriport.com
+  description: Metriport sandbox API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Devices Data
+  description: Devices API normalized health data.
+paths:
+  /activity:
+    get:
+      operationId: getActivity
+      tags:
+      - Devices Data
+      summary: Get Activity Data
+      description: Retrieves normalized activity data for a user on a given date.
+      parameters:
+      - $ref: '#/components/parameters/DevicesUserId'
+      - $ref: '#/components/parameters/DevicesDate'
+      responses:
+        '200':
+          description: An array of normalized activity data per provider.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DevicesData'
+  /biometrics:
+    get:
+      operationId: getBiometrics
+      tags:
+      - Devices Data
+      summary: Get Biometrics Data
+      description: Retrieves normalized biometrics data (heart rate, HRV, respiration, blood pressure, glucose, temperature) for a user on a given date.
+      parameters:
+      - $ref: '#/components/parameters/DevicesUserId'
+      - $ref: '#/components/parameters/DevicesDate'
+      responses:
+        '200':
+          description: An array of normalized biometrics data per provider.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DevicesData'
+  /body:
+    get:
+      operationId: getBody
+      tags:
+      - Devices Data
+      summary: Get Body Data
+      description: Retrieves normalized body data (weight, height, body fat) for a user.
+      parameters:
+      - $ref: '#/components/parameters/DevicesUserId'
+      - $ref: '#/components/parameters/DevicesDate'
+      responses:
+        '200':
+          description: An array of normalized body data per provider.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DevicesData'
+  /nutrition:
+    get:
+      operationId: getNutrition
+      tags:
+      - Devices Data
+      summary: Get Nutrition Data
+      description: Retrieves normalized nutrition data for a user on a given date.
+      parameters:
+      - $ref: '#/components/parameters/DevicesUserId'
+      - $ref: '#/components/parameters/DevicesDate'
+      responses:
+        '200':
+          description: An array of normalized nutrition data per provider.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DevicesData'
+  /sleep:
+    get:
+      operationId: getSleep
+      tags:
+      - Devices Data
+      summary: Get Sleep Data
+      description: Retrieves normalized sleep data for a user on a given date.
+      parameters:
+      - $ref: '#/components/parameters/DevicesUserId'
+      - $ref: '#/components/parameters/DevicesDate'
+      responses:
+        '200':
+          description: An array of normalized sleep data per provider.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DevicesData'
+components:
+  parameters:
+    DevicesDate:
+      name: date
+      in: query
+      required: true
+      description: The day to fetch data for, in YYYY-MM-DD format.
+      schema:
+        type: string
+        format: date
+    DevicesUserId:
+      name: userId
+      in: query
+      required: true
+      description: The Metriport user ID.
+      schema:
+        type: string
+  schemas:
+    DevicesData:
+      type: object
+      description: Normalized device data returned per connected provider, containing a metadata block describing the source plus the normalized samples.
+      properties:
+        metadata:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date
+            source:
+              type: string
+              description: The provider the data was hydrated from (e.g. fitbit, oura, garmin).
+        biometrics:
+          type: object
+        activity:
+          type: object
+        body:
+          type: object
+        nutrition:
+          type: object
+        sleep:
+          type: object
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key

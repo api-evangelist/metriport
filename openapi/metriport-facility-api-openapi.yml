@@ -1,0 +1,168 @@
+openapi: 3.0.1
+info:
+  title: Metriport Consolidated Facility API
+  description: Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data; the Devices API hydrates activity, biometrics, nutrition, and sleep data from connected wearables and mHealth apps. This specification documents the hosted Metriport cloud surface at https://api.metriport.com. The same code may be self-hosted from the open-source repository.
+  termsOfService: https://www.metriport.com/terms
+  contact:
+    name: Metriport Support
+    email: contact@metriport.com
+    url: https://docs.metriport.com
+  version: '1.0'
+servers:
+- url: https://api.metriport.com
+  description: Metriport hosted production API
+- url: https://api.sandbox.metriport.com
+  description: Metriport sandbox API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Facility
+  description: Medical API facility management.
+paths:
+  /medical/v1/facility:
+    post:
+      operationId: createFacility
+      tags:
+      - Facility
+      summary: Create Facility
+      description: Creates a Facility under your Organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseFacility'
+      responses:
+        '200':
+          description: The created Facility.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Facility'
+    get:
+      operationId: listFacilities
+      tags:
+      - Facility
+      summary: List Facilities
+      description: Lists all Facilities under your Organization.
+      responses:
+        '200':
+          description: A list of Facilities.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  facilities:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Facility'
+  /medical/v1/facility/{id}:
+    get:
+      operationId: getFacility
+      tags:
+      - Facility
+      summary: Get Facility
+      parameters:
+      - $ref: '#/components/parameters/FacilityId'
+      responses:
+        '200':
+          description: The requested Facility.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Facility'
+    put:
+      operationId: updateFacility
+      tags:
+      - Facility
+      summary: Update Facility
+      parameters:
+      - $ref: '#/components/parameters/FacilityId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseFacility'
+      responses:
+        '200':
+          description: The updated Facility.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Facility'
+    delete:
+      operationId: deleteFacility
+      tags:
+      - Facility
+      summary: Delete Facility
+      parameters:
+      - $ref: '#/components/parameters/FacilityId'
+      responses:
+        '200':
+          description: Facility deleted.
+components:
+  parameters:
+    FacilityId:
+      name: id
+      in: path
+      required: true
+      description: The Metriport Facility ID.
+      schema:
+        type: string
+  schemas:
+    Address:
+      type: object
+      required:
+      - addressLine1
+      - city
+      - state
+      - zip
+      - country
+      properties:
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+          default: USA
+    BaseFacility:
+      type: object
+      required:
+      - name
+      - npi
+      - address
+      properties:
+        name:
+          type: string
+        npi:
+          type: string
+          description: The 10-digit National Provider Identifier.
+        tin:
+          type: string
+        active:
+          type: boolean
+        address:
+          $ref: '#/components/schemas/Address'
+    Facility:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: string
+          oid:
+            type: string
+      - $ref: '#/components/schemas/BaseFacility'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key

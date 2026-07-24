@@ -1,0 +1,240 @@
+openapi: 3.0.1
+info:
+  title: Metriport Consolidated Patient API
+  description: Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data; the Devices API hydrates activity, biometrics, nutrition, and sleep data from connected wearables and mHealth apps. This specification documents the hosted Metriport cloud surface at https://api.metriport.com. The same code may be self-hosted from the open-source repository.
+  termsOfService: https://www.metriport.com/terms
+  contact:
+    name: Metriport Support
+    email: contact@metriport.com
+    url: https://docs.metriport.com
+  version: '1.0'
+servers:
+- url: https://api.metriport.com
+  description: Metriport hosted production API
+- url: https://api.sandbox.metriport.com
+  description: Metriport sandbox API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Patient
+  description: Medical API patient management.
+paths:
+  /medical/v1/patient:
+    post:
+      operationId: createPatient
+      tags:
+      - Patient
+      summary: Create Patient
+      description: Creates a Patient in Metriport for the specified Facility where the patient is receiving care.
+      parameters:
+      - name: facilityId
+        in: query
+        required: true
+        description: The ID of the Facility where the patient is receiving care.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BasePatient'
+      responses:
+        '200':
+          description: The created Patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+    get:
+      operationId: listPatients
+      tags:
+      - Patient
+      summary: List Patients
+      description: Lists all Patients receiving care at the specified Facility.
+      parameters:
+      - name: facilityId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of Patients.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  patients:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Patient'
+  /medical/v1/patient/{id}:
+    get:
+      operationId: getPatient
+      tags:
+      - Patient
+      summary: Get Patient
+      description: Gets a Patient by their Metriport ID.
+      parameters:
+      - $ref: '#/components/parameters/PatientId'
+      responses:
+        '200':
+          description: The requested Patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+    put:
+      operationId: updatePatient
+      tags:
+      - Patient
+      summary: Update Patient
+      description: Updates the specified Patient's demographics.
+      parameters:
+      - $ref: '#/components/parameters/PatientId'
+      - name: facilityId
+        in: query
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BasePatient'
+      responses:
+        '200':
+          description: The updated Patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+    delete:
+      operationId: deletePatient
+      tags:
+      - Patient
+      summary: Delete Patient
+      description: Removes the specified Patient.
+      parameters:
+      - $ref: '#/components/parameters/PatientId'
+      - name: facilityId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Patient deleted.
+  /medical/v1/patient/match:
+    post:
+      operationId: matchPatient
+      tags:
+      - Patient
+      summary: Match Patient
+      description: Searches for an existing Patient that matches the provided demographics without creating a new one.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BasePatient'
+      responses:
+        '200':
+          description: The matched Patient, if found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+components:
+  schemas:
+    Patient:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: string
+          facilityIds:
+            type: array
+            items:
+              type: string
+      - $ref: '#/components/schemas/BasePatient'
+    BasePatient:
+      type: object
+      required:
+      - firstName
+      - lastName
+      - dob
+      - genderAtBirth
+      - address
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dob:
+          type: string
+          format: date
+          description: Date of birth in YYYY-MM-DD format.
+        genderAtBirth:
+          type: string
+          enum:
+          - M
+          - F
+          - O
+          - U
+        externalId:
+          type: string
+        contact:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+        address:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+    Contact:
+      type: object
+      properties:
+        phone:
+          type: string
+        email:
+          type: string
+          format: email
+    Address:
+      type: object
+      required:
+      - addressLine1
+      - city
+      - state
+      - zip
+      - country
+      properties:
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+          default: USA
+  parameters:
+    PatientId:
+      name: id
+      in: path
+      required: true
+      description: The Metriport Patient ID.
+      schema:
+        type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key

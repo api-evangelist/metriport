@@ -1,0 +1,106 @@
+openapi: 3.0.1
+info:
+  title: Metriport Consolidated Settings API
+  description: Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data; the Devices API hydrates activity, biometrics, nutrition, and sleep data from connected wearables and mHealth apps. This specification documents the hosted Metriport cloud surface at https://api.metriport.com. The same code may be self-hosted from the open-source repository.
+  termsOfService: https://www.metriport.com/terms
+  contact:
+    name: Metriport Support
+    email: contact@metriport.com
+    url: https://docs.metriport.com
+  version: '1.0'
+servers:
+- url: https://api.metriport.com
+  description: Metriport hosted production API
+- url: https://api.sandbox.metriport.com
+  description: Metriport sandbox API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Settings
+  description: Account settings and webhooks.
+paths:
+  /settings:
+    get:
+      operationId: getSettings
+      tags:
+      - Settings
+      summary: Get Settings
+      description: Returns the account settings, including the configured webhook URL.
+      responses:
+        '200':
+          description: The account settings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+    post:
+      operationId: updateSettings
+      tags:
+      - Settings
+      summary: Update Settings
+      description: Updates the account webhook URL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                webhookUrl:
+                  type: string
+                  format: uri
+      responses:
+        '200':
+          description: The updated settings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+  /settings/webhook:
+    get:
+      operationId: getWebhookStatus
+      tags:
+      - Settings
+      summary: Get Webhook Status
+      description: Returns the status of webhook request delivery for the account.
+      responses:
+        '200':
+          description: The webhook status.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhookEnabled:
+                    type: boolean
+                  webhookStatusDetail:
+                    type: string
+  /settings/webhook/retry:
+    post:
+      operationId: retryWebhookRequests
+      tags:
+      - Settings
+      summary: Retry Webhook Requests
+      description: Retries any failed webhook requests for the account.
+      responses:
+        '200':
+          description: Retry triggered.
+components:
+  schemas:
+    Settings:
+      type: object
+      properties:
+        id:
+          type: string
+        webhookUrl:
+          type: string
+          format: uri
+        webhookKey:
+          type: string
+        webhookEnabled:
+          type: boolean
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key

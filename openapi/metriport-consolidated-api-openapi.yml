@@ -1,0 +1,146 @@
+openapi: 3.0.1
+info:
+  title: Metriport Consolidated API
+  description: Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data; the Devices API hydrates activity, biometrics, nutrition, and sleep data from connected wearables and mHealth apps. This specification documents the hosted Metriport cloud surface at https://api.metriport.com. The same code may be self-hosted from the open-source repository.
+  termsOfService: https://www.metriport.com/terms
+  contact:
+    name: Metriport Support
+    email: contact@metriport.com
+    url: https://docs.metriport.com
+  version: '1.0'
+servers:
+- url: https://api.metriport.com
+  description: Metriport hosted production API
+- url: https://api.sandbox.metriport.com
+  description: Metriport sandbox API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Consolidated
+  description: Medical API consolidated FHIR data.
+paths:
+  /medical/v1/patient/{id}/consolidated/query:
+    post:
+      operationId: startConsolidatedQuery
+      tags:
+      - Consolidated
+      summary: Start Consolidated Data Query
+      description: Triggers a query that assembles the Patient's consolidated FHIR data bundle. Results are delivered asynchronously via webhook.
+      parameters:
+      - $ref: '#/components/parameters/PatientId'
+      - name: resources
+        in: query
+        required: false
+        description: Comma-separated list of FHIR resource types to include.
+        schema:
+          type: string
+      - name: dateFrom
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: dateTo
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+      - name: conversionType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - pdf
+          - html
+      responses:
+        '200':
+          description: The consolidated query progress object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsolidatedQuery'
+    get:
+      operationId: getConsolidatedQueryStatus
+      tags:
+      - Consolidated
+      summary: Get Consolidated Data Query Status
+      parameters:
+      - $ref: '#/components/parameters/PatientId'
+      responses:
+        '200':
+          description: The list of consolidated query progress objects.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  queries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ConsolidatedQuery'
+  /medical/v1/patient/{id}/consolidated/count:
+    get:
+      operationId: countConsolidatedData
+      tags:
+      - Consolidated
+      summary: Count Patient Data
+      description: Returns the count of a Patient's consolidated FHIR resources, optionally filtered by resource type and date.
+      parameters:
+      - $ref: '#/components/parameters/PatientId'
+      - name: resources
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The resource counts.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  resources:
+                    type: object
+                    additionalProperties:
+                      type: integer
+components:
+  schemas:
+    ConsolidatedQuery:
+      type: object
+      properties:
+        requestId:
+          type: string
+        status:
+          type: string
+          enum:
+          - processing
+          - completed
+          - failed
+        conversionType:
+          type: string
+          enum:
+          - json
+          - pdf
+          - html
+        startedAt:
+          type: string
+          format: date-time
+  parameters:
+    PatientId:
+      name: id
+      in: path
+      required: true
+      description: The Metriport Patient ID.
+      schema:
+        type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
