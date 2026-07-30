@@ -8,7 +8,20 @@ description: Metriport is an open-source, universal API for healthcare data. The
   nutrition, and sleep data from consumer wearables and mHealth apps. Companies can
   use the hosted Metriport cloud or self-host the open-source code to avoid vendor
   lock-in.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/metriport.png
 tags:
 - Healthcare
 - Medical Records
@@ -20,165 +33,272 @@ created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.19'
 apis:
-- aid: metriport:medical-patients
-  name: Metriport Medical Patients API
-  tags:
-  - Healthcare
-  - Patients
-  - FHIR
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: metriport:metriport-consolidated-api
+  name: Metriport Consolidated API
+  description: Medical API consolidated FHIR data.
   humanURL: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
   baseURL: https://api.metriport.com/medical/v1
-  properties:
-  - url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
-    type: Documentation
-  - url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
-    type: APIReference
-  - url: openapi/metriport-openapi.yml
-    type: OpenAPI
-  - url: collections/metriport.postman_collection.json
-    type: PostmanCollection
-  - url: collections/metriport.opencollection.json
-    type: OpenCollection
-  description: Create, read, update, delete, list, and match patients tied to a facility,
-    plus demographic matching and external-ID lookups, as the entry point for medical
-    record exchange.
-- aid: metriport:medical-facilities
-  name: Metriport Medical Facilities API
   tags:
-  - Healthcare
-  - Facilities
-  - Organizations
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - Consolidated
+  properties:
+  - type: OpenAPI
+    url: openapi/metriport-consolidated-api-openapi.yml
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  - type: PostmanCollection
+    url: collections/metriport.postman_collection.json
+  - type: OpenCollection
+    url: collections/metriport.opencollection.json
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - type: Documentation
+    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+  - type: APIReference
+    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+- aid: metriport:metriport-devices-data-api
+  name: Metriport Devices Data API
+  description: Devices API normalized health data.
+  humanURL: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
   baseURL: https://api.metriport.com/medical/v1
-  properties:
-  - url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
-    type: Documentation
-  - url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
-    type: APIReference
-  - url: openapi/metriport-openapi.yml
-    type: OpenAPI
-  - url: collections/metriport.postman_collection.json
-    type: PostmanCollection
-  - url: collections/metriport.opencollection.json
-    type: OpenCollection
-  description: Manage the facilities (care locations) under your organization where
-    patients receive care, including create, get, list, update, and delete operations.
-- aid: metriport:medical-document-query
-  name: Metriport Medical Document Query API
   tags:
-  - Healthcare
-  - Documents
-  - C-CDA
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - Devices Data
+  properties:
+  - type: OpenAPI
+    url: openapi/metriport-devices-data-api-openapi.yml
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  - type: PostmanCollection
+    url: collections/metriport.postman_collection.json
+  - type: OpenCollection
+    url: collections/metriport.opencollection.json
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - type: Documentation
+    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+  - type: APIReference
+    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+- aid: metriport:metriport-document-api
+  name: Metriport Document API
+  description: Medical API clinical document query and retrieval.
+  humanURL: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
   baseURL: https://api.metriport.com/medical/v1
-  properties:
-  - url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
-    type: Documentation
-  - url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
-    type: APIReference
-  - url: openapi/metriport-openapi.yml
-    type: OpenAPI
-  - url: collections/metriport.postman_collection.json
-    type: PostmanCollection
-  - url: collections/metriport.opencollection.json
-    type: OpenCollection
-  description: Trigger a network query for a patient's clinical documents across the
-    HIE networks, list returned DocumentReferences, and retrieve signed download URLs
-    for individual documents and bulk exports.
-- aid: metriport:medical-consolidated-fhir
-  name: Metriport Medical Consolidated FHIR API
   tags:
-  - Healthcare
-  - FHIR
-  - Medical Records
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - Document
+  properties:
+  - type: OpenAPI
+    url: openapi/metriport-document-api-openapi.yml
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  - type: PostmanCollection
+    url: collections/metriport.postman_collection.json
+  - type: OpenCollection
+    url: collections/metriport.opencollection.json
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - type: Documentation
+    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+  - type: APIReference
+    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+- aid: metriport:metriport-facility-api
+  name: Metriport Facility API
+  description: Medical API facility management.
+  humanURL: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
   baseURL: https://api.metriport.com/medical/v1
-  properties:
-  - url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
-    type: Documentation
-  - url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
-    type: APIReference
-  - url: openapi/metriport-openapi.yml
-    type: OpenAPI
-  - url: collections/metriport.postman_collection.json
-    type: PostmanCollection
-  - url: collections/metriport.opencollection.json
-    type: OpenCollection
-  description: Query and return a patient's consolidated, de-duplicated medical history
-    as FHIR R4 (or PDF/HTML/AI medical record summary), count available resources,
-    and contribute your own FHIR data back to the patient record.
-- aid: metriport:devices-users
-  name: Metriport Devices Users API
   tags:
-  - Wearables
-  - Users
-  - Connect
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  baseURL: https://api.metriport.com
+  - Facility
   properties:
-  - url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-    type: Documentation
-  - url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-    type: APIReference
-  - url: openapi/metriport-openapi.yml
-    type: OpenAPI
-  - url: collections/metriport.postman_collection.json
-    type: PostmanCollection
-  - url: collections/metriport.opencollection.json
-    type: OpenCollection
-  description: Register Metriport users, generate a Connect Token for the Connect Widget
-    so end users can link wearables and mHealth apps (Apple Health, Fitbit, Garmin,
-    Oura, WHOOP, Withings), and revoke or delete user connections.
-- aid: metriport:devices-biometrics
-  name: Metriport Devices Biometrics API
+  - type: OpenAPI
+    url: openapi/metriport-facility-api-openapi.yml
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  - type: PostmanCollection
+    url: collections/metriport.postman_collection.json
+  - type: OpenCollection
+    url: collections/metriport.opencollection.json
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - type: Documentation
+    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+  - type: APIReference
+    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+- aid: metriport:metriport-patient-api
+  name: Metriport Patient API
+  description: Medical API patient management.
+  humanURL: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  baseURL: https://api.metriport.com/medical/v1
   tags:
-  - Wearables
-  - Biometrics
-  - Health Data
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  baseURL: https://api.metriport.com
+  - Patient
   properties:
-  - url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-    type: Documentation
-  - url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-    type: APIReference
-  - url: openapi/metriport-openapi.yml
-    type: OpenAPI
-  - url: collections/metriport.postman_collection.json
-    type: PostmanCollection
-  - url: collections/metriport.opencollection.json
-    type: OpenCollection
-  description: Retrieve normalized health data hydrated from connected devices - activity,
-    biometrics, body, nutrition, and sleep - for a given user and date.
-- aid: metriport:webhooks
-  name: Metriport Webhooks API
+  - type: OpenAPI
+    url: openapi/metriport-patient-api-openapi.yml
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  - type: PostmanCollection
+    url: collections/metriport.postman_collection.json
+  - type: OpenCollection
+    url: collections/metriport.opencollection.json
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - type: Documentation
+    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+  - type: APIReference
+    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+- aid: metriport:metriport-settings-api
+  name: Metriport Settings API
+  description: Account settings and webhooks.
+  humanURL: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  baseURL: https://api.metriport.com/medical/v1
   tags:
-  - Webhooks
-  - Events
   - Settings
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
-  baseURL: https://api.metriport.com
   properties:
-  - url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
-    type: Documentation
-  - url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
-    type: APIReference
-  - url: openapi/metriport-openapi.yml
-    type: OpenAPI
-  - url: collections/metriport.postman_collection.json
-    type: PostmanCollection
-  - url: collections/metriport.opencollection.json
-    type: OpenCollection
-  description: Configure the account webhook URL and key, check webhook delivery status,
-    and retry failed webhook requests so document-query, consolidated-data, and devices-data
-    events are delivered asynchronously to your application.
+  - type: OpenAPI
+    url: openapi/metriport-settings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  - type: PostmanCollection
+    url: collections/metriport.postman_collection.json
+  - type: OpenCollection
+    url: collections/metriport.opencollection.json
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - type: Documentation
+    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+  - type: APIReference
+    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+- aid: metriport:metriport-user-api
+  name: Metriport User API
+  description: Devices API user and connect management.
+  humanURL: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  baseURL: https://api.metriport.com/medical/v1
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/metriport-user-api-openapi.yml
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+  - type: PostmanCollection
+    url: collections/metriport.postman_collection.json
+  - type: OpenCollection
+    url: collections/metriport.opencollection.json
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/facility/create-facility
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/document/list-documents
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
+  - type: Documentation
+    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+  - type: APIReference
+    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+  - type: Documentation
+    url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+  - type: APIReference
+    url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
 common:
 - type: AgenticAccess
   url: agentic-access/metriport-agentic-access.yml
