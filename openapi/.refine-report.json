@@ -1,0 +1,26 @@
+{
+  "provider": "metriport",
+  "sources": [
+    "metriport-consolidated-api-openapi.yml",
+    "metriport-devices-data-api-openapi.yml",
+    "metriport-document-api-openapi.yml",
+    "metriport-facility-api-openapi.yml",
+    "metriport-patient-api-openapi.yml",
+    "metriport-settings-api-openapi.yml",
+    "metriport-user-api-openapi.yml"
+  ],
+  "outputs": [
+    "metriport-consolidated-api-openapi.yml",
+    "metriport-devices-data-api-openapi.yml",
+    "metriport-document-api-openapi.yml",
+    "metriport-facility-api-openapi.yml",
+    "metriport-patient-api-openapi.yml",
+    "metriport-settings-api-openapi.yml",
+    "metriport-user-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

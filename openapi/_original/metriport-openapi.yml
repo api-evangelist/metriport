@@ -1,0 +1,950 @@
+openapi: 3.0.1
+info:
+  title: Metriport API
+  description: >-
+    Metriport is an open-source, universal API for healthcare data. The Medical
+    API exchanges patient medical records across the CommonWell and Carequality
+    networks and returns consolidated FHIR R4 data; the Devices API hydrates
+    activity, biometrics, nutrition, and sleep data from connected wearables and
+    mHealth apps. This specification documents the hosted Metriport cloud surface
+    at https://api.metriport.com. The same code may be self-hosted from the
+    open-source repository.
+  termsOfService: https://www.metriport.com/terms
+  contact:
+    name: Metriport Support
+    email: contact@metriport.com
+    url: https://docs.metriport.com
+  version: '1.0'
+servers:
+  - url: https://api.metriport.com
+    description: Metriport hosted production API
+  - url: https://api.sandbox.metriport.com
+    description: Metriport sandbox API
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: Patient
+    description: Medical API patient management.
+  - name: Facility
+    description: Medical API facility management.
+  - name: Document
+    description: Medical API clinical document query and retrieval.
+  - name: Consolidated
+    description: Medical API consolidated FHIR data.
+  - name: User
+    description: Devices API user and connect management.
+  - name: Devices Data
+    description: Devices API normalized health data.
+  - name: Settings
+    description: Account settings and webhooks.
+paths:
+  /medical/v1/patient:
+    post:
+      operationId: createPatient
+      tags:
+        - Patient
+      summary: Create Patient
+      description: >-
+        Creates a Patient in Metriport for the specified Facility where the
+        patient is receiving care.
+      parameters:
+        - name: facilityId
+          in: query
+          required: true
+          description: The ID of the Facility where the patient is receiving care.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BasePatient'
+      responses:
+        '200':
+          description: The created Patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+    get:
+      operationId: listPatients
+      tags:
+        - Patient
+      summary: List Patients
+      description: Lists all Patients receiving care at the specified Facility.
+      parameters:
+        - name: facilityId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of Patients.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  patients:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Patient'
+  /medical/v1/patient/{id}:
+    get:
+      operationId: getPatient
+      tags:
+        - Patient
+      summary: Get Patient
+      description: Gets a Patient by their Metriport ID.
+      parameters:
+        - $ref: '#/components/parameters/PatientId'
+      responses:
+        '200':
+          description: The requested Patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+    put:
+      operationId: updatePatient
+      tags:
+        - Patient
+      summary: Update Patient
+      description: Updates the specified Patient's demographics.
+      parameters:
+        - $ref: '#/components/parameters/PatientId'
+        - name: facilityId
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BasePatient'
+      responses:
+        '200':
+          description: The updated Patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+    delete:
+      operationId: deletePatient
+      tags:
+        - Patient
+      summary: Delete Patient
+      description: Removes the specified Patient.
+      parameters:
+        - $ref: '#/components/parameters/PatientId'
+        - name: facilityId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Patient deleted.
+  /medical/v1/patient/match:
+    post:
+      operationId: matchPatient
+      tags:
+        - Patient
+      summary: Match Patient
+      description: >-
+        Searches for an existing Patient that matches the provided demographics
+        without creating a new one.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BasePatient'
+      responses:
+        '200':
+          description: The matched Patient, if found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+  /medical/v1/facility:
+    post:
+      operationId: createFacility
+      tags:
+        - Facility
+      summary: Create Facility
+      description: Creates a Facility under your Organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseFacility'
+      responses:
+        '200':
+          description: The created Facility.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Facility'
+    get:
+      operationId: listFacilities
+      tags:
+        - Facility
+      summary: List Facilities
+      description: Lists all Facilities under your Organization.
+      responses:
+        '200':
+          description: A list of Facilities.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  facilities:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Facility'
+  /medical/v1/facility/{id}:
+    get:
+      operationId: getFacility
+      tags:
+        - Facility
+      summary: Get Facility
+      parameters:
+        - $ref: '#/components/parameters/FacilityId'
+      responses:
+        '200':
+          description: The requested Facility.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Facility'
+    put:
+      operationId: updateFacility
+      tags:
+        - Facility
+      summary: Update Facility
+      parameters:
+        - $ref: '#/components/parameters/FacilityId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseFacility'
+      responses:
+        '200':
+          description: The updated Facility.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Facility'
+    delete:
+      operationId: deleteFacility
+      tags:
+        - Facility
+      summary: Delete Facility
+      parameters:
+        - $ref: '#/components/parameters/FacilityId'
+      responses:
+        '200':
+          description: Facility deleted.
+  /medical/v1/document/query:
+    post:
+      operationId: startDocumentQuery
+      tags:
+        - Document
+      summary: Start Document Query
+      description: >-
+        Triggers a network query across the HIE networks to discover and
+        download the available clinical documents for a Patient. Results are
+        delivered asynchronously via webhook.
+      parameters:
+        - name: patientId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: facilityId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The document query progress object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentQuery'
+    get:
+      operationId: getDocumentQueryStatus
+      tags:
+        - Document
+      summary: Get Document Query Status
+      parameters:
+        - name: patientId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The current document query progress.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentQuery'
+  /medical/v1/document:
+    get:
+      operationId: listDocuments
+      tags:
+        - Document
+      summary: List Documents
+      description: >-
+        Lists the available clinical documents (FHIR DocumentReferences) for a
+        Patient that have been retrieved from the networks.
+      parameters:
+        - name: patientId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: dateFrom
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: dateTo
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: A list of DocumentReferences.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  documents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DocumentReference'
+  /medical/v1/document/download-url:
+    get:
+      operationId: getDocumentUrl
+      tags:
+        - Document
+      summary: Get Document URL
+      description: >-
+        Returns a signed URL to download a specific document referenced by its
+        file name.
+      parameters:
+        - name: fileName
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: conversionType
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - html
+              - pdf
+      responses:
+        '200':
+          description: A signed download URL.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    format: uri
+  /medical/v1/patient/{id}/consolidated/query:
+    post:
+      operationId: startConsolidatedQuery
+      tags:
+        - Consolidated
+      summary: Start Consolidated Data Query
+      description: >-
+        Triggers a query that assembles the Patient's consolidated FHIR data
+        bundle. Results are delivered asynchronously via webhook.
+      parameters:
+        - $ref: '#/components/parameters/PatientId'
+        - name: resources
+          in: query
+          required: false
+          description: Comma-separated list of FHIR resource types to include.
+          schema:
+            type: string
+        - name: dateFrom
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: dateTo
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: conversionType
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - json
+              - pdf
+              - html
+      responses:
+        '200':
+          description: The consolidated query progress object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsolidatedQuery'
+    get:
+      operationId: getConsolidatedQueryStatus
+      tags:
+        - Consolidated
+      summary: Get Consolidated Data Query Status
+      parameters:
+        - $ref: '#/components/parameters/PatientId'
+      responses:
+        '200':
+          description: The list of consolidated query progress objects.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  queries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ConsolidatedQuery'
+  /medical/v1/patient/{id}/consolidated/count:
+    get:
+      operationId: countConsolidatedData
+      tags:
+        - Consolidated
+      summary: Count Patient Data
+      description: >-
+        Returns the count of a Patient's consolidated FHIR resources, optionally
+        filtered by resource type and date.
+      parameters:
+        - $ref: '#/components/parameters/PatientId'
+        - name: resources
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The resource counts.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  resources:
+                    type: object
+                    additionalProperties:
+                      type: integer
+  /user:
+    post:
+      operationId: createDevicesUser
+      tags:
+        - User
+      summary: Create User
+      description: >-
+        Creates a Metriport user that connected wearable and mHealth data will
+        be associated with.
+      parameters:
+        - name: appUserId
+          in: query
+          required: true
+          description: An ID that uniquely identifies the user in your application.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The created Metriport user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DevicesUser'
+  /user/connect/token:
+    get:
+      operationId: getConnectToken
+      tags:
+        - User
+      summary: Get Connect Token
+      description: >-
+        Generates a session token for the Metriport Connect Widget so an end
+        user can link their wearables and mHealth apps.
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          description: The Metriport user ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A connect session token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+  /user/revoke:
+    delete:
+      operationId: revokeUserAccess
+      tags:
+        - User
+      summary: Revoke User Access
+      description: Revokes a connected provider's access for a Metriport user.
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: provider
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Access revoked.
+  /activity:
+    get:
+      operationId: getActivity
+      tags:
+        - Devices Data
+      summary: Get Activity Data
+      description: Retrieves normalized activity data for a user on a given date.
+      parameters:
+        - $ref: '#/components/parameters/DevicesUserId'
+        - $ref: '#/components/parameters/DevicesDate'
+      responses:
+        '200':
+          description: An array of normalized activity data per provider.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DevicesData'
+  /biometrics:
+    get:
+      operationId: getBiometrics
+      tags:
+        - Devices Data
+      summary: Get Biometrics Data
+      description: >-
+        Retrieves normalized biometrics data (heart rate, HRV, respiration,
+        blood pressure, glucose, temperature) for a user on a given date.
+      parameters:
+        - $ref: '#/components/parameters/DevicesUserId'
+        - $ref: '#/components/parameters/DevicesDate'
+      responses:
+        '200':
+          description: An array of normalized biometrics data per provider.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DevicesData'
+  /body:
+    get:
+      operationId: getBody
+      tags:
+        - Devices Data
+      summary: Get Body Data
+      description: Retrieves normalized body data (weight, height, body fat) for a user.
+      parameters:
+        - $ref: '#/components/parameters/DevicesUserId'
+        - $ref: '#/components/parameters/DevicesDate'
+      responses:
+        '200':
+          description: An array of normalized body data per provider.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DevicesData'
+  /nutrition:
+    get:
+      operationId: getNutrition
+      tags:
+        - Devices Data
+      summary: Get Nutrition Data
+      description: Retrieves normalized nutrition data for a user on a given date.
+      parameters:
+        - $ref: '#/components/parameters/DevicesUserId'
+        - $ref: '#/components/parameters/DevicesDate'
+      responses:
+        '200':
+          description: An array of normalized nutrition data per provider.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DevicesData'
+  /sleep:
+    get:
+      operationId: getSleep
+      tags:
+        - Devices Data
+      summary: Get Sleep Data
+      description: Retrieves normalized sleep data for a user on a given date.
+      parameters:
+        - $ref: '#/components/parameters/DevicesUserId'
+        - $ref: '#/components/parameters/DevicesDate'
+      responses:
+        '200':
+          description: An array of normalized sleep data per provider.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DevicesData'
+  /settings:
+    get:
+      operationId: getSettings
+      tags:
+        - Settings
+      summary: Get Settings
+      description: Returns the account settings, including the configured webhook URL.
+      responses:
+        '200':
+          description: The account settings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+    post:
+      operationId: updateSettings
+      tags:
+        - Settings
+      summary: Update Settings
+      description: Updates the account webhook URL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                webhookUrl:
+                  type: string
+                  format: uri
+      responses:
+        '200':
+          description: The updated settings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+  /settings/webhook:
+    get:
+      operationId: getWebhookStatus
+      tags:
+        - Settings
+      summary: Get Webhook Status
+      description: Returns the status of webhook request delivery for the account.
+      responses:
+        '200':
+          description: The webhook status.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhookEnabled:
+                    type: boolean
+                  webhookStatusDetail:
+                    type: string
+  /settings/webhook/retry:
+    post:
+      operationId: retryWebhookRequests
+      tags:
+        - Settings
+      summary: Retry Webhook Requests
+      description: Retries any failed webhook requests for the account.
+      responses:
+        '200':
+          description: Retry triggered.
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+  parameters:
+    PatientId:
+      name: id
+      in: path
+      required: true
+      description: The Metriport Patient ID.
+      schema:
+        type: string
+    FacilityId:
+      name: id
+      in: path
+      required: true
+      description: The Metriport Facility ID.
+      schema:
+        type: string
+    DevicesUserId:
+      name: userId
+      in: query
+      required: true
+      description: The Metriport user ID.
+      schema:
+        type: string
+    DevicesDate:
+      name: date
+      in: query
+      required: true
+      description: The day to fetch data for, in YYYY-MM-DD format.
+      schema:
+        type: string
+        format: date
+  schemas:
+    BasePatient:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - dob
+        - genderAtBirth
+        - address
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        dob:
+          type: string
+          format: date
+          description: Date of birth in YYYY-MM-DD format.
+        genderAtBirth:
+          type: string
+          enum:
+            - M
+            - F
+            - O
+            - U
+        externalId:
+          type: string
+        contact:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+        address:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+    Patient:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+            facilityIds:
+              type: array
+              items:
+                type: string
+        - $ref: '#/components/schemas/BasePatient'
+    Contact:
+      type: object
+      properties:
+        phone:
+          type: string
+        email:
+          type: string
+          format: email
+    Address:
+      type: object
+      required:
+        - addressLine1
+        - city
+        - state
+        - zip
+        - country
+      properties:
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+          default: USA
+    BaseFacility:
+      type: object
+      required:
+        - name
+        - npi
+        - address
+      properties:
+        name:
+          type: string
+        npi:
+          type: string
+          description: The 10-digit National Provider Identifier.
+        tin:
+          type: string
+        active:
+          type: boolean
+        address:
+          $ref: '#/components/schemas/Address'
+    Facility:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+            oid:
+              type: string
+        - $ref: '#/components/schemas/BaseFacility'
+    DocumentQuery:
+      type: object
+      properties:
+        download:
+          $ref: '#/components/schemas/Progress'
+        convert:
+          $ref: '#/components/schemas/Progress'
+    Progress:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - processing
+            - completed
+            - failed
+        total:
+          type: integer
+        successful:
+          type: integer
+        errors:
+          type: integer
+    DocumentReference:
+      type: object
+      description: A FHIR R4 DocumentReference describing a retrieved clinical document.
+      properties:
+        id:
+          type: string
+        fileName:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        contentType:
+          type: string
+        size:
+          type: integer
+        indexed:
+          type: string
+          format: date-time
+    ConsolidatedQuery:
+      type: object
+      properties:
+        requestId:
+          type: string
+        status:
+          type: string
+          enum:
+            - processing
+            - completed
+            - failed
+        conversionType:
+          type: string
+          enum:
+            - json
+            - pdf
+            - html
+        startedAt:
+          type: string
+          format: date-time
+    DevicesUser:
+      type: object
+      properties:
+        userId:
+          type: string
+        appUserId:
+          type: string
+        connectedProviders:
+          type: array
+          items:
+            type: string
+    DevicesData:
+      type: object
+      description: >-
+        Normalized device data returned per connected provider, containing a
+        metadata block describing the source plus the normalized samples.
+      properties:
+        metadata:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date
+            source:
+              type: string
+              description: The provider the data was hydrated from (e.g. fitbit, oura, garmin).
+        biometrics:
+          type: object
+        activity:
+          type: object
+        body:
+          type: object
+        nutrition:
+          type: object
+        sleep:
+          type: object
+    Settings:
+      type: object
+      properties:
+        id:
+          type: string
+        webhookUrl:
+          type: string
+          format: uri
+        webhookKey:
+          type: string
+        webhookEnabled:
+          type: boolean
