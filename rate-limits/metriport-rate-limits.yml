@@ -3,71 +3,149 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: Metriport
 providerId: metriport
+generated: '2026-08-14'
+method: searched
+source: https://docs.metriport.com/medical-api/more-info/limits
+docs: https://docs.metriport.com/medical-api/more-info/limits
 created: '2026-06-21'
-modified: '2026-06-21'
-reconciled: false
+modified: '2026-08-14'
+reconciled: true
 tags:
 - Healthcare
 - Medical Records
 - FHIR
 - Health Data
-- Wearables
 - Open Source
 - Rate Limiting
 - Quotas
 - Throttling
 description: >-
-  Metriport authenticates every request to https://api.metriport.com with an
-  x-api-key header. The hosted cloud applies account-level rate limits and
-  asynchronous processing - document queries and consolidated data queries run
-  in the background and return results via webhook rather than synchronously -
-  which naturally throttles heavy network operations. Self-hosted deployments
-  enforce whatever limits the operator configures. Specific published per-account
-  request-per-second or per-minute thresholds are not documented and are not
-  reconciled in this artifact.
+  Metriport publishes a per-operation rate-limit table on its Limits and
+  throttling page: eight named limits, all expressed as requests per minute
+  against the hosted cloud at https://api.metriport.com. What it does not
+  publish is any runtime signal — no X-RateLimit-* or RateLimit-* response
+  headers, no documented status code on exhaustion, and no Retry-After
+  behaviour. A client therefore knows the ceiling from the docs but cannot
+  discover its remaining budget, or even reliably detect that it has been
+  throttled, from a response. Higher limits are negotiated by emailing
+  support@metriport.com. Self-hosted deployments enforce whatever the operator
+  configures.
 notes: >-
-  Confirm any per-account or per-endpoint limits with Metriport during
-  reconciliation. Heavy operations (document query, consolidated query) are
-  asynchronous and webhook-delivered. Self-hosted limits are operator-defined.
+  The limit set is heavily weighted toward write and query-initiation
+  operations; no limit is published for reads. The Document Query Start entry is
+  explicitly marked Legacy in Metriport's own table — see
+  lifecycle/metriport-lifecycle.yml.
 sources:
-- https://docs.metriport.com/medical-api/getting-started/quickstart
-- https://docs.metriport.com/medical-api/more-info/webhooks
+- https://docs.metriport.com/medical-api/more-info/limits
+- https://docs.metriport.com/medical-api/more-info/general-info
 - https://github.com/metriport/metriport
+headers:
+  published: false
+  request: []
+  response: []
+  note: >-
+    No rate-limit response headers are documented. Probing for them anonymously
+    is not possible: every unauthenticated request to api.metriport.com returns
+    403 {"message":"Forbidden"} from the gateway before reaching the API.
 responseCodes:
-  throttled: 429
+  throttled: not documented
+  note: >-
+    Metriport does not state the status returned when a limit is exceeded. 429
+    is the conventional answer and is deliberately NOT asserted here.
 limits:
-- name: API Key Requests
+- name: Patient Create
   scope: account
+  operation: createPatient
+  endpoint: POST /medical/v1/patient
   metric: requests
-  limit: see provider documentation
-  notes: Account-level limits applied to the hosted cloud; not publicly itemized.
-- name: Document Query
+  limit: 15
+  window: minute
+  rate: 1 every 4 seconds
+- name: Patient Update
   scope: account
-  metric: queries
-  limit: asynchronous
-  notes: Document queries run in the background and return results via webhook; they do not block synchronously.
-- name: Consolidated Data Query
-  scope: account
-  metric: queries
-  limit: asynchronous
-  notes: Consolidated FHIR queries run in the background and return results via webhook.
-- name: Devices Data
-  scope: account
+  operation: updatePatient
+  endpoint: PUT /medical/v1/patient/{id}
   metric: requests
-  limit: see provider documentation
-  notes: Per-account limits on hosted Devices API data reads.
+  limit: 15
+  window: minute
+  rate: 1 every 4 seconds
+  note: Shares the 15/minute ceiling with Patient Create in Metriport's table.
+- name: Document Query Start (Legacy)
+  scope: account
+  operation: startDocumentQuery
+  endpoint: POST /medical/v1/document/query
+  metric: requests
+  limit: 20
+  window: minute
+  rate: 1 every 3 seconds
+  status: legacy
+- name: Consolidated Data Query Start
+  scope: account
+  operation: startConsolidatedQuery
+  endpoint: POST /medical/v1/patient/{id}/consolidated/query
+  metric: requests
+  limit: 120
+  window: minute
+  rate: 2 every 1 second
+- name: Patient Consolidated Create
+  scope: account
+  endpoint: PUT /medical/v1/patient/{id}/consolidated
+  metric: requests
+  limit: 120
+  window: minute
+  rate: 2 every 1 second
+- name: Send Message
+  scope: account
+  endpoint: POST /medical/v1/message
+  metric: requests
+  limit: 20
+  window: minute
+  rate: 1 every 3 seconds
+- name: Network Query — HIE
+  scope: account
+  endpoint: POST /medical/v1/network-query
+  metric: requests
+  limit: 20
+  window: minute
+  rate: 1 every 3 seconds
+  source_type: HIE
+- name: Network Query — Labs
+  scope: account
+  endpoint: POST /medical/v1/network-query
+  metric: requests
+  limit: 20
+  window: minute
+  rate: 1 every 3 seconds
+  source_type: Labs
+- name: Network Query — Pharmacy
+  scope: account
+  endpoint: POST /medical/v1/network-query
+  metric: requests
+  limit: 20
+  window: minute
+  rate: 1 every 3 seconds
+  source_type: Pharmacy
 - name: Self-Hosted
   scope: deployment
   metric: requests
   limit: operator-defined
-  notes: Self-hosted deployments enforce whatever limits the operator configures.
+  note: Self-hosted deployments enforce whatever limits the operator configures.
+limit_count: 10
 policies:
 - name: Authentication
   description: Every request requires a valid x-api-key header issued from the Metriport developer dashboard.
+- name: Limit Increases
+  description: Accounts whose request pattern needs higher limits contact support@metriport.com.
 - name: Asynchronous Processing
-  description: Long-running network operations return immediately and deliver results via webhook to reduce synchronous load.
+  description: >-
+    Network queries, consolidated data queries and bulk operations return
+    immediately and deliver results by webhook, which spreads load off the
+    synchronous path. See asyncapi/metriport-webhooks.yml.
 - name: Backoff Strategy
-  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+  description: >-
+    No provider guidance is published. Because no rate-limit headers and no
+    exhaustion code are documented, clients should pace to the published
+    per-minute ceilings rather than react to a runtime signal.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

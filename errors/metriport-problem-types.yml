@@ -1,0 +1,67 @@
+generated: '2026-08-14'
+method: searched
+format: custom-json
+source: >-
+  https://docs.metriport.com/medical-api/more-info/error-responses (envelope and
+  the one worked example), https://docs.metriport.com/medical-api/more-info/etag
+  (412). The captured OpenAPI in openapi/ declares only 200 responses on every
+  operation, so nothing could be derived from the spec — this catalogue is read
+  from the documentation.
+description: >-
+  Metriport returns a single standardised error envelope on every failure. The
+  docs describe it as "based on the RFC 7807 format", but it is not RFC 7807 or
+  RFC 9457 on the wire: the member names differ, there is no type URI, and the
+  media type is application/json rather than application/problem+json. Metriport
+  publishes no enumerated catalogue of error names or codes — only the envelope
+  and a NOT_FOUND example — so the problem list below records exactly what is
+  documented and nothing more.
+rfc9457: false
+rfc7807: partial
+envelope:
+  media_type: application/json
+  shape: '{ "status": number, "name": string, "title": string, "detail": string }'
+  fields:
+    status: Numeric HTTP status code. Required.
+    name: Human-readable description of the status code, e.g. NOT_FOUND. Required.
+    title: The specific error description; stable across occurrences of the same error. Required.
+    detail: Details about this occurrence; may change between occurrences. Required.
+  example: |
+    {
+      "status": 404,
+      "name": "NOT_FOUND",
+      "title": "NotFoundError",
+      "detail": "Could not find organization Devault Medical"
+    }
+  deviations_from_rfc9457:
+    - Uses name/title/detail/status rather than type/title/status/detail/instance.
+    - No type member, so no dereferenceable problem-type URI.
+    - Served as application/json, not application/problem+json.
+problems:
+  - status: 404
+    name: NOT_FOUND
+    title: NotFoundError
+    meaning: The addressed resource does not exist under this account.
+    remediation: Verify the identifier and the facility/organization it belongs to before retrying.
+    evidence: https://docs.metriport.com/medical-api/more-info/error-responses
+  - status: 412
+    name: null
+    title: Precondition Failed
+    meaning: >-
+      The ETag supplied on an update did not match the stored value — the
+      resource was changed by another process since it was read.
+    remediation: Re-read the resource, reapply the change to the fresh copy, and resubmit with the new eTag.
+    evidence: https://docs.metriport.com/medical-api/more-info/etag
+undocumented:
+  - >-
+    No enumerated error-name reference is published. Names beyond NOT_FOUND
+    (authentication, validation, throttling, server) are returned by the API but
+    are not catalogued in the docs, so they are not listed here rather than
+    guessed.
+  - >-
+    The rate-limits page publishes per-operation ceilings but does not state the
+    status code returned on exhaustion or any Retry-After behaviour. 429 is the
+    obvious candidate and is NOT asserted here because Metriport does not
+    document it.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

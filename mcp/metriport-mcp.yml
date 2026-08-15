@@ -1,0 +1,63 @@
+generated: '2026-08-14'
+method: probed
+status: published
+source: https://docs.metriport.com/mcp
+description: >-
+  Metriport serves a remote MCP endpoint from its documentation host. A
+  tools/list POST returns HTTP 200 anonymously with three real tools and their
+  inputSchemas — captured verbatim in metriport-mcp-tools.json. This is a
+  Mintlify-generated DOCUMENTATION server: it searches and reads the Metriport
+  docs corpus and files docs feedback. It exposes no Medical API operation, so
+  an agent can learn how to call Metriport through it but cannot create a
+  patient, start a network query or read consolidated FHIR data with it. There
+  is no MCP server over the Medical API itself, hosted or stdio.
+deployment:
+  mode: remote
+  endpoint: https://docs.metriport.com/mcp
+  auth: none
+  verified: probed
+server:
+  name: metriport-docs
+  transport: streamable-http
+  url: https://docs.metriport.com/mcp
+  platform: Mintlify (docs host)
+  scope: documentation
+  auth: none
+  anonymous_tools_list: true
+  protocol_note: >-
+    Responds to POST with Accept "application/json, text/event-stream" and
+    returns an SSE-framed JSON-RPC result. No initialize handshake was required
+    to enumerate tools on 2026-08-14. https://docs.metriport.com/sse returns 405;
+    mcp.metriport.com does not resolve; https://api.metriport.com/mcp returns
+    403 like every other path on the API gateway.
+tools_file: metriport-mcp-tools.json
+tools:
+  - name: search_metriport
+    title: Search documentation
+    description: >-
+      Search across the Metriport knowledge base for documentation, code
+      examples, API references and guides. Returns contextual content with
+      titles and direct links.
+    inputs: [query]
+    read_only: true
+  - name: query_docs_filesystem_metriport
+    description: >-
+      Run a read-only shell-like query (rg, grep, find, tree, ls, cat, head,
+      tail, jq and friends) against a virtualised in-memory filesystem
+      containing only the Metriport documentation pages. This is how a page is
+      read; there is no separate get-page tool. Stateless per call.
+    inputs: [command]
+    read_only: true
+  - name: submit_feedback
+    title: Submit documentation feedback
+    description: Report a problem with a documentation page to the docs team.
+    inputs: [path, feedback]
+    read_only: false
+coverage:
+  medical_api_operations_exposed: 0
+  note: >-
+    None of the three tools binds to a Metriport REST operation. See
+    metriport-tool-crosswalk.yml for the full accounting.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

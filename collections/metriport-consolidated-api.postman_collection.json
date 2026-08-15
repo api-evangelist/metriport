@@ -1,0 +1,408 @@
+{
+  "item": [
+    {
+      "id": "a50160c4-68b1-46ee-a6ac-95801139f2ee",
+      "name": "Consolidated",
+      "description": {
+        "content": "Medical API consolidated FHIR data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f35f37cf-e30b-430e-b0bd-185526e21935",
+          "name": "Start Consolidated Data Query",
+          "request": {
+            "name": "Start Consolidated Data Query",
+            "description": {
+              "content": "Triggers a query that assembles the Patient's consolidated FHIR data bundle. Results are delivered asynchronously via webhook.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "medical",
+                "v1",
+                "patient",
+                ":id",
+                "consolidated",
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resources",
+                  "value": "<string>",
+                  "description": "Comma-separated list of FHIR resource types to include."
+                },
+                {
+                  "disabled": false,
+                  "key": "dateFrom",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateTo",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "conversionType",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The Metriport Patient ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63c49807-24ee-438c-adf9-80c7cb3917a4",
+              "name": "The consolidated query progress object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medical",
+                    "v1",
+                    "patient",
+                    ":id",
+                    "consolidated",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "conversionType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Metriport Patient ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"string\",\n  \"status\": \"completed\",\n  \"conversionType\": \"pdf\",\n  \"startedAt\": \"1992-01-06T23:22:45.643Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c57a50ca-180e-45d9-947f-89968e12ea6e",
+          "name": "Get Consolidated Data Query Status",
+          "request": {
+            "name": "Get Consolidated Data Query Status",
+            "description": {},
+            "url": {
+              "path": [
+                "medical",
+                "v1",
+                "patient",
+                ":id",
+                "consolidated",
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The Metriport Patient ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a20dc23e-03a6-47e9-842f-8a8053bd1b25",
+              "name": "The list of consolidated query progress objects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medical",
+                    "v1",
+                    "patient",
+                    ":id",
+                    "consolidated",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Metriport Patient ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"queries\": [\n    {\n      \"requestId\": \"string\",\n      \"status\": \"failed\",\n      \"conversionType\": \"json\",\n      \"startedAt\": \"1991-12-01T04:03:52.825Z\"\n    },\n    {\n      \"requestId\": \"string\",\n      \"status\": \"failed\",\n      \"conversionType\": \"json\",\n      \"startedAt\": \"1994-11-16T15:36:06.811Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d643a05-c05e-4c65-920e-a8c573ee7c1c",
+          "name": "Count Patient Data",
+          "request": {
+            "name": "Count Patient Data",
+            "description": {
+              "content": "Returns the count of a Patient's consolidated FHIR resources, optionally filtered by resource type and date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "medical",
+                "v1",
+                "patient",
+                ":id",
+                "consolidated",
+                "count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resources",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The Metriport Patient ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8754a85a-8244-4902-9683-307ea1bb8ae1",
+              "name": "The resource counts.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medical",
+                    "v1",
+                    "patient",
+                    ":id",
+                    "consolidated",
+                    "count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resources",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Metriport Patient ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 2896,\n  \"resources\": {\n    \"key_0\": 9665\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.metriport.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ec687ef7-6cba-4f6c-a8bc-b6521e9c3292",
+    "name": "Metriport Consolidated API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data; the Devices API hydrates activity, biometrics, nutrition, and sleep data from connected wearables and mHealth apps. This specification documents the hosted Metriport cloud surface at https://api.metriport.com. The same code may be self-hosted from the open-source repository.\n\nContact Support:\n Name: Metriport Support\n Email: contact@metriport.com",
+      "type": "text/plain"
+    }
+  }
+}

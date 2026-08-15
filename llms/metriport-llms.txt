@@ -1,0 +1,371 @@
+# Metriport
+
+## Docs
+
+- [Quickstart](https://docs.metriport.com/medical-api/getting-started/quickstart.md): Follow this guide to start exchanging comprehensive patient medical data.
+- [API Keys](https://docs.metriport.com/medical-api/getting-started/api-keys.md): Learn more about API key security best practices.
+- [Implementing Webhooks](https://docs.metriport.com/medical-api/getting-started/webhooks.md): Receive data as soon as it becomes available.
+- [Sandbox Mode](https://docs.metriport.com/medical-api/getting-started/sandbox.md): Build your application using example clinical data
+- [Message Delivery](https://docs.metriport.com/medical-api/getting-started/message-delivery.md): Exchange clinical data directly with another practitioner.
+- [Individual Access (IAS)](https://docs.metriport.com/medical-api/getting-started/ias.md): Let your users pull their own medical records into your application.
+- [Embedding Metriport](https://docs.metriport.com/medical-api/getting-started/embedding.md): Embed the Metriport app directly into your application.
+- [Create Facility](https://docs.metriport.com/medical-api/api-reference/facility/create-facility.md): Creates a Facility in Metriport where your patients receive care.
+- [Get Facility](https://docs.metriport.com/medical-api/api-reference/facility/get-facility.md): Gets a Facility.
+- [Update Facility](https://docs.metriport.com/medical-api/api-reference/facility/update-facility.md): Updates a Facility in Metriport where your patients receive care.
+- [List Facilities](https://docs.metriport.com/medical-api/api-reference/facility/list-facilities.md): Lists all of your Facilities.
+- [Delete Facility](https://docs.metriport.com/medical-api/api-reference/facility/delete-facility.md): Deletes a Facility. Returns 400 if there are patients associated with the Facility.
+- [Create Patient](https://docs.metriport.com/medical-api/api-reference/patient/create-patient.md): Creates a Patient in Metriport for the specified Facility where the patient is receiving care.
+- [Get Patient](https://docs.metriport.com/medical-api/api-reference/patient/get-patient.md): Gets a Patient.
+- [Get Patient by External ID](https://docs.metriport.com/medical-api/api-reference/patient/get-patient-external-id.md): Get a Patient based on External Identifier.
+- [Update Patient](https://docs.metriport.com/medical-api/api-reference/patient/update-patient.md): Updates the specified Patient.
+- [Match Patient](https://docs.metriport.com/medical-api/api-reference/patient/match-patient.md): Searches for a Patient previously created in Metriport, based on demographic data. Returns a 404 if the patient is not found.
+- [Delete Patient](https://docs.metriport.com/medical-api/api-reference/patient/delete-patient.md): Removes the specified Patient.
+- [List Patients](https://docs.metriport.com/medical-api/api-reference/patient/list-patients.md): Lists all Patients receiving care.
+- [Sync Patient](https://docs.metriport.com/medical-api/api-reference/patient/create-patient-external-sync.md): Create a link between Metriport Patient and external system.
+- [HIE Opt-Out](https://docs.metriport.com/medical-api/api-reference/patient/hie-opt-out.md): Update a patient's HIE (Health Information Exchange) opt-out status
+- [Treatment Relationship](https://docs.metriport.com/medical-api/api-reference/patient/treatment-relationship.md): Update a patient's treatment relationship consent status
+- [Bulk Patient Create](https://docs.metriport.com/medical-api/api-reference/patient/bulk-create-patient.md): Creates a batch of patients in Metriport and initiates Document Queries for all of them.
+- [Add Patient to Cohorts](https://docs.metriport.com/medical-api/api-reference/patient/add-patient-to-cohorts.md): Adds a single patient to multiple cohorts at once. Returns all cohorts the  patient is associated with.
+- [List Patient Cohorts](https://docs.metriport.com/medical-api/api-reference/patient/list-cohorts-for-patient.md): Returns a list of all cohorts the patient is a member of.
+- [Get Patient Facilities](https://docs.metriport.com/medical-api/api-reference/patient/get-patient-facilities.md): Gets all facilities associated with a patient.
+- [Set Patient Facilities](https://docs.metriport.com/medical-api/api-reference/patient/set-patient-facilities.md): Sets the facilities associated with a patient. This operation overrides any existing facility associations and replaces them with the provided list.
+- [Create Embed Token](https://docs.metriport.com/medical-api/api-reference/token/create-embed-token.md): Generates an access token for embedding Metriport in your application.
+- [Create AAL2 Challenge](https://docs.metriport.com/medical-api/api-reference/ias/create-aal2-challenge.md): Issues a fresh multifactor challenge for a verified user.
+- [Create Identity Session](https://docs.metriport.com/medical-api/api-reference/ias/create-identity-session.md): Starts a hosted identity verification session for a user.
+- [Get Cohort](https://docs.metriport.com/medical-api/api-reference/cohort/get-cohort.md): Returns cohort with additional details including the count of patients assigned to it.
+- [Update Cohort](https://docs.metriport.com/medical-api/api-reference/cohort/update-cohort.md): Updates the details of an existing cohort (name, description, color).
+- [Delete Cohort](https://docs.metriport.com/medical-api/api-reference/cohort/delete-cohort.md): Deletes a cohort if the cohort is empty.
+- [List Cohorts](https://docs.metriport.com/medical-api/api-reference/cohort/list-cohorts.md): Lists all cohorts defined by your organization.
+- [Add Patients to Cohort](https://docs.metriport.com/medical-api/api-reference/cohort/add-patients-to-cohort.md): Bulk assign multiple patients to a cohort.
+- [List Patients in Cohort](https://docs.metriport.com/medical-api/api-reference/cohort/list-patients-in-cohort.md): Returns a paginated list of all patients that are members of the specified cohort.
+- [Remove Patients from Cohort](https://docs.metriport.com/medical-api/api-reference/cohort/remove-patients-from-cohort.md): Bulk remove patients from a cohort.
+- [Send Message](https://docs.metriport.com/medical-api/api-reference/message/send-message.md): Send a message to another practitioner
+- [List Messages](https://docs.metriport.com/medical-api/api-reference/message/list-messages.md): List all inbound and outbound messages.
+- [Get Message Status](https://docs.metriport.com/medical-api/api-reference/message/get-message-status.md): Get the status of a message sent previously.
+- [List Network Entries](https://docs.metriport.com/medical-api/api-reference/network/list-network-entries.md): List HIE directory entries that Metriport has access to.
+- [Start Network Query](https://docs.metriport.com/medical-api/api-reference/network/start-network-query.md): Triggers a network query for the specified patient across all available health data networks.
+- [Get Network Query Status](https://docs.metriport.com/medical-api/api-reference/network/get-network-query.md): Returns the status of a specific network query request.
+- [Start Consolidated Data Query](https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post.md): Trigger a consolidated data query for the given patient
+- [Get Single Consolidated Data Query Status](https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-get-single.md): Get the status of a single query for patient's consolidated data.
+- [Get Consolidated Data Query Status](https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-get.md): Get the status of querying for patient's consolidated data.
+- [Count Patient Data](https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-count.md): Get a count of a Patient's data per resource.
+- [Create Patient's Consolidated Data](https://docs.metriport.com/medical-api/api-reference/fhir/create-patient-consolidated.md): Create Patient's Consolidated Data with a FHIR Bundle.
+- [Get Medical Record Summary Status](https://docs.metriport.com/medical-api/api-reference/fhir/get-medical-record-summary-status.md): Check if a Medical Record Summary for a patient already exists, and when it was generated.
+- [Get Medical Record Summary](https://docs.metriport.com/medical-api/api-reference/fhir/get-medical-record-summary.md): Get the Medical Record Summary in PDF or HTML formats.
+- [List Documents](https://docs.metriport.com/medical-api/api-reference/document/list-documents.md): Lists all Documents that can be retrieved for a Patient.
+- [Get Document URL](https://docs.metriport.com/medical-api/api-reference/document/get-document.md): Gets a downloadable URL for downloading the specified document.
+- [Upload Document](https://docs.metriport.com/medical-api/api-reference/document/post-upload-url.md): Creates a DocumentReference and returns its ID and a URL to use for a medical document upload to our servers.
+- [Start Bulk Get Document URL](https://docs.metriport.com/medical-api/api-reference/document/download-url-bulk.md): Triggers a process to generate a list of download URLs for all of the patient's documents.
+- [Get Settings](https://docs.metriport.com/medical-api/api-reference/settings/get-settings.md): Gets the settings for your account.
+- [Update Settings](https://docs.metriport.com/medical-api/api-reference/settings/post-settings.md): Updates your account's settings.
+- [Get Webhook status](https://docs.metriport.com/medical-api/api-reference/settings/get-webhook.md): Gets the status of communication with your app's webhook.
+- [Retry Webhook requests](https://docs.metriport.com/medical-api/api-reference/settings/retry-webhook.md): Retries failed webhook requests
+- [List Care Gaps](https://docs.metriport.com/medical-api/api-reference/analytics/care-gaps/list-care-gaps.md): Lists care gaps across your organization (paginated FHIR Bundles).
+- [List Patient Care Gaps](https://docs.metriport.com/medical-api/api-reference/analytics/care-gaps/list-patient-care-gaps.md): Lists care gaps for a single patient as FHIR Bundles (analytics).
+- [Get Care Gap](https://docs.metriport.com/medical-api/api-reference/analytics/care-gaps/get-care-gap.md): Gets detailed information about a specific care gap measure report.
+- [List Patient Suspects](https://docs.metriport.com/medical-api/api-reference/analytics/suspects/list-patient-suspects.md): Lists suspected conditions for a single patient as FHIR Bundles (analytics).
+- [AI Summaries](https://docs.metriport.com/medical-api/handling-data/ai-summaries.md): Get a brief summary of the most relevant medical history you need to know about your patient
+- [Medical Record Summary](https://docs.metriport.com/medical-api/handling-data/medical-record-summary.md): Consolidate Medical Records Into a Single Document
+- [Receiving Webhooks](https://docs.metriport.com/medical-api/handling-data/webhooks-with-nq.md): Receive status updates as soon as data becomes available.
+- [Patient Monitoring](https://docs.metriport.com/medical-api/handling-data/patient-monitoring.md): Automated monitoring of patient medical data.
+- [Real-time Patient Notifications](https://docs.metriport.com/medical-api/handling-data/realtime-patient-notifications.md): Monitor your patient's journey through health systems in real-time
+- [Patient Encounter Bundle](https://docs.metriport.com/medical-api/handling-data/patient-encounter-bundle.md): Understanding the FHIR Bundle structure for patient encounters
+- [Scheduled Queries](https://docs.metriport.com/medical-api/handling-data/scheduled-queries.md): Query the networks on your schedule.
+- [Cohorts](https://docs.metriport.com/medical-api/handling-data/cohorts.md): Group and enable settings for your patients.
+- [General](https://docs.metriport.com/medical-api/handling-data/data-analytics.md): Transform your data for analytics and pipe it into warehouses like Snowflake, Redshift, BigQuery, and more
+- [Tables by Resource](https://docs.metriport.com/medical-api/handling-data/schema-v100/README.md)
+- [allergyintolerance](https://docs.metriport.com/medical-api/handling-data/schema-v100/allergyintolerance/base.md)
+- [allergyintolerance_code_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/allergyintolerance/code_coding.md)
+- [allergyintolerance_clinicalstatus_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/allergyintolerance/clinicalstatus_coding.md)
+- [allergyintolerance_reaction](https://docs.metriport.com/medical-api/handling-data/schema-v100/allergyintolerance/reaction.md)
+- [allergyintolerance_reaction_substance_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/allergyintolerance/reaction_substance_coding.md)
+- [allergyintolerance_reaction_manifestation](https://docs.metriport.com/medical-api/handling-data/schema-v100/allergyintolerance/reaction_manifestation.md)
+- [allergyintolerance_reaction_manifestation_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/allergyintolerance/reaction_manifestation_coding.md)
+- [allergyintolerance_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/allergyintolerance/extension.md)
+- [allergyintolerance_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/allergyintolerance/extension_vcc_coding.md)
+- [binary](https://docs.metriport.com/medical-api/handling-data/schema-v100/binary.md)
+- [careplan](https://docs.metriport.com/medical-api/handling-data/schema-v100/careplan/base.md)
+- [careplan_category](https://docs.metriport.com/medical-api/handling-data/schema-v100/careplan/category.md)
+- [careplan_category_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/careplan/category_coding.md)
+- [careplan_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/careplan/extension.md)
+- [careplan_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/careplan/extension_vcc_coding.md)
+- [careplan_activity](https://docs.metriport.com/medical-api/handling-data/schema-v100/careplan/activity.md)
+- [careplan_activity_detail_code_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/careplan/activity_detail_code_coding.md)
+- [careplan_activity_detail_performer](https://docs.metriport.com/medical-api/handling-data/schema-v100/careplan/activity_detail_performer.md)
+- [communication](https://docs.metriport.com/medical-api/handling-data/schema-v100/communication/base.md)
+- [communication_category](https://docs.metriport.com/medical-api/handling-data/schema-v100/communication/category.md)
+- [communication_category_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/communication/category_coding.md)
+- [communication_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/communication/extension.md)
+- [communication_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/communication/extension_vcc_coding.md)
+- [composition](https://docs.metriport.com/medical-api/handling-data/schema-v100/composition/base.md)
+- [composition_type_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/composition/type_coding.md)
+- [composition_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/composition/extension.md)
+- [composition_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/composition/extension_vcc_coding.md)
+- [composition_section](https://docs.metriport.com/medical-api/handling-data/schema-v100/composition/section.md)
+- [composition_section_code_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/composition/section_code_coding.md)
+- [composition_section_entry](https://docs.metriport.com/medical-api/handling-data/schema-v100/composition/section_entry.md)
+- [composition_attester](https://docs.metriport.com/medical-api/handling-data/schema-v100/composition/attester.md)
+- [composition_event](https://docs.metriport.com/medical-api/handling-data/schema-v100/composition/event.md)
+- [condition](https://docs.metriport.com/medical-api/handling-data/schema-v100/condition/base.md)
+- [condition_code_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/condition/code_coding.md)
+- [condition_clinicalstatus_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/condition/clinicalstatus_coding.md)
+- [condition_category](https://docs.metriport.com/medical-api/handling-data/schema-v100/condition/category.md)
+- [condition_category_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/condition/category_coding.md)
+- [condition_verificationstatus_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/condition/verificationstatus_coding.md)
+- [condition_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/condition/extension.md)
+- [condition_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/condition/extension_vcc_coding.md)
+- [consent](https://docs.metriport.com/medical-api/handling-data/schema-v100/consent/base.md)
+- [consent_scope_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/consent/scope_coding.md)
+- [consent_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/consent/extension.md)
+- [consent_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/consent/extension_vcc_coding.md)
+- [consent_category](https://docs.metriport.com/medical-api/handling-data/schema-v100/consent/category.md)
+- [consent_category_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/consent/category_coding.md)
+- [consent_policyrule_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/consent/policyrule_coding.md)
+- [consent_provision_code](https://docs.metriport.com/medical-api/handling-data/schema-v100/consent/provision_code.md)
+- [consent_provision_code_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/consent/provision_code_coding.md)
+- [coverage](https://docs.metriport.com/medical-api/handling-data/schema-v100/coverage/base.md)
+- [coverage_type_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/coverage/type_coding.md)
+- [coverage_relationship_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/coverage/relationship_coding.md)
+- [coverage_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/coverage/extension.md)
+- [coverage_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/coverage/extension_vcc_coding.md)
+- [coverage_class](https://docs.metriport.com/medical-api/handling-data/schema-v100/coverage/class.md)
+- [coverage_class_type_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/coverage/class_type_coding.md)
+- [device](https://docs.metriport.com/medical-api/handling-data/schema-v100/device/base.md)
+- [device_type_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/device/type_coding.md)
+- [device_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/device/extension.md)
+- [device_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/device/extension_vcc_coding.md)
+- [device_version](https://docs.metriport.com/medical-api/handling-data/schema-v100/device/version.md)
+- [diagnosticreport](https://docs.metriport.com/medical-api/handling-data/schema-v100/diagnosticreport/base.md)
+- [diagnosticreport_code_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/diagnosticreport/code_coding.md)
+- [diagnosticreport_category](https://docs.metriport.com/medical-api/handling-data/schema-v100/diagnosticreport/category.md)
+- [diagnosticreport_category_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/diagnosticreport/category_coding.md)
+- [diagnosticreport_presentedform](https://docs.metriport.com/medical-api/handling-data/schema-v100/diagnosticreport/presentedform.md)
+- [diagnosticreport_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/diagnosticreport/extension.md)
+- [diagnosticreport_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/diagnosticreport/extension_vcc_coding.md)
+- [documentreference](https://docs.metriport.com/medical-api/handling-data/schema-v100/documentreference/base.md)
+- [documentreference_type_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/documentreference/type_coding.md)
+- [documentreference_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/documentreference/extension.md)
+- [documentreference_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/documentreference/extension_vcc_coding.md)
+- [documentreference_content](https://docs.metriport.com/medical-api/handling-data/schema-v100/documentreference/content.md)
+- [encounter](https://docs.metriport.com/medical-api/handling-data/schema-v100/encounter/base.md)
+- [encounter_type](https://docs.metriport.com/medical-api/handling-data/schema-v100/encounter/type.md)
+- [encounter_type_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/encounter/type_coding.md)
+- [encounter_hospitalization_dischargedisposition_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/encounter/hospitalization_dischargedisposition_coding.md)
+- [encounter_priority_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/encounter/priority_coding.md)
+- [encounter_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/encounter/extension.md)
+- [encounter_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/encounter/extension_vcc_coding.md)
+- [encounter_reasoncode](https://docs.metriport.com/medical-api/handling-data/schema-v100/encounter/reasoncode.md)
+- [encounter_reasoncode_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/encounter/reasoncode_coding.md)
+- [encounter_diagnosis](https://docs.metriport.com/medical-api/handling-data/schema-v100/encounter/diagnosis.md)
+- [familymemberhistory](https://docs.metriport.com/medical-api/handling-data/schema-v100/familymemberhistory/base.md)
+- [familymemberhistory_relationship_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/familymemberhistory/relationship_coding.md)
+- [familymemberhistory_sex_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/familymemberhistory/sex_coding.md)
+- [familymemberhistory_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/familymemberhistory/extension.md)
+- [familymemberhistory_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/familymemberhistory/extension_vcc_coding.md)
+- [familymemberhistory_condition](https://docs.metriport.com/medical-api/handling-data/schema-v100/familymemberhistory/condition.md)
+- [familymemberhistory_condition_code_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/familymemberhistory/condition_code_coding.md)
+- [goal](https://docs.metriport.com/medical-api/handling-data/schema-v100/goal/base.md)
+- [goal_description_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/goal/description_coding.md)
+- [goal_priority_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/goal/priority_coding.md)
+- [goal_target](https://docs.metriport.com/medical-api/handling-data/schema-v100/goal/target.md)
+- [goal_target_measure_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/goal/target_measure_coding.md)
+- [goal_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/goal/extension.md)
+- [goal_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/goal/extension_vcc_coding.md)
+- [immunization](https://docs.metriport.com/medical-api/handling-data/schema-v100/immunization/base.md)
+- [immunization_vaccinecode_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/immunization/vaccinecode_coding.md)
+- [immunization_statusreason_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/immunization/statusreason_coding.md)
+- [immunization_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/immunization/extension.md)
+- [immunization_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/immunization/extension_vcc_coding.md)
+- [immunization_route_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/immunization/route_coding.md)
+- [immunization_site_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/immunization/site_coding.md)
+- [location](https://docs.metriport.com/medical-api/handling-data/schema-v100/location/base.md)
+- [location_type](https://docs.metriport.com/medical-api/handling-data/schema-v100/location/type.md)
+- [location_type_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/location/type_coding.md)
+- [location_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/location/extension.md)
+- [location_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/location/extension_vcc_coding.md)
+- [location_telecom](https://docs.metriport.com/medical-api/handling-data/schema-v100/location/telecom.md)
+- [medication](https://docs.metriport.com/medical-api/handling-data/schema-v100/medication/base.md)
+- [medication_code_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/medication/code_coding.md)
+- [medication_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/medication/extension.md)
+- [medication_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/medication/extension_vcc_coding.md)
+- [medicationadministration](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationadministration/base.md)
+- [medicationadministration_dosage_route_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationadministration/dosage_route_coding.md)
+- [medicationadministration_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationadministration/extension.md)
+- [medicationadministration_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationadministration/extension_vcc_coding.md)
+- [medicationdispense](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationdispense/base.md)
+- [medicationdispense_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationdispense/extension.md)
+- [medicationdispense_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationdispense/extension_vcc_coding.md)
+- [medicationrequest](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationrequest/base.md)
+- [medicationrequest_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationrequest/extension.md)
+- [medicationrequest_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationrequest/extension_vcc_coding.md)
+- [medicationstatement](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationstatement/base.md)
+- [medicationstatement_dosage](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationstatement/dosage.md)
+- [medicationstatement_dosage_doseandrate](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationstatement/dosage_doseandrate.md)
+- [medicationstatement_dosage_route_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationstatement/dosage_route_coding.md)
+- [medicationstatement_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationstatement/extension.md)
+- [medicationstatement_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/medicationstatement/extension_vcc_coding.md)
+- [observation](https://docs.metriport.com/medical-api/handling-data/schema-v100/observation/base.md)
+- [observation_code_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/observation/code_coding.md)
+- [observation_category](https://docs.metriport.com/medical-api/handling-data/schema-v100/observation/category.md)
+- [observation_category_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/observation/category_coding.md)
+- [observation_bodysite_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/observation/bodysite_coding.md)
+- [observation_interpretation](https://docs.metriport.com/medical-api/handling-data/schema-v100/observation/interpretation.md)
+- [observation_interpretation_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/observation/interpretation_coding.md)
+- [observation_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/observation/extension.md)
+- [observation_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/observation/extension_vcc_coding.md)
+- [observation_referencerange](https://docs.metriport.com/medical-api/handling-data/schema-v100/observation/referencerange.md)
+- [organization](https://docs.metriport.com/medical-api/handling-data/schema-v100/organization/base.md)
+- [organization_address](https://docs.metriport.com/medical-api/handling-data/schema-v100/organization/address.md)
+- [organization_telecom](https://docs.metriport.com/medical-api/handling-data/schema-v100/organization/telecom.md)
+- [organization_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/organization/extension.md)
+- [organization_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/organization/extension_vcc_coding.md)
+- [patient](https://docs.metriport.com/medical-api/handling-data/schema-v100/patient/base.md)
+- [patient_identifier](https://docs.metriport.com/medical-api/handling-data/schema-v100/patient/identifier.md)
+- [patient_identifier_type_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/patient/identifier_type_coding.md)
+- [patient_address](https://docs.metriport.com/medical-api/handling-data/schema-v100/patient/address.md)
+- [patient_name](https://docs.metriport.com/medical-api/handling-data/schema-v100/patient/name.md)
+- [patient_telecom](https://docs.metriport.com/medical-api/handling-data/schema-v100/patient/telecom.md)
+- [patient_communication](https://docs.metriport.com/medical-api/handling-data/schema-v100/patient/communication.md)
+- [patient_communication_language_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/patient/communication_language_coding.md)
+- [patient_mapping](https://docs.metriport.com/medical-api/handling-data/schema-v100/patient/mapping.md)
+- [patient_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/patient/extension.md)
+- [patient_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/patient/extension_vcc_coding.md)
+- [practitioner](https://docs.metriport.com/medical-api/handling-data/schema-v100/practitioner/base.md)
+- [practitioner_address](https://docs.metriport.com/medical-api/handling-data/schema-v100/practitioner/address.md)
+- [practitioner_name](https://docs.metriport.com/medical-api/handling-data/schema-v100/practitioner/name.md)
+- [practitioner_telecom](https://docs.metriport.com/medical-api/handling-data/schema-v100/practitioner/telecom.md)
+- [practitioner_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/practitioner/extension.md)
+- [practitioner_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/practitioner/extension_vcc_coding.md)
+- [practitioner_qualification](https://docs.metriport.com/medical-api/handling-data/schema-v100/practitioner/qualification.md)
+- [practitioner_qualification_code_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/practitioner/qualification_code_coding.md)
+- [procedure](https://docs.metriport.com/medical-api/handling-data/schema-v100/procedure/base.md)
+- [procedure_code_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/procedure/code_coding.md)
+- [procedure_bodysite](https://docs.metriport.com/medical-api/handling-data/schema-v100/procedure/bodysite.md)
+- [procedure_bodysite_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/procedure/bodysite_coding.md)
+- [procedure_reasoncode](https://docs.metriport.com/medical-api/handling-data/schema-v100/procedure/reasoncode.md)
+- [procedure_reasoncode_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/procedure/reasoncode_coding.md)
+- [procedure_note](https://docs.metriport.com/medical-api/handling-data/schema-v100/procedure/note.md)
+- [procedure_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/procedure/extension.md)
+- [procedure_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/procedure/extension_vcc_coding.md)
+- [relatedperson](https://docs.metriport.com/medical-api/handling-data/schema-v100/relatedperson/base.md)
+- [relatedperson_address](https://docs.metriport.com/medical-api/handling-data/schema-v100/relatedperson/address.md)
+- [relatedperson_name](https://docs.metriport.com/medical-api/handling-data/schema-v100/relatedperson/name.md)
+- [relatedperson_telecom](https://docs.metriport.com/medical-api/handling-data/schema-v100/relatedperson/telecom.md)
+- [relatedperson_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/relatedperson/extension.md)
+- [relatedperson_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/relatedperson/extension_vcc_coding.md)
+- [relatedperson_communication](https://docs.metriport.com/medical-api/handling-data/schema-v100/relatedperson/communication.md)
+- [relatedperson_communication_language_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/relatedperson/communication_language_coding.md)
+- [relatedperson_relationship](https://docs.metriport.com/medical-api/handling-data/schema-v100/relatedperson/relationship.md)
+- [relatedperson_relationship_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/relatedperson/relationship_coding.md)
+- [servicerequest](https://docs.metriport.com/medical-api/handling-data/schema-v100/servicerequest/base.md)
+- [servicerequest_code_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/servicerequest/code_coding.md)
+- [servicerequest_extension](https://docs.metriport.com/medical-api/handling-data/schema-v100/servicerequest/extension.md)
+- [servicerequest_extension_vcc_coding](https://docs.metriport.com/medical-api/handling-data/schema-v100/servicerequest/extension_vcc_coding.md)
+- [measure_report](https://docs.metriport.com/medical-api/handling-data/schema-v100/measure_report.md)
+- [Reference Tables](https://docs.metriport.com/medical-api/handling-data/schema-v100/reference_tables.md)
+- [Care Gaps](https://docs.metriport.com/medical-api/handling-data/care-gaps.md): Automated identification of missing or incomplete care based on HEDIS quality measures.
+- [Suspecting](https://docs.metriport.com/medical-api/handling-data/suspecting.md): Automated identification of undiagnosed or under-coded conditions from clinical evidence patterns.
+- [Filtering data](https://docs.metriport.com/medical-api/handling-data/filters.md): How to filter data in Metriport.
+- [Pagination](https://docs.metriport.com/medical-api/handling-data/pagination.md): Retrieving larger amounts of data.
+- [Contributing Data](https://docs.metriport.com/medical-api/handling-data/contribution.md): How to contribute data back to Health Information Exchange (HIE) networks
+- [Opting Out of Networks](https://docs.metriport.com/medical-api/handling-data/opt-out.md): Guide patients through opting out or into data‑sharing networks
+- [FHIR Overview](https://docs.metriport.com/medical-api/fhir/overview.md): Learn more about how Metriport leverages FHIR for interoperability.
+- [Address](https://docs.metriport.com/medical-api/fhir/data-types/address.md): Base StructureDefinition for Address Type: An address expressed using postal conventions (as opposed to GPS or other location definition formats).  This data type may be used to convey addresses for use in delivering mail as well as for visiting locations which might not be valid for mail delivery.…
+- [Age](https://docs.metriport.com/medical-api/fhir/data-types/age.md): Base StructureDefinition for Age Type: A duration of time during which an organism (or a process) has existed.
+- [Annotation](https://docs.metriport.com/medical-api/fhir/data-types/annotation.md): Base StructureDefinition for Annotation Type: A  text note which also  contains information about who made the statement and when.
+- [Attachment](https://docs.metriport.com/medical-api/fhir/data-types/attachment.md): Base StructureDefinition for Attachment Type: For referring to data content defined in other formats.
+- [CodeableConcept](https://docs.metriport.com/medical-api/fhir/data-types/codeableconcept.md): Base StructureDefinition for CodeableConcept Type: A concept that may be defined by a formal reference to a terminology or ontology or may be provided by text.
+- [Coding](https://docs.metriport.com/medical-api/fhir/data-types/coding.md): Base StructureDefinition for Coding Type: A reference to a code defined by a terminology system.
+- [ContactDetail](https://docs.metriport.com/medical-api/fhir/data-types/contactdetail.md): Base StructureDefinition for ContactDetail Type: Specifies contact information for a person or organization.
+- [ContactPoint](https://docs.metriport.com/medical-api/fhir/data-types/contactpoint.md): Base StructureDefinition for ContactPoint Type: Details for all kinds of technology mediated contact points for a person or organization, including telephone, email, etc.
+- [Contributor](https://docs.metriport.com/medical-api/fhir/data-types/contributor.md): Base StructureDefinition for Contributor Type: A contributor to the content of a knowledge asset, including authors, editors, reviewers, and endorsers.
+- [Count](https://docs.metriport.com/medical-api/fhir/data-types/count.md): Base StructureDefinition for Count Type: A measured amount (or an amount that can potentially be measured). Note that measured amounts include amounts that are not precisely quantified, including amounts involving arbitrary units and floating currencies.
+- [DataRequirement](https://docs.metriport.com/medical-api/fhir/data-types/datarequirement.md): Base StructureDefinition for DataRequirement Type: Describes a required data item for evaluation in terms of the type of data, and optional code or date-based filters of the data.
+- [Distance](https://docs.metriport.com/medical-api/fhir/data-types/distance.md): Base StructureDefinition for Distance Type: A length - a value with a unit that is a physical distance.
+- [Dosage](https://docs.metriport.com/medical-api/fhir/data-types/dosage.md): Base StructureDefinition for Dosage Type: Indicates how the medication is/was taken or should be taken by the patient.
+- [Duration](https://docs.metriport.com/medical-api/fhir/data-types/duration.md): Base StructureDefinition for Duration Type: A length of time.
+- [ElementDefinition](https://docs.metriport.com/medical-api/fhir/data-types/elementdefinition.md): Base StructureDefinition for ElementDefinition Type: Captures constraints on each element within the resource, profile, or extension.
+- [Expression](https://docs.metriport.com/medical-api/fhir/data-types/expression.md): Base StructureDefinition for Expression Type: A expression that is evaluated in a specified context and returns a value. The context of use of the expression must specify the context in which the expression is evaluated, and how the result of the expression is used.
+- [HumanName](https://docs.metriport.com/medical-api/fhir/data-types/humanname.md): Base StructureDefinition for HumanName Type: A human's name with the ability to identify parts and usage.
+- [Identifier](https://docs.metriport.com/medical-api/fhir/data-types/identifier.md): Base StructureDefinition for Identifier Type: An identifier - identifies some entity uniquely and unambiguously. Typically this is used for business identifiers.
+- [MarketingStatus](https://docs.metriport.com/medical-api/fhir/data-types/marketingstatus.md): Base StructureDefinition for MarketingStatus Type: The marketing status describes the date when a medicinal product is actually put on the market or the date as of which it is no longer available.
+- [Meta](https://docs.metriport.com/medical-api/fhir/data-types/meta.md): Base StructureDefinition for Meta Type: The metadata about a resource. This is content in the resource that is maintained by the infrastructure. Changes to the content might not always be associated with version changes to the resource.
+- [Money](https://docs.metriport.com/medical-api/fhir/data-types/money.md): Base StructureDefinition for Money Type: An amount of economic utility in some recognized currency.
+- [MoneyQuantity](https://docs.metriport.com/medical-api/fhir/data-types/moneyquantity.md): An amount of money. With regard to precision, see [Decimal Precision](https://www.hl7.org/fhir/datatypes.html#precision)
+- [Narrative](https://docs.metriport.com/medical-api/fhir/data-types/narrative.md): Base StructureDefinition for Narrative Type: A human-readable summary of the resource conveying the essential clinical and business information for the resource.
+- [ParameterDefinition](https://docs.metriport.com/medical-api/fhir/data-types/parameterdefinition.md): Base StructureDefinition for ParameterDefinition Type: The parameters to the module. This collection specifies both the input and output parameters. Input parameters are provided by the caller as part of the $evaluate operation. Output parameters are included in the GuidanceResponse.
+- [Period](https://docs.metriport.com/medical-api/fhir/data-types/period.md): Base StructureDefinition for Period Type: A time period defined by a start and end date and optionally time.
+- [Population](https://docs.metriport.com/medical-api/fhir/data-types/population.md): Base StructureDefinition for Population Type: A populatioof people with some set of grouping criteria.
+- [ProdCharacteristic](https://docs.metriport.com/medical-api/fhir/data-types/prodcharacteristic.md): Base StructureDefinition for ProdCharacteristic Type: The marketing status describes the date when a medicinal product is actually put on the market or the date as of which it is no longer available.
+- [ProductShelfLife](https://docs.metriport.com/medical-api/fhir/data-types/productshelflife.md): Base StructureDefinition for ProductShelfLife Type: The shelf-life and storage information for a medicinal product item or container can be described using this class.
+- [Quantity](https://docs.metriport.com/medical-api/fhir/data-types/quantity.md): Base StructureDefinition for Quantity Type: A measured amount (or an amount that can potentially be measured). Note that measured amounts include amounts that are not precisely quantified, including amounts involving arbitrary units and floating currencies.
+- [Range](https://docs.metriport.com/medical-api/fhir/data-types/range.md): Base StructureDefinition for Range Type: A set of ordered Quantities defined by a low and high limit.
+- [Ratio](https://docs.metriport.com/medical-api/fhir/data-types/ratio.md): Base StructureDefinition for Ratio Type: A relationship of two Quantity values - expressed as a numerator and a denominator.
+- [Reference](https://docs.metriport.com/medical-api/fhir/data-types/reference.md): Base StructureDefinition for Reference Type: A reference from one resource to another.
+- [RelatedArtifact](https://docs.metriport.com/medical-api/fhir/data-types/relatedartifact.md): Base StructureDefinition for RelatedArtifact Type: Related artifacts such as additional documentation, justification, or bibliographic references.
+- [SampledData](https://docs.metriport.com/medical-api/fhir/data-types/sampleddata.md): Base StructureDefinition for SampledData Type: A series of measurements taken by a device, with upper and lower limits. There may be more than one dimension in the data.
+- [Signature](https://docs.metriport.com/medical-api/fhir/data-types/signature.md): Base StructureDefinition for Signature Type: A signature along with supporting context. The signature may be a digital signature that is cryptographic in nature, or some other signature acceptable to the domain. This other signature may be as simple as a graphical image representing a hand-written s…
+- [SimpleQuantity](https://docs.metriport.com/medical-api/fhir/data-types/simplequantity.md): A fixed quantity (no comparator)
+- [SubstanceAmount](https://docs.metriport.com/medical-api/fhir/data-types/substanceamount.md): Base StructureDefinition for SubstanceAmount Type: Chemical substances are a single substance type whose primary defining element is the molecular structure. Chemical substances shall be defined on the basis of their complete covalent molecular structure; the presence of a salt (counter-ion) and/or…
+- [Timing](https://docs.metriport.com/medical-api/fhir/data-types/timing.md): Base StructureDefinition for Timing Type: Specifies an event that may occur multiple times. Timing schedules are used to record when things are planned, expected or requested to occur. The most common usage is in dosage instructions for medications. They are also used when planning care of various k…
+- [TriggerDefinition](https://docs.metriport.com/medical-api/fhir/data-types/triggerdefinition.md): Base StructureDefinition for TriggerDefinition Type: A description of a triggering event. Triggering events can be named events, data events, or periodic, as determined by the type element.
+- [UsageContext](https://docs.metriport.com/medical-api/fhir/data-types/usagecontext.md): Base StructureDefinition for UsageContext Type: Specifies clinical/business/etc. metadata that can be used to retrieve, index and/or categorize an artifact. This metadata can either be specific to the applicable population (e.g., age category, DRG) or the specific context of care (e.g., venue, care…
+- [AllergyIntolerance](https://docs.metriport.com/medical-api/fhir/resources/allergyintolerance.md): Risk of harmful or undesirable, physiological response which is unique to an individual and associated with exposure to a substance.
+- [Binary](https://docs.metriport.com/medical-api/fhir/resources/binary.md): A resource that represents the data of a single raw artifact as digital content accessible in its native format.  A Binary resource can contain any content, whether text, image, pdf, zip archive, etc.
+- [Bundle](https://docs.metriport.com/medical-api/fhir/resources/bundle.md): A container for a collection of resources.
+- [CapabilityStatement](https://docs.metriport.com/medical-api/fhir/resources/capabilitystatement.md): A Capability Statement documents a set of capabilities (behaviors) of a FHIR Server for a particular version of FHIR that may be used as a statement of actual server functionality or a statement of required or desired server implementation.
+- [CarePlan](https://docs.metriport.com/medical-api/fhir/resources/careplan.md): Describes the intention of how one or more practitioners intend to deliver care for a particular patient, group or community for a period of time, possibly limited to care for a specific condition or set of conditions.
+- [Communication](https://docs.metriport.com/medical-api/fhir/resources/communication.md): An occurrence of information being transmitted; e.g. an alert that was sent to a responsible provider, a public health agency that was notified about a reportable condition.
+- [Composition](https://docs.metriport.com/medical-api/fhir/resources/composition.md): A set of healthcare-related information that is assembled together into a single logical package that provides a single coherent statement of meaning, establishes its own context and that has clinical attestation with regard to who is making the statement. A Composition defines the structure and nar…
+- [Condition](https://docs.metriport.com/medical-api/fhir/resources/condition.md): A clinical condition, problem, diagnosis, or other event, situation, issue, or clinical concept that has risen to a level of concern.
+- [Consent](https://docs.metriport.com/medical-api/fhir/resources/consent.md): A record of a healthcare consumer’s  choices, which permits or denies identified recipient(s) or recipient role(s) to perform one or more actions within a given policy context, for specific purposes and periods of time.
+- [Coverage](https://docs.metriport.com/medical-api/fhir/resources/coverage.md): Financial instrument which may be used to reimburse or pay for health care products and services. Includes both insurance and self-payment.
+- [Device](https://docs.metriport.com/medical-api/fhir/resources/device.md): A type of a manufactured item that is used in the provision of healthcare without being substantially changed through that activity. The device may be a medical or non-medical device.
+- [DiagnosticReport](https://docs.metriport.com/medical-api/fhir/resources/diagnosticreport.md): The findings and interpretation of diagnostic  tests performed on patients, groups of patients, devices, and locations, and/or specimens derived from these. The report includes clinical context such as requesting and provider information, and some mix of atomic results, images, textual and coded int…
+- [DocumentReference](https://docs.metriport.com/medical-api/fhir/resources/documentreference.md): A reference to a document of any kind for any purpose. Provides metadata about the document so that the document can be discovered and managed. The scope of a document is any seralized object with a mime-type, so includes formal patient centric documents (CDA), clinical notes, scanned paper, and non…
+- [Encounter](https://docs.metriport.com/medical-api/fhir/resources/encounter.md): An interaction between a patient and healthcare provider(s) for the purpose of providing healthcare service(s) or assessing the health status of a patient.
+- [FamilyMemberHistory](https://docs.metriport.com/medical-api/fhir/resources/familymemberhistory.md): Significant health conditions for a person related to the patient relevant in the context of care for the patient.
+- [Goal](https://docs.metriport.com/medical-api/fhir/resources/goal.md): Describes the intended objective(s) for a patient, group or organization care, for example, weight loss, restoring an activity of daily living, obtaining herd immunity via immunization, meeting a process improvement objective, etc.
+- [Immunization](https://docs.metriport.com/medical-api/fhir/resources/immunization.md): Describes the event of a patient being administered a vaccine or a record of an immunization as reported by a patient, a clinician or another party.
+- [Location](https://docs.metriport.com/medical-api/fhir/resources/location.md): Details and position information for a physical place where services are provided and resources and participants may be stored, found, contained, or accommodated.
+- [Medication](https://docs.metriport.com/medical-api/fhir/resources/medication.md): This resource is primarily used for the identification and definition of a medication for the purposes of prescribing, dispensing, and administering a medication as well as for making statements about medication use.
+- [MedicationAdministration](https://docs.metriport.com/medical-api/fhir/resources/medicationadministration.md): Describes the event of a patient consuming or otherwise being administered a medication.  This may be as simple as swallowing a tablet or it may be a long running infusion.  Related resources tie this event to the authorizing prescription, and the specific encounter between patient and health care p…
+- [MedicationDispense](https://docs.metriport.com/medical-api/fhir/resources/medicationdispense.md): Indicates that a medication product is to be or has been dispensed for a named person/patient.  This includes a description of the medication product (supply) provided and the instructions for administering the medication.  The medication dispense is the result of a pharmacy system responding to a m…
+- [MedicationRequest](https://docs.metriport.com/medical-api/fhir/resources/medicationrequest.md): An order or request for both supply of the medication and the instructions for administration of the medication to a patient. The resource is called MedicationRequest rather than MedicationPrescription or MedicationOrder to generalize the use across inpatient and outpatient settings, including care…
+- [MedicationStatement](https://docs.metriport.com/medical-api/fhir/resources/medicationstatement.md): A record of a medication that is being consumed by a patient.   A MedicationStatement may indicate that the patient may be taking the medication now or has taken the medication in the past or will be taking the medication in the future.  The source of this information can be the patient, significant…
+- [Observation](https://docs.metriport.com/medical-api/fhir/resources/observation.md): Measurements and simple assertions made about a patient, device or other subject.
+- [OperationOutcome](https://docs.metriport.com/medical-api/fhir/resources/operationoutcome.md): A collection of error, warning, or information messages that result from a system action.
+- [Organization](https://docs.metriport.com/medical-api/fhir/resources/organization.md): A formally or informally recognized grouping of people or organizations formed for the purpose of achieving some form of collective action.  Includes companies, institutions, corporations, departments, community groups, healthcare practice groups, payer/insurer, etc.
+- [Patient](https://docs.metriport.com/medical-api/fhir/resources/patient.md): Demographics and other administrative information about an individual or animal receiving care or other health-related services.
+- [Practitioner](https://docs.metriport.com/medical-api/fhir/resources/practitioner.md): A person who is directly or indirectly involved in the provisioning of healthcare.
+- [PractitionerRole](https://docs.metriport.com/medical-api/fhir/resources/practitionerrole.md): A specific set of Roles/Locations/specialties/services that a practitioner may perform at an organization for a period of time.
+- [Procedure](https://docs.metriport.com/medical-api/fhir/resources/procedure.md): An action that is or was performed on or for a patient. This can be a physical intervention like an operation, or less invasive like long term services, counseling, or hypnotherapy.
+- [Provenance](https://docs.metriport.com/medical-api/fhir/resources/provenance.md): Provenance of a resource is a record that describes entities and processes involved in producing and delivering or otherwise influencing that resource. Provenance provides a critical foundation for assessing authenticity, enabling trust, and allowing reproducibility. Provenance assertions are a form…
+- [RelatedPerson](https://docs.metriport.com/medical-api/fhir/resources/relatedperson.md): Information about a person that is involved in the care for a patient, but who is not the target of healthcare, nor has a formal responsibility in the care process.
+- [ServiceRequest](https://docs.metriport.com/medical-api/fhir/resources/servicerequest.md): A record of a request for service such as diagnostic investigations, treatments, or operations to be performed.
+- [Condition Chronicity](https://docs.metriport.com/medical-api/fhir/extensions/chronicity.md): Indicates whether a medical condition is chronic or not.
+- [Overview](https://docs.metriport.com/medical-api/fhir/coding-systems/overview.md): Learn about medical coding systems and how we apply them.
+- [CCSR](https://docs.metriport.com/medical-api/fhir/coding-systems/ccsr.md): Learn about Clinical Classifications Software Refined (CCSR) for ICD-10-CM Diagnoses.
+- [OpenAPI](https://docs.metriport.com/medical-api/api-tools/open-api.md): Comprehensive guide to Metriport's API structure, including schemas, endpoints, and integration tools
+- [Postman](https://docs.metriport.com/medical-api/api-tools/postman.md): Explore Metriport's Medical API using Postman
+- [Software Development Kit](https://docs.metriport.com/medical-api/api-tools/sdk.md): How to access the Medical API using our SDK
+- [General Information](https://docs.metriport.com/medical-api/more-info/general-info.md): General information about Metriport's Medical API
+- [Error Responses](https://docs.metriport.com/medical-api/more-info/error-responses.md): Learn more about our standardized error responses.
+- [SAML/Enterprise SSO](https://docs.metriport.com/medical-api/more-info/sso.md): Guide to setting up SAML/Enterprise SSO.
+- [User Roles & Permissions](https://docs.metriport.com/medical-api/more-info/user-roles.md): Manage Users and Roles in Metriport
+- [Avoid mid-air collisions](https://docs.metriport.com/medical-api/more-info/etag.md): ETag support to prevent mid-air collisions
+- [Limits and throttling](https://docs.metriport.com/medical-api/more-info/limits.md): Information about Metriport's limits related to request size and request frequency.
+- [Start Document Query (Legacy)](https://docs.metriport.com/medical-api/legacy-api-reference/document/start-document-query.md): Triggers a document query for the specified patient across HIEs.
+- [Get Document Query Status (Legacy)](https://docs.metriport.com/medical-api/legacy-api-reference/document/get-document-query.md): Returns the document query status for the specified patient.
+- [Receiving Webhooks (Legacy)](https://docs.metriport.com/medical-api/handling-data/webhooks.md): Receive status updates as soon as data becomes available.
+- [Overview](https://docs.metriport.com/ehr-apps/overview.md)
+- [Athena](https://docs.metriport.com/ehr-apps/athena.md)
+- [Canvas](https://docs.metriport.com/ehr-apps/canvas.md)
+- [Elation](https://docs.metriport.com/ehr-apps/elation.md)
+- [Healthie](https://docs.metriport.com/ehr-apps/healthie.md)
+- [Salesforce](https://docs.metriport.com/ehr-apps/salesforce.md)
+- [Epic](https://docs.metriport.com/ehr-apps/epic.md)
+- [Practice Fusion](https://docs.metriport.com/ehr-apps/practice-fusion.md)
+- [eClinicalWorks](https://docs.metriport.com/ehr-apps/eclinicalworks.md)
+- [FHIR Converter API](https://docs.metriport.com/converter-api/getting-started/quickstart.md): Follow this guide to get started converting C-CDA documents to FHIR.
+- [Convert C-CDA to FHIR R4](https://docs.metriport.com/converter-api/api-reference/ccda/ccda-to-fhir.md): Converts the provided C-CDA document to a FHIR R4 Bundle.

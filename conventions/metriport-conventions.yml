@@ -1,0 +1,157 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://docs.metriport.com/medical-api/more-info/general-info,
+  /more-info/error-responses, /more-info/etag, /more-info/limits,
+  /handling-data/pagination, /getting-started/api-keys,
+  /getting-started/webhooks — the cross-cutting request/response semantics that
+  apply to every Medical API operation and that the captured OpenAPI does not
+  express.
+description: >-
+  How Metriport's Medical API behaves across every operation: authentication
+  style, concurrency control, pagination, error envelope, versioning, webhook
+  signing and rate-limit signalling. Two things stand out for an integrator.
+  First, there is no request idempotency: Metriport ships optimistic
+  concurrency (ETag/If-Match, 412) for updates, but no Idempotency-Key, so a
+  retried POST can duplicate work. Second, rate limits are published as a table
+  in prose with no response headers documented, so a client cannot discover its
+  remaining budget at runtime.
+
+base_url: https://api.metriport.com
+sandbox_base_url: https://api.sandbox.metriport.com
+api_style: REST over HTTPS, JSON requests and responses
+
+authentication:
+  scheme: API key in a request header
+  header: x-api-key
+  key_types: [production, sandbox]
+  rotation: Up to two keys active at once, both with full access, so keys rotate with zero downtime.
+  scoping: >-
+    None. The key grants full access to the account including destructive
+    operations; there are no scoped or restricted keys.
+  docs: https://docs.metriport.com/medical-api/getting-started/api-keys
+  detail: authentication/metriport-authentication.yml
+
+idempotency:
+  supported: false
+  mechanism: null
+  note: >-
+    Metriport documents no Idempotency-Key header and no request-replay
+    semantics for the Medical API. The only idempotency requirement in the docs
+    runs the other way: YOUR webhook endpoint must be idempotent because
+    Metriport may deliver the same payload more than once. Retrying a failed
+    POST against the API is not safe by contract.
+  docs: https://docs.metriport.com/medical-api/getting-started/webhooks
+
+concurrency:
+  supported: true
+  mechanism: ETag / optimistic locking
+  detail: >-
+    Resources returned by the Medical API carry an eTag property. Send it back
+    on an update either in the If-Match header or as an eTag property in the
+    request body — the header wins if both are present. If it does not match the
+    stored value the update is aborted with 412 Precondition Failed. Omitting
+    the ETag skips the check entirely and the update proceeds. The Node SDK
+    forwards the ETag automatically when an object read with get/list is passed
+    to the matching update.
+  status_on_conflict: 412
+  caching: Not supported — the eTag is used only for mid-air-collision prevention, not HTTP caching.
+  docs: https://docs.metriport.com/medical-api/more-info/etag
+
+pagination:
+  style: cursor
+  applies_to: >-
+    List endpoints — patients, documents, messages, cohorts, network entries,
+    care gaps, suspects.
+  request_params:
+    count: Items per page. Optional, defaults to 50, maximum 500.
+    fromItem: ID of the first item to include in the page. Optional.
+    toItem: ID of the last item to include. Optional, otherwise computed from fromItem and count.
+  constraint: Only two of count / fromItem / toItem may be specified on a single request.
+  response_envelope:
+    items_key: Named for the resource being listed — patients, documents, and so on.
+    meta.itemsOnPage: Number of items on the current page.
+    meta.itemsInTotal: Total across all pages. Optional, present only on the first page.
+    meta.nextPage: Absolute URL of the next page. Absent on the last page.
+    meta.prevPage: Absolute URL of the previous page. Absent on the first page.
+  sdk: listXPage(url) follows a nextPage URL directly; the detailed form takes the parameters individually.
+  docs: https://docs.metriport.com/medical-api/handling-data/pagination
+
+errors:
+  envelope: '{ "status": number, "name": string, "title": string, "detail": string }'
+  media_type: application/json
+  standard_claimed: RFC 7807 (Problem Details) — "based on" per the docs
+  rfc9457: false
+  note: >-
+    The shape is RFC 7807-inspired but not conformant: the field names are
+    status/name/title/detail rather than type/title/status/detail, there is no
+    type URI, and the response is served as application/json rather than
+    application/problem+json.
+  detail_artifact: errors/metriport-problem-types.yml
+  docs: https://docs.metriport.com/medical-api/more-info/error-responses
+
+versioning:
+  scheme: URI path
+  current: v1
+  example: https://api.metriport.com/medical/v1/patient
+  header: null
+  note: >-
+    No version request header and no dated versioning. A "legacy" section of the
+    API reference carries superseded document-query operations alongside the
+    current ones — see lifecycle/metriport-lifecycle.yml.
+
+rate_limits:
+  published: true
+  signalling_headers: none documented
+  status_on_exhaustion: not documented
+  note: >-
+    Per-operation limits are published as a table in the docs, but no
+    X-RateLimit-* or RateLimit-* response headers and no exhaustion status code
+    are documented, so a client cannot read its remaining budget at runtime.
+    Escalation is by email to support@metriport.com.
+  detail: rate-limits/metriport-rate-limits.yml
+  docs: https://docs.metriport.com/medical-api/more-info/limits
+
+async_model:
+  pattern: request-then-webhook
+  detail: >-
+    Long-running work — network queries, consolidated data queries, bulk patient
+    create, bulk document download — returns immediately and delivers results to
+    a webhook URL configured on the developer dashboard or via the Update
+    Settings operation. Several operations also expose a status GET for polling.
+  detail_artifact: asyncapi/metriport-webhooks.yml
+
+webhooks:
+  signature_header: x-metriport-signature
+  algorithm: HMAC-SHA256 over the raw request body, keyed with the account webhook key
+  requirements:
+    - Public HTTPS endpoint, no redirects (redirects are not followed)
+    - Accepts POST
+    - Responds 200 in under 4 seconds
+    - 'Answers the ping handshake with {"pong": "<random-sequence>"}'
+    - Is idempotent — the same payload may arrive more than once
+  retries: >-
+    No automatic retries. Failed deliveries are stored and replayed manually
+    from the dashboard or via the Retry Webhook operation.
+  tracing: Every message carries meta.messageId and, for async flows, meta.requestId.
+  metadata_passthrough: >-
+    Data passed to the initiating API call is echoed back on the webhook as
+    meta.data. Not present on real-time patient notifications.
+  docs: https://docs.metriport.com/medical-api/getting-started/webhooks
+
+request_tracing:
+  header: null
+  body_fields: [meta.messageId, meta.requestId]
+  note: >-
+    Correlation identifiers appear on webhook payloads rather than as response
+    headers on the synchronous API. Async operations return a requestId in the
+    response body which later reappears on the matching webhook.
+
+data_formats:
+  clinical: FHIR R4 (consolidated data), C-CDA R2.1 (converter input, document exchange)
+  documents: PDF, TIFF, JPEG and XML retrieved via presigned S3 download URLs
+  timestamps: ISO-8601 UTC
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

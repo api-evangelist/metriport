@@ -1,0 +1,101 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://docs.metriport.com/medical-api/getting-started/sandbox,
+  https://docs.metriport.com/medical-api/more-info/general-info,
+  https://docs.metriport.com/medical-api/getting-started/api-keys,
+  https://docs.metriport.com/medical-api/getting-started/embedding
+description: >-
+  Metriport ships a real sandbox on a separate host with its own keys and its own
+  de-identified clinical data. What makes it unusual is the fixture mechanism:
+  there are no test tokens or magic numbers, there are named test PATIENTS.
+  Create a patient whose FIRST NAME matches one of five published personas and
+  the sandbox populates it with that persona's C-CDA, FHIR resources, PDFs and
+  images — roughly six documents per patient.
+docs:
+  - https://docs.metriport.com/medical-api/getting-started/sandbox
+  - https://docs.metriport.com/medical-api/getting-started/api-keys
+modes:
+  - name: sandbox
+    base_url: https://api.sandbox.metriport.com
+    embedded_app_url: https://ehr.sandbox.metriport.com/embed/app
+    activation: >-
+      Toggle the Sandbox switch in the developer dashboard navbar, then generate
+      a key on the Developers page. Sandbox and production keys are separate and
+      not interchangeable.
+  - name: production
+    base_url: https://api.metriport.com
+    embedded_app_url: https://ehr.metriport.com/embed/app
+key_formats:
+  note: >-
+    Metriport does not publish a distinguishing key prefix for sandbox versus
+    production keys. Environment is selected by base URL and by which mode the
+    key was minted in, not by an inspectable prefix.
+  header: x-api-key
+  max_active_keys: 2
+test_data:
+  mechanism: first-name-matched personas
+  detail: >-
+    A patient created in sandbox mode whose firstName matches a persona below is
+    populated with that persona's example clinical data. A consolidated-data
+    query with a conversionType for any non-persona patient always returns a
+    pre-defined file.
+  contents_per_patient:
+    - C-CDA documents (XML)
+    - FHIR resources (JSON)
+    - De-identified unstructured clinical documents (PDF)
+    - De-identified images (TIFF, JPEG)
+  approximate_documents_per_patient: 6
+  personas:
+    - firstName: Jane
+      lastName: Smith
+      dob: '1996-02-10'
+      genderAtBirth: F
+      address: {addressLine1: 123 Arsenal St, city: Phoenix, state: AZ, zip: '85300', country: USA}
+      clinical_profile: History of depression and other mental health conditions.
+    - firstName: Chris
+      lastName: Smith
+      dob: '1995-01-01'
+      genderAtBirth: M
+      address: {addressLine1: 123 Atlantis Rd, city: Chicago, state: IL, zip: '60601', country: USA}
+      clinical_profile: Chronic kidney disease (CKD).
+    - firstName: Ollie
+      lastName: Brown
+      dob: '1946-03-18'
+      genderAtBirth: M
+      address: {addressLine1: 201 Armada St, city: Harrisburg, state: PA, zip: '15300', country: USA}
+      clinical_profile: Generalized anxiety disorder (GAD).
+    - firstName: Andreas
+      lastName: Brown
+      dob: '1952-01-01'
+      genderAtBirth: M
+      address: {addressLine1: 4430 York St, city: Jefferson City, state: MO, zip: '64000', country: USA}
+      clinical_profile: Type 2 diabetes and kidney disease.
+    - firstName: Kyla
+      lastName: Fields
+      dob: '1927-05-23'
+      genderAtBirth: F
+      address: {addressLine1: 332 16th St, city: Portland, state: ME, zip: '04000', country: USA}
+      clinical_profile: Chronic hypertension and diabetes.
+  provenance_note: >-
+    These demographics are published verbatim by Metriport as de-identified test
+    fixtures. They are not real patients and carry no PHI.
+webhook_testing:
+  available: true
+  location: Metriport dashboard, webhook settings, "Test events" section
+  events: [Patient Admit, Patient Transfer, Patient Discharge]
+  mechanism: Select a notification type and click Send Payload to POST a realistic event to the configured webhook URL.
+time_simulation:
+  supported: false
+  note: No test clocks or time-travel tooling is documented.
+fixture_cli:
+  supported: false
+  note: No CLI trigger tooling; fixtures are driven entirely by persona first names and the dashboard test-events control.
+production_access:
+  note: >-
+    Sandbox access is self-serve after account creation. Production access is
+    requested from Metriport (see the quickstart's "Request Production access"
+    step) — the API is not self-serve end to end.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

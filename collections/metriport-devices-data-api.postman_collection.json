@@ -1,0 +1,549 @@
+{
+  "item": [
+    {
+      "id": "16cde9c5-731b-4b7c-8c18-d4173d064e01",
+      "name": "Devices Data",
+      "description": {
+        "content": "Devices API normalized health data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c26161e8-4afb-42cf-9c75-e3534e65a27e",
+          "name": "Get Activity Data",
+          "request": {
+            "name": "Get Activity Data",
+            "description": {
+              "content": "Retrieves normalized activity data for a user on a given date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "activity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "(Required) The Metriport user ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) The day to fetch data for, in YYYY-MM-DD format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c27ae064-306e-4b57-a267-a183dfc79144",
+              "name": "An array of normalized activity data per provider.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "activity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"metadata\": {\n      \"date\": \"2001-06-18\",\n      \"source\": \"string\"\n    },\n    \"biometrics\": {},\n    \"activity\": {},\n    \"body\": {},\n    \"nutrition\": {},\n    \"sleep\": {}\n  },\n  {\n    \"metadata\": {\n      \"date\": \"2015-12-26\",\n      \"source\": \"string\"\n    },\n    \"biometrics\": {},\n    \"activity\": {},\n    \"body\": {},\n    \"nutrition\": {},\n    \"sleep\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9a71399-da8d-4b88-bc46-4c921de9730f",
+          "name": "Get Biometrics Data",
+          "request": {
+            "name": "Get Biometrics Data",
+            "description": {
+              "content": "Retrieves normalized biometrics data (heart rate, HRV, respiration, blood pressure, glucose, temperature) for a user on a given date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "biometrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "(Required) The Metriport user ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) The day to fetch data for, in YYYY-MM-DD format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "85c55c2e-eb7f-4834-a5af-17985e3008af",
+              "name": "An array of normalized biometrics data per provider.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "biometrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"metadata\": {\n      \"date\": \"2001-06-18\",\n      \"source\": \"string\"\n    },\n    \"biometrics\": {},\n    \"activity\": {},\n    \"body\": {},\n    \"nutrition\": {},\n    \"sleep\": {}\n  },\n  {\n    \"metadata\": {\n      \"date\": \"2015-12-26\",\n      \"source\": \"string\"\n    },\n    \"biometrics\": {},\n    \"activity\": {},\n    \"body\": {},\n    \"nutrition\": {},\n    \"sleep\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "318f403c-ab4e-43cb-8786-99f4c1efae8c",
+          "name": "Get Body Data",
+          "request": {
+            "name": "Get Body Data",
+            "description": {
+              "content": "Retrieves normalized body data (weight, height, body fat) for a user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "body"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "(Required) The Metriport user ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) The day to fetch data for, in YYYY-MM-DD format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "23e05734-4e1e-4d2a-b685-603ca18f5f61",
+              "name": "An array of normalized body data per provider.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "body"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"metadata\": {\n      \"date\": \"2001-06-18\",\n      \"source\": \"string\"\n    },\n    \"biometrics\": {},\n    \"activity\": {},\n    \"body\": {},\n    \"nutrition\": {},\n    \"sleep\": {}\n  },\n  {\n    \"metadata\": {\n      \"date\": \"2015-12-26\",\n      \"source\": \"string\"\n    },\n    \"biometrics\": {},\n    \"activity\": {},\n    \"body\": {},\n    \"nutrition\": {},\n    \"sleep\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "596083e8-31ca-4ad8-9542-141d31b363d5",
+          "name": "Get Nutrition Data",
+          "request": {
+            "name": "Get Nutrition Data",
+            "description": {
+              "content": "Retrieves normalized nutrition data for a user on a given date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "nutrition"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "(Required) The Metriport user ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) The day to fetch data for, in YYYY-MM-DD format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "561f7a6a-b85d-42e6-a955-1ca13017a880",
+              "name": "An array of normalized nutrition data per provider.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nutrition"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"metadata\": {\n      \"date\": \"2001-06-18\",\n      \"source\": \"string\"\n    },\n    \"biometrics\": {},\n    \"activity\": {},\n    \"body\": {},\n    \"nutrition\": {},\n    \"sleep\": {}\n  },\n  {\n    \"metadata\": {\n      \"date\": \"2015-12-26\",\n      \"source\": \"string\"\n    },\n    \"biometrics\": {},\n    \"activity\": {},\n    \"body\": {},\n    \"nutrition\": {},\n    \"sleep\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc68a71e-6adc-410a-914f-d7e696365d7e",
+          "name": "Get Sleep Data",
+          "request": {
+            "name": "Get Sleep Data",
+            "description": {
+              "content": "Retrieves normalized sleep data for a user on a given date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sleep"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "(Required) The Metriport user ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) The day to fetch data for, in YYYY-MM-DD format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6c82be81-804e-4c4d-858b-3a076288bdae",
+              "name": "An array of normalized sleep data per provider.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sleep"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"metadata\": {\n      \"date\": \"2001-06-18\",\n      \"source\": \"string\"\n    },\n    \"biometrics\": {},\n    \"activity\": {},\n    \"body\": {},\n    \"nutrition\": {},\n    \"sleep\": {}\n  },\n  {\n    \"metadata\": {\n      \"date\": \"2015-12-26\",\n      \"source\": \"string\"\n    },\n    \"biometrics\": {},\n    \"activity\": {},\n    \"body\": {},\n    \"nutrition\": {},\n    \"sleep\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.metriport.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4f4b8b43-6c70-4404-91a8-29d127a9886c",
+    "name": "Metriport Consolidated Devices Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data; the Devices API hydrates activity, biometrics, nutrition, and sleep data from connected wearables and mHealth apps. This specification documents the hosted Metriport cloud surface at https://api.metriport.com. The same code may be self-hosted from the open-source repository.\n\nContact Support:\n Name: Metriport Support\n Email: contact@metriport.com",
+      "type": "text/plain"
+    }
+  }
+}

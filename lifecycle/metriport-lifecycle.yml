@@ -1,0 +1,108 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://docs.metriport.com/medical-api/more-info/general-info,
+  https://docs.metriport.com/llms.txt (the full published page index),
+  https://status.metriport.com, https://api.github.com/repos/metriport/metriport/releases,
+  and direct HTTP probes of the documentation paths currently referenced from
+  apis.yml — all run 2026-08-14.
+description: >-
+  Metriport versions in the URI path and publishes no deprecation policy, no
+  changelog and no release notes. Two retirements have nonetheless happened and
+  are visible only by absence: the entire Devices API is gone from the
+  documentation, and the document-query operations have been moved into a
+  "legacy" section beneath a newer Network Query surface. Neither was announced
+  anywhere a machine can read.
+versioning:
+  scheme: uri-path
+  current: v1
+  example: https://api.metriport.com/medical/v1/patient
+  header: null
+  docs: https://docs.metriport.com/medical-api/more-info/general-info
+  notes: >-
+    A single unversioned major. No dated versions, no version request header, no
+    account pinning.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  notes: >-
+    No deprecation policy page, no notice period, and no RFC 8594
+    Sunset/Deprecation response headers are documented. Removals are performed
+    by deleting documentation.
+retired:
+  - surface: Devices API
+    evidence:
+      - url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+        status: 404
+        checked: '2026-08-14'
+      - note: >-
+          The published documentation index (llms.txt) and the docs filesystem
+          tree contain no devices-api section at all. The docs now hold only
+          medical-api, converter-api and ehr-apps.
+    affected_artifacts:
+      - openapi/metriport-user-api-openapi.yml
+      - openapi/metriport-devices-data-api-openapi.yml
+      - arazzo/metriport-wearables-connect-workflow.yml
+    affected_operations: [createDevicesUser, getConnectToken, revokeUserAccess, getActivity, getBiometrics, getBody, getNutrition, getSleep]
+    announced: false
+    notes: >-
+      The wearables/mHealth surface (Connect Widget, activity, biometrics, body,
+      nutrition, sleep) that Metriport built its first product on is no longer
+      documented. The company's public positioning is now entirely medical
+      records exchange. Treat these operations as retired unless Metriport says
+      otherwise; they remain in the captured OpenAPI, which predates the change.
+  - surface: Document Query (start/status)
+    status: legacy
+    evidence:
+      - note: >-
+          Moved to /medical-api/legacy-api-reference/document/ and labelled
+          "(Legacy)" on the rate-limits table. Superseded by the Network Query
+          surface at /medical-api/api-reference/network/start-network-query,
+          which queries HIE, pharmacy and lab sources.
+    affected_operations: [startDocumentQuery, getDocumentQueryStatus]
+    announced: false
+  - surface: Webhooks (original guide)
+    status: legacy
+    evidence:
+      - note: >-
+          /medical-api/handling-data/webhooks.md is published as "Receiving
+          Webhooks (Legacy)"; the current guide is
+          /medical-api/handling-data/webhooks-with-nq.md.
+added_since_capture:
+  note: >-
+    The documentation now publishes operation families absent from openapi/:
+    cohorts, analytics (HEDIS care gaps, condition suspects), network query,
+    secure message delivery, Individual Access Services (IAS) identity
+    sessions, bulk patient create, bulk document download, patient/facility
+    association, HIE opt-out, treatment relationship, and embed tokens. The
+    repo's OpenAPI is therefore a subset of the live surface.
+  source: https://docs.metriport.com/llms.txt
+changelog:
+  published: false
+  url: null
+  github_releases: https://github.com/metriport/metriport/releases
+  notes: >-
+    The GitHub repository stopped publishing tagged releases on 2024-03-27
+    (v5.84.0) while the npm packages continued shipping through 2026-07-30, so
+    the release feed is not a usable changelog either. No docs changelog page
+    exists (docs.metriport.com/changelog returns 404).
+sla:
+  url: null
+  public_uptime_target: null
+  notes: >-
+    No public uptime commitment. Availability terms are handled in the
+    commercial agreement; see plans/metriport-plans-pricing.yml.
+status_page:
+  url: https://status.metriport.com
+  http_status: 200
+  checked: '2026-08-14'
+support:
+  email: support@metriport.com
+  contact: https://www.metriport.com/contact-us
+  security: https://github.com/metriport/metriport/security
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

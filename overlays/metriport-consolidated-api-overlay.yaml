@@ -1,0 +1,35 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Metriport Consolidated API
+  version: 1.0.0
+  x-generated: '2026-08-14'
+  x-method: generated
+  x-source: 'Extends openapi/metriport-consolidated-api-openapi.yml with the runtime semantics Metriport
+    documents in prose but does not express in a machine-readable contract: published per-operation rate
+    limits, ETag concurrency, cursor pagination, the error envelope, and the retirement status of the
+    Devices API operations. The original OpenAPI is never mutated.'
+extends: openapi/metriport-consolidated-api-openapi.yml
+actions:
+- target: $.info
+  description: Record the cross-cutting runtime semantics Metriport documents outside the spec.
+  update:
+    x-conventions: conventions/metriport-conventions.yml
+    x-errors: errors/metriport-problem-types.yml
+    x-lifecycle: lifecycle/metriport-lifecycle.yml
+    x-rate-limits: rate-limits/metriport-rate-limits.yml
+    x-webhooks: asyncapi/metriport-webhooks.yml
+    x-error-envelope: Every failure returns {"status","name","title","detail"} as application/json. RFC
+      7807-inspired, not RFC 7807 or RFC 9457 conformant. See https://docs.metriport.com/medical-api/more-info/error-responses
+    x-idempotency: Not supported. Metriport documents no Idempotency-Key header; retrying a POST is not
+      safe by contract. Updates use ETag/If-Match optimistic concurrency instead (412 on mismatch).
+    x-rate-limit-headers: None published. No X-RateLimit-* or RateLimit-* response headers and no documented
+      status code on exhaustion.
+- target: $.paths['/medical/v1/patient/{id}/consolidated/query'].post
+  description: Annotate startConsolidatedQuery.
+  update:
+    x-rate-limit:
+      limit: '120'
+      window: minute
+      rate: 2 every 1 second
+      scope: account
+      source: https://docs.metriport.com/medical-api/more-info/limits

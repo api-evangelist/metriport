@@ -1,0 +1,146 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://docs.metriport.com (FHIR resource reference, error-responses, etag,
+  pagination, sso, webhooks, converter-api quickstart),
+  https://www.metriport.com (published security claims),
+  https://github.com/metriport/metriport, and openapi/*.yml securitySchemes.
+description: >-
+  Which industry and cross-cutting standards Metriport actually conforms to.
+  The healthcare interoperability side is strong and load-bearing — FHIR R4,
+  C-CDA R2.1, and live participation in CommonWell and Carequality via IHE
+  profiles. The web-API side is thin: no OAuth, no OIDC, no RFC 9457, no
+  request idempotency, no machine-readable discovery.
+standards:
+  - id: fhir-r4
+    conforms: true
+    evidence: >-
+      Consolidated patient data is returned as FHIR R4 bundles and the docs
+      publish a per-resource reference under /medical-api/fhir/resources/
+      (Bundle, DiagnosticReport and the rest). The converter API returns a FHIR
+      R4 Bundle. @metriport/fhir-sdk exists specifically to parse these bundles.
+  - id: hl7-ccda-r21
+    conforms: true
+    evidence: >-
+      The FHIR Converter API accepts a C-CDA R2.1 XML ClinicalDocument and
+      converts it to a FHIR R4 Bundle
+      (https://docs.metriport.com/converter-api/getting-started/quickstart).
+      The open-source monorepo ships packages/fhir-converter and
+      packages/cda-validator.
+  - id: ihe-xcpd-xca
+    conforms: true
+    evidence: >-
+      The monorepo implements an IHE Gateway (packages/core/.../ihe-gateway-v2,
+      @metriport/ihe-gateway-sdk) with SAML signing for cross-community patient
+      discovery and document exchange; this is the transport underneath the
+      CommonWell and Carequality connections.
+  - id: commonwell
+    conforms: true
+    evidence: >-
+      @metriport/commonwell-sdk plus a commonwell-cert-runner package in the
+      monorepo — certification tooling implies a certified connection.
+  - id: carequality
+    conforms: true
+    evidence: >-
+      @metriport/carequality-sdk plus a carequality-cert-runner package in the
+      monorepo.
+  - id: hl7-v2-adt
+    conforms: true
+    evidence: >-
+      Real-time patient notifications deliver ADT (admit/transfer/discharge)
+      events as patient.* webhooks, and the monorepo ships packages/mllp-server
+      with HL7 notification infrastructure in the CDK deploy workflows.
+  - id: hipaa
+    conforms: true
+    evidence: >-
+      "We are a certified HIPAA and SOC 2 Type 2 compliant organization"
+      published on https://www.metriport.com. BAA terms are a commercial-
+      agreement item. See security/metriport-trust-center.yml.
+  - id: soc2-type2
+    conforms: true
+    evidence: >-
+      SOC 2 Type II named on https://www.metriport.com alongside an external
+      audit claim and Vanta for automated compliance monitoring. No report or
+      attestation letter is published to an unauthenticated visitor.
+  - id: saml2
+    conforms: true
+    evidence: >-
+      Enterprise SSO into the Metriport dashboard via SAML with named IdP
+      guides for Google, Okta, Azure, OneLogin, JumpCloud, Duo and Rippling
+      (https://docs.metriport.com/medical-api/more-info/sso). Dashboard access
+      only — the API itself is not SAML-authenticated.
+  - id: http-etag-optimistic-concurrency
+    conforms: true
+    evidence: >-
+      eTag on resources, If-Match on updates, 412 Precondition Failed on
+      mismatch (https://docs.metriport.com/medical-api/more-info/etag).
+  - id: pagination
+    conforms: true
+    evidence: >-
+      Cursor pagination with count/fromItem/toItem and meta.nextPage/prevPage,
+      default 50 and maximum 500 per page
+      (https://docs.metriport.com/medical-api/handling-data/pagination).
+  - id: hmac-webhook-signing
+    conforms: true
+    evidence: >-
+      x-metriport-signature carries an HMAC-SHA256 of the raw body keyed with
+      the account webhook key, with worked verification samples in TypeScript
+      and Python.
+  - id: rfc7807
+    conforms: false
+    evidence: >-
+      The docs say the error format is "based on RFC 7807", but the wire format
+      uses status/name/title/detail with no type URI and is served as
+      application/json. Inspired by, not conformant to.
+  - id: rfc9457
+    conforms: false
+    evidence: No application/problem+json anywhere in the documentation or the captured OpenAPI.
+  - id: idempotency
+    conforms: false
+    evidence: >-
+      No Idempotency-Key header and no request-replay semantics are documented.
+      The only idempotency requirement is imposed on the CONSUMER's webhook
+      endpoint. See conventions/metriport-conventions.yml.
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      Single static API key in an x-api-key header; no oauth2 securityScheme in
+      openapi/*.yml and no authorization-server metadata on any host.
+  - id: oidc
+    conforms: false
+    evidence: /.well-known/openid-configuration returns 403 on the API hosts and 404 elsewhere (well-known/metriport-well-known.yml).
+  - id: scim
+    conforms: false
+    evidence: No SCIM user-provisioning endpoint is documented; SSO is SAML-only and users are managed in the dashboard.
+  - id: rfc8594-sunset
+    conforms: false
+    evidence: No Sunset or Deprecation headers and no deprecation policy (lifecycle/metriport-lifecycle.yml).
+  - id: openapi
+    conforms: partial
+    evidence: >-
+      Metriport's API definition is authored in Fern's own DSL at
+      github.com/metriport/metriport/tree/develop/fern/definition and the docs
+      page /medical-api/api-tools/open-api points there. No OpenAPI document is
+      published at any URL — probes of /openapi.json, /openapi.yaml,
+      /swagger.json and /api-docs on api.metriport.com return 403 and on
+      docs.metriport.com return 404. The OpenAPI in openapi/ is API Evangelist's
+      capture, not a provider artifact.
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      A rich webhook event catalogue is published as prose tables; no AsyncAPI
+      document exists. Captured in asyncapi/metriport-webhooks.yml.
+  - id: mcp
+    conforms: true
+    evidence: >-
+      Remote MCP endpoint at https://docs.metriport.com/mcp answers tools/list
+      anonymously (mcp/metriport-mcp.yml). Documentation scope only.
+  - id: a2a
+    conforms: true
+    evidence: >-
+      A2A agent card served at https://docs.metriport.com/.well-known/agent-card.json,
+      graded conformant against the 1.0.0 hard checks while declaring
+      protocolVersion 0.3 (a2a/metriport-a2a.yml).
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

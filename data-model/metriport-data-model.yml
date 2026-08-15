@@ -1,0 +1,74 @@
+generated: '2026-08-14'
+method: derived
+source: >-
+  Derived from the schemas and path parameters in
+  openapi/_original/metriport-openapi.yml and the split specs in openapi/,
+  enriched from the object descriptions in
+  https://docs.metriport.com/medical-api/api-reference/ and the published event
+  payloads in asyncapi/metriport-webhooks.yml.
+description: >-
+  The entity-relationship graph behind the Medical API. The spine is short —
+  Organization owns Facilities, a Facility is where a Patient receives care, and
+  everything clinical hangs off the Patient. What Metriport does not have is an
+  id-prefix scheme: every identifier is a bare UUID, so an id carries no type
+  information and objects cannot be distinguished by inspection the way
+  Stripe-style prefixed ids allow.
+docs: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+notation: >-
+  relationships use has_one / has_many / belongs_to with the referencing field
+  name; direction is from the entity that holds the reference.
+id_scheme:
+  format: UUID (v4/v7), unprefixed
+  note: >-
+    Externally-owned identifiers are carried alongside as externalId on Patient
+    so a caller can map to their own system. Sandbox examples show ids of the
+    form 00000000-0000-0000-0000-000000000000.
+
+entities:
+  - {name: Organization, domain: account, description: The account-level entity; the Metriport customer. Implicit in every request via the API key.}
+  - {name: Facility, domain: account, description: A place of care under the organization. Carries name, npi, tin, active and an address.}
+  - {name: Patient, domain: core, description: A person receiving care. Demographics (firstName, lastName, dob, genderAtBirth), contact, address, externalId, plus personalIdentifiers used for network matching.}
+  - {name: Address, domain: core, description: Value object — addressLine1/2, city, state, zip, country. Embedded in Patient and Facility.}
+  - {name: Contact, domain: core, description: Value object — phone and email. Embedded in Patient.}
+  - {name: DocumentQuery, domain: documents, description: An async job that queries the networks for a patient's documents. Reports download and convert Progress. Legacy — superseded by NetworkQuery.}
+  - {name: Progress, domain: documents, description: Value object — status, total, successful, errors. Embedded in DocumentQuery.}
+  - {name: DocumentReference, domain: documents, description: A retrieved clinical document — id, fileName, description, status, contentType, size, indexed. Downloaded via a presigned URL.}
+  - {name: ConsolidatedQuery, domain: fhir, description: An async job producing consolidated FHIR R4 data — requestId, status, conversionType, startedAt.}
+  - {name: ConsolidatedData, domain: fhir, description: The FHIR R4 Bundle of deduplicated, standardised resources for a patient.}
+  - {name: NetworkQuery, domain: networks, description: An async query fanned out to HIE, pharmacy and lab sources; one webhook per source. Documented but absent from the captured OpenAPI.}
+  - {name: Cohort, domain: cohorts, description: A named grouping of patients; the unit real-time patient notifications are configured on. Documented but absent from the captured OpenAPI.}
+  - {name: Message, domain: messaging, description: A secure clinical message sent to or received from another practitioner. Documented but absent from the captured OpenAPI.}
+  - {name: Settings, domain: account, description: Account settings — id, webhookUrl, webhookKey, webhookEnabled.}
+  - {name: EmbedToken, domain: embedding, description: Short-lived token authorising the hosted embedded app; max 10 hours.}
+  - {name: DevicesUser, domain: devices, description: A wearables end-user — userId, appUserId, connectedProviders. RETIRED, see lifecycle.}
+  - {name: DevicesData, domain: devices, description: Normalised activity, biometrics, body, nutrition and sleep readings. RETIRED, see lifecycle.}
+
+relationships:
+  - {from: Organization, to: Facility, type: has_many, via: implicit (account scope)}
+  - {from: Organization, to: Settings, type: has_one, via: implicit (account scope)}
+  - {from: Patient, to: Facility, type: belongs_to, via: facilityId}
+  - {from: Patient, to: Address, type: has_many, via: address}
+  - {from: Patient, to: Contact, type: has_many, via: contact}
+  - {from: Facility, to: Address, type: has_one, via: address}
+  - {from: DocumentQuery, to: Patient, type: belongs_to, via: patientId}
+  - {from: DocumentQuery, to: Progress, type: has_many, via: download / convert}
+  - {from: DocumentReference, to: Patient, type: belongs_to, via: patientId}
+  - {from: ConsolidatedQuery, to: Patient, type: belongs_to, via: patientId (path parameter)}
+  - {from: ConsolidatedData, to: ConsolidatedQuery, type: belongs_to, via: requestId}
+  - {from: NetworkQuery, to: Patient, type: belongs_to, via: patientId}
+  - {from: Cohort, to: Patient, type: has_many, via: cohort membership}
+  - {from: Patient, to: Cohort, type: has_many, via: cohortIds}
+  - {from: Message, to: Patient, type: belongs_to, via: patientId}
+  - {from: DevicesData, to: DevicesUser, type: belongs_to, via: userId}
+  - {from: DevicesUser, to: Organization, type: belongs_to, via: implicit (account scope)}
+
+concurrency:
+  field: eTag
+  note: Patient and Facility carry an eTag used for If-Match optimistic locking on update. See conventions/metriport-conventions.yml.
+
+render: null
+render_note: No subway/ diagram exists for this provider yet; this file is the machine-readable graph.
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

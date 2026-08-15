@@ -1,0 +1,153 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Metriport Consolidated Patient API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Patient",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Patients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/patient",
+            "params": [
+              {
+                "name": "facilityId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all Patients receiving care at the specified Facility."
+        },
+        {
+          "info": {
+            "name": "Create Patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.metriport.com/medical/v1/patient",
+            "params": [
+              {
+                "name": "facilityId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Facility where the patient is receiving care."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Patient in Metriport for the specified Facility where the patient is receiving care."
+        },
+        {
+          "info": {
+            "name": "Get Patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/patient/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Metriport Patient ID."
+              }
+            ]
+          },
+          "docs": "Gets a Patient by their Metriport ID."
+        },
+        {
+          "info": {
+            "name": "Update Patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.metriport.com/medical/v1/patient/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Metriport Patient ID."
+              },
+              {
+                "name": "facilityId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the specified Patient's demographics."
+        },
+        {
+          "info": {
+            "name": "Delete Patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.metriport.com/medical/v1/patient/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Metriport Patient ID."
+              },
+              {
+                "name": "facilityId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Removes the specified Patient."
+        },
+        {
+          "info": {
+            "name": "Match Patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.metriport.com/medical/v1/patient/match",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Searches for an existing Patient that matches the provided demographics without creating a new one."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,61 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Metriport Consolidated Devices Data API
+  version: 1.0.0
+  x-generated: '2026-08-14'
+  x-method: generated
+  x-source: 'Extends openapi/metriport-devices-data-api-openapi.yml with the runtime semantics Metriport
+    documents in prose but does not express in a machine-readable contract: published per-operation rate
+    limits, ETag concurrency, cursor pagination, the error envelope, and the retirement status of the
+    Devices API operations. The original OpenAPI is never mutated.'
+extends: openapi/metriport-devices-data-api-openapi.yml
+actions:
+- target: $.info
+  description: Record the cross-cutting runtime semantics Metriport documents outside the spec.
+  update:
+    x-conventions: conventions/metriport-conventions.yml
+    x-errors: errors/metriport-problem-types.yml
+    x-lifecycle: lifecycle/metriport-lifecycle.yml
+    x-rate-limits: rate-limits/metriport-rate-limits.yml
+    x-webhooks: asyncapi/metriport-webhooks.yml
+    x-error-envelope: Every failure returns {"status","name","title","detail"} as application/json. RFC
+      7807-inspired, not RFC 7807 or RFC 9457 conformant. See https://docs.metriport.com/medical-api/more-info/error-responses
+    x-idempotency: Not supported. Metriport documents no Idempotency-Key header; retrying a POST is not
+      safe by contract. Updates use ETag/If-Match optimistic concurrency instead (412 on mismatch).
+    x-rate-limit-headers: None published. No X-RateLimit-* or RateLimit-* response headers and no documented
+      status code on exhaustion.
+- target: $.paths['/activity'].get
+  description: Annotate getActivity.
+  update:
+    deprecated: true
+    x-status: retired
+    x-evidence: Devices API documentation returns HTTP 404 as of 2026-08-14 and no devices-api section
+      appears in the published docs index. See lifecycle/metriport-lifecycle.yml.
+- target: $.paths['/biometrics'].get
+  description: Annotate getBiometrics.
+  update:
+    deprecated: true
+    x-status: retired
+    x-evidence: Devices API documentation returns HTTP 404 as of 2026-08-14 and no devices-api section
+      appears in the published docs index. See lifecycle/metriport-lifecycle.yml.
+- target: $.paths['/body'].get
+  description: Annotate getBody.
+  update:
+    deprecated: true
+    x-status: retired
+    x-evidence: Devices API documentation returns HTTP 404 as of 2026-08-14 and no devices-api section
+      appears in the published docs index. See lifecycle/metriport-lifecycle.yml.
+- target: $.paths['/nutrition'].get
+  description: Annotate getNutrition.
+  update:
+    deprecated: true
+    x-status: retired
+    x-evidence: Devices API documentation returns HTTP 404 as of 2026-08-14 and no devices-api section
+      appears in the published docs index. See lifecycle/metriport-lifecycle.yml.
+- target: $.paths['/sleep'].get
+  description: Annotate getSleep.
+  update:
+    deprecated: true
+    x-status: retired
+    x-evidence: Devices API documentation returns HTTP 404 as of 2026-08-14 and no devices-api section
+      appears in the published docs index. See lifecycle/metriport-lifecycle.yml.

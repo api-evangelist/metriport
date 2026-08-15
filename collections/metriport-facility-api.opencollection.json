@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Metriport Consolidated Facility API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Facility",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Facilities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/facility"
+          },
+          "docs": "Lists all Facilities under your Organization."
+        },
+        {
+          "info": {
+            "name": "Create Facility",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.metriport.com/medical/v1/facility",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Facility under your Organization."
+        },
+        {
+          "info": {
+            "name": "Get Facility",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/facility/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Metriport Facility ID."
+              }
+            ]
+          },
+          "docs": "Get Facility"
+        },
+        {
+          "info": {
+            "name": "Update Facility",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.metriport.com/medical/v1/facility/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Metriport Facility ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Facility"
+        },
+        {
+          "info": {
+            "name": "Delete Facility",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.metriport.com/medical/v1/facility/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Metriport Facility ID."
+              }
+            ]
+          },
+          "docs": "Delete Facility"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

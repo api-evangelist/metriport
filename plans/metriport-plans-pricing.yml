@@ -4,8 +4,28 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Metriport
 providerId: metriport
 created: '2026-06-21'
-modified: '2026-06-21'
+modified: '2026-08-14'
+generated: '2026-08-14'
+method: searched
+source: https://www.metriport.com/pricing
 reconciled: false
+x-probe:
+  checked: '2026-08-14'
+  evidence:
+  - url: https://www.metriport.com/pricing
+    status: 200
+    finding: >-
+      The pricing page carries no tiers, no prices, no quotas and no limits — it
+      is a "Get in Touch" demo-request form. Metriport publishes no rate card of
+      any kind; every hosted-cloud number below is a historical or
+      contact-sales figure, not a published one.
+  - url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
+    status: 404
+    finding: >-
+      The Devices API is no longer documented, so the Devices API Cloud plan
+      below describes a retired product. See lifecycle/metriport-lifecycle.yml.
+  public_rate_card: false
+  self_serve_purchase: false
 tags:
 - Healthcare
 - Medical Records
@@ -83,6 +103,11 @@ plans:
   - name: Medical Record Summary
 - id: metriport-devices-cloud
   name: Devices API Cloud
+  status: retired
+  statusNote: >-
+    Not documented as of 2026-08-14 — the devices-api documentation section
+    returns 404 and no longer appears in the published docs index. Retained here
+    as a historical record.
   type: usage
   description: >-
     Hosted Devices API that hydrates activity, biometrics, body, nutrition, and

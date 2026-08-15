@@ -1,0 +1,697 @@
+{
+  "item": [
+    {
+      "id": "20d40cbf-8fcb-41ca-94aa-81e6678270a0",
+      "name": "Patient",
+      "description": {
+        "content": "Medical API patient management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1a9b4393-fadc-4886-9a2f-6011a8054aab",
+          "name": "Create Patient",
+          "request": {
+            "name": "Create Patient",
+            "description": {
+              "content": "Creates a Patient in Metriport for the specified Facility where the patient is receiving care.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "medical",
+                "v1",
+                "patient"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "facilityId",
+                  "value": "<string>",
+                  "description": "(Required) The ID of the Facility where the patient is receiving care."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"dob\": \"<date>\",\n  \"genderAtBirth\": \"<string>\",\n  \"address\": [\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    },\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    }\n  ],\n  \"externalId\": \"<string>\",\n  \"contact\": [\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    },\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "023665a4-78be-424f-b1d0-71b545b8eadc",
+              "name": "The created Patient.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medical",
+                    "v1",
+                    "patient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "facilityId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"dob\": \"<date>\",\n  \"genderAtBirth\": \"<string>\",\n  \"address\": [\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    },\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    }\n  ],\n  \"externalId\": \"<string>\",\n  \"contact\": [\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    },\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"dob\": \"<date>\",\n  \"genderAtBirth\": \"<string>\",\n  \"address\": [\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    },\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    }\n  ],\n  \"id\": \"string\",\n  \"facilityIds\": [\n    \"string\",\n    \"string\"\n  ],\n  \"externalId\": \"<string>\",\n  \"contact\": [\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    },\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61d29b9a-7349-4391-b671-353d1018a77a",
+          "name": "List Patients",
+          "request": {
+            "name": "List Patients",
+            "description": {
+              "content": "Lists all Patients receiving care at the specified Facility.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "medical",
+                "v1",
+                "patient"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "facilityId",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b1719cd-741b-4414-90ce-a2600b7cf876",
+              "name": "A list of Patients.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medical",
+                    "v1",
+                    "patient"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "facilityId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"patients\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dob\": \"<date>\",\n      \"genderAtBirth\": \"<string>\",\n      \"address\": [\n        {\n          \"addressLine1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"USA\",\n          \"addressLine2\": \"<string>\"\n        },\n        {\n          \"addressLine1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"USA\",\n          \"addressLine2\": \"<string>\"\n        }\n      ],\n      \"id\": \"string\",\n      \"facilityIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"externalId\": \"<string>\",\n      \"contact\": [\n        {\n          \"phone\": \"<string>\",\n          \"email\": \"<email>\"\n        },\n        {\n          \"phone\": \"<string>\",\n          \"email\": \"<email>\"\n        }\n      ]\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dob\": \"<date>\",\n      \"genderAtBirth\": \"<string>\",\n      \"address\": [\n        {\n          \"addressLine1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"USA\",\n          \"addressLine2\": \"<string>\"\n        },\n        {\n          \"addressLine1\": \"<string>\",\n          \"city\": \"<string>\",\n          \"state\": \"<string>\",\n          \"zip\": \"<string>\",\n          \"country\": \"USA\",\n          \"addressLine2\": \"<string>\"\n        }\n      ],\n      \"id\": \"string\",\n      \"facilityIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"externalId\": \"<string>\",\n      \"contact\": [\n        {\n          \"phone\": \"<string>\",\n          \"email\": \"<email>\"\n        },\n        {\n          \"phone\": \"<string>\",\n          \"email\": \"<email>\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18d379ae-3190-4edf-9453-d329986a9738",
+          "name": "Get Patient",
+          "request": {
+            "name": "Get Patient",
+            "description": {
+              "content": "Gets a Patient by their Metriport ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "medical",
+                "v1",
+                "patient",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The Metriport Patient ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79851003-6b46-4cd0-ab38-278409c19899",
+              "name": "The requested Patient.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medical",
+                    "v1",
+                    "patient",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Metriport Patient ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"dob\": \"<date>\",\n  \"genderAtBirth\": \"<string>\",\n  \"address\": [\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    },\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    }\n  ],\n  \"id\": \"string\",\n  \"facilityIds\": [\n    \"string\",\n    \"string\"\n  ],\n  \"externalId\": \"<string>\",\n  \"contact\": [\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    },\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7b5d191-1303-4cb9-9897-3b7b36efd494",
+          "name": "Update Patient",
+          "request": {
+            "name": "Update Patient",
+            "description": {
+              "content": "Updates the specified Patient's demographics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "medical",
+                "v1",
+                "patient",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "facilityId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The Metriport Patient ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"dob\": \"<date>\",\n  \"genderAtBirth\": \"<string>\",\n  \"address\": [\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    },\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    }\n  ],\n  \"externalId\": \"<string>\",\n  \"contact\": [\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    },\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e637d098-99df-4c98-9619-ddcda06afce4",
+              "name": "The updated Patient.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medical",
+                    "v1",
+                    "patient",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "facilityId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Metriport Patient ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"dob\": \"<date>\",\n  \"genderAtBirth\": \"<string>\",\n  \"address\": [\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    },\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    }\n  ],\n  \"externalId\": \"<string>\",\n  \"contact\": [\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    },\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"dob\": \"<date>\",\n  \"genderAtBirth\": \"<string>\",\n  \"address\": [\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    },\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    }\n  ],\n  \"id\": \"string\",\n  \"facilityIds\": [\n    \"string\",\n    \"string\"\n  ],\n  \"externalId\": \"<string>\",\n  \"contact\": [\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    },\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "baf1b9b2-01ab-46d1-b9f3-577b3f223e83",
+          "name": "Delete Patient",
+          "request": {
+            "name": "Delete Patient",
+            "description": {
+              "content": "Removes the specified Patient.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "medical",
+                "v1",
+                "patient",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "facilityId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The Metriport Patient ID."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9ae5ce6d-ea87-4909-b052-5d82cc8c3845",
+              "name": "Patient deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medical",
+                    "v1",
+                    "patient",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "facilityId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The Metriport Patient ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bdcbf75b-38b1-4ad9-99bf-f81f530acc63",
+          "name": "Match Patient",
+          "request": {
+            "name": "Match Patient",
+            "description": {
+              "content": "Searches for an existing Patient that matches the provided demographics without creating a new one.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "medical",
+                "v1",
+                "patient",
+                "match"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"dob\": \"<date>\",\n  \"genderAtBirth\": \"<string>\",\n  \"address\": [\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    },\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    }\n  ],\n  \"externalId\": \"<string>\",\n  \"contact\": [\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    },\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "628a2ef3-c100-460d-bea1-7f7a8b7b0cc2",
+              "name": "The matched Patient, if found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medical",
+                    "v1",
+                    "patient",
+                    "match"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"dob\": \"<date>\",\n  \"genderAtBirth\": \"<string>\",\n  \"address\": [\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    },\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    }\n  ],\n  \"externalId\": \"<string>\",\n  \"contact\": [\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    },\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"dob\": \"<date>\",\n  \"genderAtBirth\": \"<string>\",\n  \"address\": [\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    },\n    {\n      \"addressLine1\": \"<string>\",\n      \"city\": \"<string>\",\n      \"state\": \"<string>\",\n      \"zip\": \"<string>\",\n      \"country\": \"USA\",\n      \"addressLine2\": \"<string>\"\n    }\n  ],\n  \"id\": \"string\",\n  \"facilityIds\": [\n    \"string\",\n    \"string\"\n  ],\n  \"externalId\": \"<string>\",\n  \"contact\": [\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    },\n    {\n      \"phone\": \"<string>\",\n      \"email\": \"<email>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.metriport.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6f75fb4a-b240-4839-8613-68609f7ad52f",
+    "name": "Metriport Consolidated Patient API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data; the Devices API hydrates activity, biometrics, nutrition, and sleep data from connected wearables and mHealth apps. This specification documents the hosted Metriport cloud surface at https://api.metriport.com. The same code may be self-hosted from the open-source repository.\n\nContact Support:\n Name: Metriport Support\n Email: contact@metriport.com",
+      "type": "text/plain"
+    }
+  }
+}

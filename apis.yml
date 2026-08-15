@@ -2,12 +2,11 @@ aid: metriport
 url: https://raw.githubusercontent.com/api-evangelist/metriport/refs/heads/main/apis.yml
 name: Metriport
 kind: company
-description: Metriport is an open-source, universal API for healthcare data. The Medical
-  API exchanges patient medical records across the CommonWell and Carequality networks
-  and returns consolidated FHIR R4 data, while the Devices API hydrates activity, biometrics,
-  nutrition, and sleep data from consumer wearables and mHealth apps. Companies can
-  use the hosted Metriport cloud or self-host the open-source code to avoid vendor
-  lock-in.
+description: Metriport is an open-source, universal API for healthcare data. The Medical API exchanges
+  patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR
+  R4 data, while the Devices API hydrates activity, biometrics, nutrition, and sleep data from consumer
+  wearables and mHealth apps. Companies can use the hosted Metriport cloud or self-host the open-source
+  code to avoid vendor lock-in.
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -30,7 +29,7 @@ tags:
 - Wearables
 - Open Source
 created: '2026-06-21'
-modified: '2026-06-21'
+modified: '2026-08-14'
 specificationVersion: '0.19'
 apis:
 - aid: metriport:metriport-consolidated-api
@@ -64,13 +63,11 @@ apis:
   - type: APIReference
     url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
   - type: Documentation
-    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  - type: APIReference
-    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  - type: Documentation
     url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
   - type: APIReference
     url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+  - type: Overlay
+    url: overlays/metriport-consolidated-api-overlay.yaml
 - aid: metriport:metriport-devices-data-api
   name: Metriport Devices Data API
   description: Devices API normalized health data.
@@ -102,13 +99,11 @@ apis:
   - type: APIReference
     url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
   - type: Documentation
-    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  - type: APIReference
-    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  - type: Documentation
     url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
   - type: APIReference
     url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+  - type: Overlay
+    url: overlays/metriport-devices-data-api-overlay.yaml
 - aid: metriport:metriport-document-api
   name: Metriport Document API
   description: Medical API clinical document query and retrieval.
@@ -140,13 +135,11 @@ apis:
   - type: APIReference
     url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
   - type: Documentation
-    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  - type: APIReference
-    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  - type: Documentation
     url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
   - type: APIReference
     url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+  - type: Overlay
+    url: overlays/metriport-document-api-overlay.yaml
 - aid: metriport:metriport-facility-api
   name: Metriport Facility API
   description: Medical API facility management.
@@ -178,13 +171,11 @@ apis:
   - type: APIReference
     url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
   - type: Documentation
-    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  - type: APIReference
-    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  - type: Documentation
     url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
   - type: APIReference
     url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+  - type: Overlay
+    url: overlays/metriport-facility-api-overlay.yaml
 - aid: metriport:metriport-patient-api
   name: Metriport Patient API
   description: Medical API patient management.
@@ -216,13 +207,11 @@ apis:
   - type: APIReference
     url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
   - type: Documentation
-    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  - type: APIReference
-    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  - type: Documentation
     url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
   - type: APIReference
     url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+  - type: Overlay
+    url: overlays/metriport-patient-api-overlay.yaml
 - aid: metriport:metriport-settings-api
   name: Metriport Settings API
   description: Account settings and webhooks.
@@ -254,13 +243,11 @@ apis:
   - type: APIReference
     url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
   - type: Documentation
-    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  - type: APIReference
-    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  - type: Documentation
     url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
   - type: APIReference
     url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+  - type: Overlay
+    url: overlays/metriport-settings-api-overlay.yaml
 - aid: metriport:metriport-user-api
   name: Metriport User API
   description: Devices API user and connect management.
@@ -292,13 +279,11 @@ apis:
   - type: APIReference
     url: https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post
   - type: Documentation
-    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  - type: APIReference
-    url: https://docs.metriport.com/devices-api/getting-started/connect-quickstart
-  - type: Documentation
     url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
   - type: APIReference
     url: https://docs.metriport.com/medical-api/api-reference/settings/get-settings
+  - type: Overlay
+    url: overlays/metriport-user-api-overlay.yaml
 common:
 - type: AgenticAccess
   url: agentic-access/metriport-agentic-access.yml
@@ -324,18 +309,89 @@ common:
   workflows:
   - url: arazzo/metriport-consolidated-fhir-query-workflow.yml
     name: Metriport Consolidated FHIR Query
-    summary: "Register a patient, start a consolidated FHIR R4 query for the requested resources, poll until conversion completes, then count the consolidated data."
+    summary: Register a patient, start a consolidated FHIR R4 query for the requested resources, poll
+      until conversion completes, then count the consolidated data.
   - url: arazzo/metriport-patient-document-retrieval-workflow.yml
     name: Metriport Patient Document Retrieval
-    summary: "Register a patient, trigger an IHE document query across the networks, poll until retrieval completes, list the resulting documents, and obtain a signed download URL."
+    summary: Register a patient, trigger an IHE document query across the networks, poll until retrieval
+      completes, list the resulting documents, and obtain a signed download URL.
   - url: arazzo/metriport-patient-matching-workflow.yml
     name: Metriport Patient Matching
-    summary: "Create a facility, register a patient under it, then run an MPI demographic match to resolve an existing patient record."
+    summary: Create a facility, register a patient under it, then run an MPI demographic match to resolve
+      an existing patient record.
   - url: arazzo/metriport-wearables-connect-workflow.yml
     name: Metriport Wearables Connect
-    summary: "Create a devices user, mint a Connect Widget session token, then pull the user's activity and biometrics data from connected wearables."
+    summary: Create a devices user, mint a Connect Widget session token, then pull the user's activity
+      and biometrics data from connected wearables.
 - url: https://www.metriport.com/blog
   type: Blog
+- type: Packages
+  url: packages/metriport-packages.yml
+- type: SDKs
+  url: packages/metriport-packages.yml
+- type: WellKnown
+  url: well-known/metriport-well-known.yml
+- type: MCPServer
+  url: mcp/metriport-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/metriport-tool-crosswalk.yml
+- type: AgentCard
+  url: a2a/metriport-a2a.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/metriport-llms.txt
+- type: Conformance
+  url: conformance/metriport-conformance.yml
+- type: Compliance
+  url: security/metriport-trust-center.yml
+- type: TrustCenter
+  url: security/metriport-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/metriport-vulnerability-disclosure.yml
+- type: Security
+  url: security/metriport-vulnerability-disclosure.yml
+- type: ErrorCatalog
+  url: errors/metriport-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/metriport-lifecycle.yml
+- type: Conventions
+  url: conventions/metriport-conventions.yml
+- type: Sandbox
+  url: sandbox/metriport-sandbox.yml
+- type: Components
+  url: components/metriport-components.yml
+- type: DataModel
+  url: data-model/metriport-data-model.yml
+- type: Webhooks
+  url: asyncapi/metriport-webhooks.yml
+- type: StatusPage
+  url: https://status.metriport.com
+- type: DeveloperPortal
+  url: https://dash.metriport.com/developers
+- type: GettingStarted
+  url: https://docs.metriport.com/medical-api/getting-started/quickstart
+- type: APIReference
+  url: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
+- type: Support
+  url: https://www.metriport.com/contact-us
+- type: Pricing
+  url: https://www.metriport.com/pricing
+- type: SignUp
+  url: https://dash.metriport.com
+- type: TermsOfService
+  url: https://www.metriport.com/terms
+- type: PrivacyPolicy
+  url: https://www.metriport.com/privacy-policy
+- type: Postman
+  url: https://www.postman.com/metriport/metriport-api/folder/7zl228v/medical
+- type: SourceCode
+  url: https://github.com/metriport/metriport
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-14'
+  status: enriched
+  artifacts_added: 30
+  pass: local-v1

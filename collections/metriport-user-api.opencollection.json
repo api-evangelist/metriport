@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Metriport Consolidated User API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.metriport.com/user",
+            "params": [
+              {
+                "name": "appUserId",
+                "value": "",
+                "type": "query",
+                "description": "An ID that uniquely identifies the user in your application."
+              }
+            ]
+          },
+          "docs": "Creates a Metriport user that connected wearable and mHealth data will be associated with."
+        },
+        {
+          "info": {
+            "name": "Get Connect Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/user/connect/token",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "The Metriport user ID."
+              }
+            ]
+          },
+          "docs": "Generates a session token for the Metriport Connect Widget so an end user can link their wearables and mHealth apps."
+        },
+        {
+          "info": {
+            "name": "Revoke User Access",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.metriport.com/user/revoke",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Revokes a connected provider's access for a Metriport user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

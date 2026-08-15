@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Metriport Consolidated API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Consolidated",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Consolidated Data Query Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/patient/:id/consolidated/query",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Metriport Patient ID."
+              }
+            ]
+          },
+          "docs": "Get Consolidated Data Query Status"
+        },
+        {
+          "info": {
+            "name": "Start Consolidated Data Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.metriport.com/medical/v1/patient/:id/consolidated/query",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Metriport Patient ID."
+              },
+              {
+                "name": "resources",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of FHIR resource types to include."
+              },
+              {
+                "name": "dateFrom",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateTo",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "conversionType",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Triggers a query that assembles the Patient's consolidated FHIR data bundle. Results are delivered asynchronously via webhook."
+        },
+        {
+          "info": {
+            "name": "Count Patient Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/patient/:id/consolidated/count",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Metriport Patient ID."
+              },
+              {
+                "name": "resources",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the count of a Patient's consolidated FHIR resources, optionally filtered by resource type and date."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

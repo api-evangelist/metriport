@@ -1,0 +1,63 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  metriport-medical-api-skill.md was fetched verbatim from
+  https://docs.metriport.com/.well-known/agent-skills/metriport/skill.md
+  (HTTP 200, text/markdown, 2026-08-14) — it is Metriport's OWN published Agent
+  Skill, referenced from skills[0].url of its A2A agent card
+  (a2a/metriport-a2a.yml). The remaining three skills are API Evangelist
+  generations, grounded in operationIds verified verbatim in openapi/*.yml and
+  mirroring the workflows in arazzo/.
+description: >-
+  Metriport is one of the small number of providers in this catalogue that
+  publishes an Agent Skill itself. That file is kept unmodified. The generated
+  skills sit alongside it and cover the three flows an integrator actually has
+  to get right: the consolidated FHIR query, document retrieval, and webhook
+  onboarding — which is a prerequisite for both of the others, because every
+  long-running Metriport operation returns its result on a webhook.
+skills:
+  - file: metriport-medical-api-skill.md
+    name: Metriport
+    method: searched
+    provider_published: true
+    source_url: https://docs.metriport.com/.well-known/agent-skills/metriport/skill.md
+    fetched: '2026-08-14'
+    http_status: 200
+    api: null
+    operations: []
+    note: >-
+      Verbatim provider artifact. Covers product summary, when-to-use, base URLs,
+      the x-api-key header, and the primary operation families (patient CRUD,
+      facility CRUD, network query, consolidated data query, message delivery,
+      webhook management). Not modified in any way.
+  - file: metriport-consolidated-fhir-query.md
+    name: Query a patient's consolidated FHIR data
+    method: generated
+    api: openapi/metriport-consolidated-api-openapi.yml
+    operations: [createPatient, startConsolidatedQuery, getConsolidatedQueryStatus, countConsolidatedData]
+    mirrors: arazzo/metriport-consolidated-fhir-query-workflow.yml
+  - file: metriport-patient-document-retrieval.md
+    name: Retrieve a patient's clinical documents
+    method: generated
+    api: openapi/metriport-document-api-openapi.yml
+    operations: [createPatient, startDocumentQuery, getDocumentQueryStatus, listDocuments, getDocumentUrl]
+    mirrors: arazzo/metriport-patient-document-retrieval-workflow.yml
+    note: Carries a status warning — the document-query operations are documented as legacy, superseded by Network Query.
+  - file: metriport-webhook-onboarding.md
+    name: Wire up and verify Metriport webhooks
+    method: generated
+    api: openapi/metriport-settings-api-openapi.yml
+    operations: [updateSettings, getSettings, getWebhookStatus, retryWebhookRequests]
+    mirrors: asyncapi/metriport-webhooks.yml
+not_generated:
+  - workflow: arazzo/metriport-wearables-connect-workflow.yml
+    reason: >-
+      The Devices API it exercises is no longer documented (HTTP 404 as of
+      2026-08-14). Writing a skill that teaches an agent to call a retired
+      surface would be worse than writing none. See
+      lifecycle/metriport-lifecycle.yml.
+  - workflow: arazzo/metriport-patient-matching-workflow.yml
+    reason: Covered by the patient/facility steps in the two generated data skills; a separate skill would duplicate them.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

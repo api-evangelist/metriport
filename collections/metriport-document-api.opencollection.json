@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Metriport Consolidated Document API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Document Query Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/document/query",
+            "params": [
+              {
+                "name": "patientId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get Document Query Status"
+        },
+        {
+          "info": {
+            "name": "Start Document Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.metriport.com/medical/v1/document/query",
+            "params": [
+              {
+                "name": "patientId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "facilityId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Triggers a network query across the HIE networks to discover and download the available clinical documents for a Patient. Results are delivered asynchronously via webhook."
+        },
+        {
+          "info": {
+            "name": "List Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/document",
+            "params": [
+              {
+                "name": "patientId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateFrom",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateTo",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists the available clinical documents (FHIR DocumentReferences) for a Patient that have been retrieved from the networks."
+        },
+        {
+          "info": {
+            "name": "Get Document URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.metriport.com/medical/v1/document/download-url",
+            "params": [
+              {
+                "name": "fileName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "conversionType",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a signed URL to download a specific document referenced by its file name."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

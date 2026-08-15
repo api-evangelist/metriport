@@ -1,0 +1,58 @@
+generated: '2026-08-14'
+method: probed
+source: >-
+  https://security.metriport.com (probed 2026-08-14, HTTP 200) and
+  https://www.metriport.com (the security section of the marketing homepage,
+  which is where the named certifications actually are).
+description: >-
+  Metriport runs a trust center at security.metriport.com and links to it from
+  the homepage. The certifications themselves are stated on the marketing site,
+  not in the trust center — the trust center is a client-rendered React
+  application that ships a 604-byte HTML shell with an empty #root div, so an
+  unauthenticated non-JavaScript client (including every agent and crawler)
+  reads zero certifications from it. Nothing was extractable from the JS bundle
+  either: no SOC, HIPAA, ISO or subprocessor strings appear in it, so the
+  content is fetched at runtime from an endpoint not discoverable anonymously.
+trust_center:
+  url: https://security.metriport.com
+  http_status: 200
+  content_type: text/html
+  machine_readable: false
+  rendering: client-side (React/Vite SPA, empty #root, no server-rendered content)
+  shell_bytes: 604
+  linked_from: https://www.metriport.com
+certifications:
+  - name: SOC 2 Type II
+    status: claimed
+    evidence_url: https://www.metriport.com
+    evidence_quote: >-
+      "We are a certified HIPAA and SOC 2 Type 2 compliant organization, and
+      follow best industry-best practices such as MFA."
+    report_available: not publicly — no attestation letter, report or NDA-gated request flow is reachable anonymously
+  - name: HIPAA
+    status: claimed
+    evidence_url: https://www.metriport.com
+    evidence_quote: '"HIPAA Compliant" / "a certified HIPAA and SOC 2 Type 2 compliant organization"'
+    note: >-
+      HIPAA has no certification body, so "certified HIPAA compliant" is a
+      marketing formulation rather than a third-party attestation. BAA terms are
+      a commercial-agreement item (plans/metriport-plans-pricing.yml).
+controls_claimed:
+  - Externally audited
+  - Fully encrypted
+  - MFA
+  - VPN
+compliance_automation:
+  vendor: Vanta
+  evidence: https://www.vanta.com/ is linked from the security section of https://www.metriport.com ("uses Third Party Standards for automated compliance monitoring").
+not_found:
+  - ISO 27001
+  - HITRUST
+  - PCI DSS
+  - FedRAMP
+  - GDPR statement
+  - Published subprocessor list
+  - Downloadable or NDA-gated report request
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

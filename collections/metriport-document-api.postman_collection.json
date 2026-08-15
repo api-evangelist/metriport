@@ -1,0 +1,465 @@
+{
+  "item": [
+    {
+      "id": "24c68e58-131f-41bb-b02b-03b0393f81a9",
+      "name": "Document",
+      "description": {
+        "content": "Medical API clinical document query and retrieval.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "02d6880d-b0a5-422b-8fbe-d79c7bce0098",
+          "name": "Start Document Query",
+          "request": {
+            "name": "Start Document Query",
+            "description": {
+              "content": "Triggers a network query across the HIE networks to discover and download the available clinical documents for a Patient. Results are delivered asynchronously via webhook.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "medical",
+                "v1",
+                "document",
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "patientId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "facilityId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19f88ce7-7583-4207-9b53-c5ef63ab1872",
+              "name": "The document query progress object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medical",
+                    "v1",
+                    "document",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "patientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "facilityId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"download\": {\n    \"status\": \"completed\",\n    \"total\": 7608,\n    \"successful\": 3222,\n    \"errors\": 4752\n  },\n  \"convert\": {\n    \"status\": \"failed\",\n    \"total\": 2594,\n    \"successful\": 458,\n    \"errors\": 8024\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a44ceacc-dfb1-4fec-9328-96c1f99922b3",
+          "name": "Get Document Query Status",
+          "request": {
+            "name": "Get Document Query Status",
+            "description": {},
+            "url": {
+              "path": [
+                "medical",
+                "v1",
+                "document",
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "patientId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "73eccd3d-8c69-4199-bcd7-45d37a88175e",
+              "name": "The current document query progress.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medical",
+                    "v1",
+                    "document",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "patientId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"download\": {\n    \"status\": \"completed\",\n    \"total\": 7608,\n    \"successful\": 3222,\n    \"errors\": 4752\n  },\n  \"convert\": {\n    \"status\": \"failed\",\n    \"total\": 2594,\n    \"successful\": 458,\n    \"errors\": 8024\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1fd7a39-a29d-45e0-a50d-a488cec4c782",
+          "name": "List Documents",
+          "request": {
+            "name": "List Documents",
+            "description": {
+              "content": "Lists the available clinical documents (FHIR DocumentReferences) for a Patient that have been retrieved from the networks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "medical",
+                "v1",
+                "document"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "patientId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "dateFrom",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateTo",
+                  "value": "<date>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4ba56247-946f-4737-93b9-e75af21a8486",
+              "name": "A list of DocumentReferences.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medical",
+                    "v1",
+                    "document"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "patientId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dateFrom",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "dateTo",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"documents\": [\n    {\n      \"id\": \"string\",\n      \"fileName\": \"string\",\n      \"description\": \"string\",\n      \"status\": \"string\",\n      \"contentType\": \"string\",\n      \"size\": 860,\n      \"indexed\": \"1984-09-14T12:03:34.656Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"fileName\": \"string\",\n      \"description\": \"string\",\n      \"status\": \"string\",\n      \"contentType\": \"string\",\n      \"size\": 333,\n      \"indexed\": \"1953-04-04T02:14:04.252Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55227dfc-1c27-4f55-8150-d03ee4f14ddd",
+          "name": "Get Document URL",
+          "request": {
+            "name": "Get Document URL",
+            "description": {
+              "content": "Returns a signed URL to download a specific document referenced by its file name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "medical",
+                "v1",
+                "document",
+                "download-url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fileName",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "conversionType",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8dca316e-8fb7-4b91-ad55-ee67db814af2",
+              "name": "A signed download URL.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medical",
+                    "v1",
+                    "document",
+                    "download-url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fileName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conversionType",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"http://D.dhaGkS3Jnwxm+,VibymWRTycxy9VNNWSYZe+EeZ\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.metriport.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3b8c1b24-e08f-478e-9a72-b96cfa43b33b",
+    "name": "Metriport Consolidated Document API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data; the Devices API hydrates activity, biometrics, nutrition, and sleep data from connected wearables and mHealth apps. This specification documents the hosted Metriport cloud surface at https://api.metriport.com. The same code may be self-hosted from the open-source repository.\n\nContact Support:\n Name: Metriport Support\n Email: contact@metriport.com",
+      "type": "text/plain"
+    }
+  }
+}

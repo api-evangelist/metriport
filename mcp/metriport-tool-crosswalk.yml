@@ -1,0 +1,92 @@
+generated: '2026-08-14'
+method: derived
+source: >-
+  Derived by binding the live MCP tool list captured at
+  https://docs.metriport.com/mcp (mcp/metriport-mcp-tools.json, probed
+  2026-08-14) against the operationIds in openapi/*.yml. No GraphQL surface
+  exists.
+description: >-
+  The crosswalk is empty on purpose, and that is the finding. Metriport's MCP
+  server is a documentation server: all three of its tools operate on the docs
+  corpus, and not one of them binds to a Metriport REST operation. Every one of
+  the 30 operations in the captured OpenAPI is rest_only. An agent pointed at
+  this MCP endpoint can read Metriport's documentation but cannot exercise the
+  Medical API through it — it must fall back to raw HTTP with an x-api-key.
+surfaces:
+  openapi:
+    files:
+      - openapi/metriport-patient-api-openapi.yml
+      - openapi/metriport-facility-api-openapi.yml
+      - openapi/metriport-document-api-openapi.yml
+      - openapi/metriport-consolidated-api-openapi.yml
+      - openapi/metriport-settings-api-openapi.yml
+      - openapi/metriport-user-api-openapi.yml
+      - openapi/metriport-devices-data-api-openapi.yml
+    gated: false
+  graphql: null
+  mcp:
+    url: https://docs.metriport.com/mcp
+    gated: false
+    note: Anonymous tools/list returns 200; tool schemas are public.
+crosswalk: []
+mcp_only:
+  - tool: search_metriport
+    reason: >-
+      Documentation search over the Mintlify-indexed docs corpus. No public REST
+      operation backs it; Metriport publishes no search endpoint.
+  - tool: query_docs_filesystem_metriport
+    reason: >-
+      Read-only virtual filesystem over the documentation pages. Platform
+      capability, not an API operation.
+  - tool: submit_feedback
+    reason: >-
+      Files documentation feedback with the Mintlify docs pipeline. Not a
+      Metriport API operation.
+rest_only:
+  - createPatient
+  - getPatient
+  - listPatients
+  - updatePatient
+  - deletePatient
+  - matchPatient
+  - createFacility
+  - getFacility
+  - listFacilities
+  - updateFacility
+  - deleteFacility
+  - startDocumentQuery
+  - getDocumentQueryStatus
+  - listDocuments
+  - getDocumentUrl
+  - startConsolidatedQuery
+  - getConsolidatedQueryStatus
+  - countConsolidatedData
+  - getSettings
+  - updateSettings
+  - getWebhookStatus
+  - retryWebhookRequests
+  - createDevicesUser
+  - getConnectToken
+  - revokeUserAccess
+  - getActivity
+  - getBiometrics
+  - getBody
+  - getNutrition
+  - getSleep
+coverage:
+  mcp_tools: 3
+  mcp_tools_bound_to_rest: 0
+  rest_operations: 30
+  rest_operations_with_a_tool: 0
+  binding_rate: 0.0
+notes: >-
+  The captured OpenAPI predates the current documentation surface. The docs now
+  also publish cohort, analytics (care gaps and suspects), network query,
+  message delivery, IAS and embed-token operations that are not in openapi/, and
+  no longer publish the Devices API endpoints (createDevicesUser, getConnectToken,
+  revokeUserAccess, getActivity, getBiometrics, getBody, getNutrition, getSleep)
+  — see lifecycle/metriport-lifecycle.yml. The binding rate would still be zero
+  against the newer surface.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,90 @@
+generated: '2026-08-14'
+method: probed
+source: >-
+  Direct HTTP probes of the /.well-known/ discovery surface on every host named
+  in apis.yml (baseURL), the OpenAPI servers[] blocks
+  (https://api.metriport.com, https://api.sandbox.metriport.com), the marketing
+  site and the documentation host, run 2026-08-14. Status is the HTTP code
+  observed at fetch time.
+description: >-
+  Metriport's API hosts do not serve a /.well-known/ surface at all: every path
+  on api.metriport.com and api.sandbox.metriport.com is answered with HTTP 403
+  {"message":"Forbidden"} by the API gateway, which rejects unauthenticated
+  requests before routing. The marketing site answers 404 with an "Invalid
+  .well-known request" page. The one real document on the whole estate is the
+  A2A agent card served by the documentation host — captured verbatim in
+  a2a/metriport-agent-card.json — alongside the agent skill it links to. No
+  security.txt, no OpenID/OAuth metadata, no api-catalog, no ai-plugin.json
+  anywhere.
+hosts:
+  - host: https://api.metriport.com
+    note: API gateway returns 403 Forbidden for every unauthenticated path, including /.well-known/*. Not a 404 — the surface is closed, not absent.
+    documents:
+      - {path: /.well-known/security.txt, status: 403}
+      - {path: /.well-known/openid-configuration, status: 403}
+      - {path: /.well-known/oauth-authorization-server, status: 403}
+      - {path: /.well-known/oauth-protected-resource, status: 403}
+      - {path: /.well-known/api-catalog, status: 403}
+      - {path: /.well-known/ai-plugin.json, status: 403}
+      - {path: /.well-known/agent-card.json, status: 403}
+      - {path: /.well-known/agent.json, status: 403}
+  - host: https://api.sandbox.metriport.com
+    note: Same gateway behaviour as production.
+    documents:
+      - {path: /.well-known/security.txt, status: 403}
+      - {path: /.well-known/openid-configuration, status: 403}
+      - {path: /.well-known/oauth-authorization-server, status: 403}
+      - {path: /.well-known/oauth-protected-resource, status: 403}
+      - {path: /.well-known/api-catalog, status: 403}
+      - {path: /.well-known/ai-plugin.json, status: 403}
+      - {path: /.well-known/agent-card.json, status: 403}
+      - {path: /.well-known/agent.json, status: 403}
+  - host: https://www.metriport.com
+    note: Webflow site; every /.well-known/ path returns a 404 HTML page reading "Invalid .well-known request". Same on the apex https://metriport.com.
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: https://docs.metriport.com
+    note: >-
+      Mintlify-hosted documentation. Serves a real A2A agent card and the agent
+      skill it references; every other well-known path 404s with either "Asset
+      not found" or a Next.js error shell. The 404s are genuine 404s, not an SPA
+      catch-all — the agent-card.json response is application/json and parses as
+      an AgentCard object.
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - path: /.well-known/agent-card.json
+        status: 200
+        type: application/json
+        file: ../a2a/metriport-agent-card.json
+        note: Real A2A AgentCard. Graded in a2a/metriport-a2a.yml.
+      - path: /.well-known/agent-skills/metriport/skill.md
+        status: 200
+        type: text/markdown
+        file: ../skills/metriport-medical-api-skill.md
+        note: Provider-published Agent Skill, referenced from skills[0].url of the agent card. Saved verbatim.
+summary:
+  hosts_probed: 5
+  paths_probed: 42
+  real_documents: 2
+  security_txt: false
+  openid_configuration: false
+  oauth_metadata: false
+  api_catalog: false
+  ai_plugin: false
+  agent_card: true
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

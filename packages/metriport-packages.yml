@@ -1,0 +1,153 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://docs.metriport.com/medical-api/api-tools/sdk and
+  https://raw.githubusercontent.com/metriport/metriport/develop/fern/generators.yml
+  — Metriport generates its client libraries with Fern; generators.yml names the
+  exact publication target for each language (npm @metriport/api-sdk, pypi
+  metriport, maven com.metriport:metriport-java), which is what establishes
+  first-party status here. Versions and publish dates were read from the
+  unauthenticated registry metadata endpoints (registry.npmjs.org,
+  pypi.org/pypi/<pkg>/json, search.maven.org) on 2026-08-14.
+description: >-
+  First-party Metriport client libraries. The Node SDK is the one Metriport
+  documents; the Python and Java SDKs are generated and published by the same
+  Fern pipeline but are materially behind it. The remaining @metriport/* npm
+  packages are the open-source monorepo's network/integration SDKs (CommonWell,
+  Carequality, IHE Gateway, FHIR bundle helpers), published because Metriport
+  self-hosters need them, not because they wrap the public Medical API.
+docs:
+  - https://docs.metriport.com/medical-api/api-tools/sdk
+  - https://docs.metriport.com/medical-api/api-tools/open-api
+  - https://github.com/metriport/metriport
+
+packages:
+  - language: javascript
+    registry: npm
+    name: "@metriport/api-sdk"
+    url: https://www.npmjs.com/package/@metriport/api-sdk
+    source: https://github.com/metriport/metriport-node
+    install: npm install --save @metriport/api-sdk
+    official: true
+    version: 18.20.0
+    published: '2026-07-30'
+    note: >-
+      The documented Medical API SDK. Declared in fern/generators.yml under the
+      node-sdk group (output location npm, package-name @metriport/api-sdk).
+      Implements ETag/If-Match automatically on update calls and ships paginated
+      list*Page helpers.
+  - language: python
+    registry: pypi
+    name: metriport
+    url: https://pypi.org/project/metriport/
+    source: https://github.com/metriport/metriport-python
+    install: pip install metriport
+    official: true
+    version: 9.2.0
+    published: '2025-11-20'
+    note: >-
+      Declared in fern/generators.yml under the python-sdk group (output
+      location pypi, package-name metriport, github repository
+      metriport/metriport-python). Not referenced from the SDK docs page, which
+      says the SDK is "currently only available for Node-based applications" —
+      the Python SDK is published but undocumented, and its last release is
+      roughly eight months behind the Node SDK.
+  - language: java
+    registry: maven
+    name: com.metriport:metriport-java
+    url: https://central.sonatype.com/artifact/com.metriport/metriport-java
+    source: https://github.com/metriport/metriport-java
+    install: 'maven: com.metriport:metriport-java:8.0.0-alpha1'
+    official: true
+    version: 8.0.0-alpha1
+    published: '2023-11-20'
+    note: >-
+      Declared in fern/generators.yml under the java-sdk group (output location
+      maven, coordinate com.metriport:metriport-java). Latest published artifact
+      on Maven Central is an alpha from 2023-11-20 — roughly two years and eight
+      months stale against the Node SDK's 2026-07-30 release, and never promoted
+      out of alpha. Treat the Java SDK as unmaintained.
+  - language: javascript
+    registry: npm
+    name: "@metriport/commonwell-sdk"
+    url: https://www.npmjs.com/package/@metriport/commonwell-sdk
+    source: https://github.com/metriport/metriport
+    install: npm install @metriport/commonwell-sdk
+    official: true
+    version: 8.14.0
+    published: '2026-07-30'
+    note: SDK for the CommonWell Health Alliance network; used by self-hosted deployments, not by hosted-cloud API consumers.
+  - language: javascript
+    registry: npm
+    name: "@metriport/carequality-sdk"
+    url: https://www.npmjs.com/package/@metriport/carequality-sdk
+    source: https://github.com/metriport/metriport
+    install: npm install @metriport/carequality-sdk
+    official: true
+    version: 1.15.0
+    published: '2026-07-30'
+    note: SDK for the Carequality directory.
+  - language: javascript
+    registry: npm
+    name: "@metriport/ihe-gateway-sdk"
+    url: https://www.npmjs.com/package/@metriport/ihe-gateway-sdk
+    source: https://github.com/metriport/metriport
+    install: npm install @metriport/ihe-gateway-sdk
+    official: true
+    version: 0.32.0
+    published: '2026-07-30'
+    note: SDK for interacting with other IHE gateways (XCPD/XCA).
+  - language: javascript
+    registry: npm
+    name: "@metriport/fhir-sdk"
+    url: https://www.npmjs.com/package/@metriport/fhir-sdk
+    source: https://github.com/metriport/metriport
+    install: npm install @metriport/fhir-sdk
+    official: true
+    version: 2.3.0
+    published: '2026-07-30'
+    note: FHIR Bundle SDK for parsing, querying and manipulating the consolidated FHIR bundles the Medical API returns.
+  - language: javascript
+    registry: npm
+    name: "@metriport/shared"
+    url: https://www.npmjs.com/package/@metriport/shared
+    source: https://github.com/metriport/metriport
+    install: npm install @metriport/shared
+    official: true
+    version: 0.37.0
+    published: '2026-07-30'
+    note: Common code shared across the monorepo packages; a transitive dependency rather than an integration entry point.
+  - language: javascript
+    registry: npm
+    name: "@metriport/core"
+    url: https://www.npmjs.com/package/@metriport/core
+    source: https://github.com/metriport/metriport
+    install: npm install @metriport/core
+    official: true
+    version: 1.6.7
+    published: '2023-12-04'
+    note: >-
+      Published once in December 2023 and never again, while the same package
+      continues to be developed in the monorepo. The npm artifact is abandoned;
+      self-hosters build it from source.
+
+not_published:
+  - language: go
+    registry: pkg.go.dev
+    note: >-
+      proxy.golang.org resolves github.com/metriport/metriport as a module only
+      because the monorepo carries Go files; there is no first-party Go client
+      library and no Go SDK target in fern/generators.yml.
+  - language: ruby
+    registry: rubygems
+    note: rubygems.org/api/v1/gems/metriport.json returned 404 on 2026-08-14.
+  - language: rust
+    registry: crates.io
+    note: No first-party crate; crates.io returns 403 to automated clients, checked via absence from fern/generators.yml.
+  - language: dotnet
+    registry: nuget
+    note: No .NET SDK target declared in fern/generators.yml.
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
