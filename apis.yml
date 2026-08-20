@@ -27,6 +27,13 @@ tags:
 - FHIR
 - Health Data
 - Wearables
+- Open-Source
+tags_raw:
+- Healthcare
+- Medical Records
+- FHIR
+- Health Data
+- Wearables
 - Open Source
 created: '2026-06-21'
 modified: '2026-08-14'
@@ -146,6 +153,8 @@ apis:
   humanURL: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
   baseURL: https://api.metriport.com/medical/v1
   tags:
+  - Facilities
+  tags_raw:
   - Facility
   properties:
   - type: OpenAPI
