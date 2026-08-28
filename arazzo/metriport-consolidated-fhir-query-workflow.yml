@@ -11,8 +11,11 @@ info:
     self-contained.
   version: 1.0.0
 sourceDescriptions:
-- name: metriportApi
-  url: ../openapi/metriport-openapi.yml
+- name: consolidatedApi
+  url: ../openapi/metriport-consolidated-api-openapi.yml
+  type: openapi
+- name: patientApi
+  url: ../openapi/metriport-patient-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: consolidated-fhir-query

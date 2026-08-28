@@ -10,8 +10,11 @@ info:
     step inlines its request so the flow is self-contained.
   version: 1.0.0
 sourceDescriptions:
-- name: metriportApi
-  url: ../openapi/metriport-openapi.yml
+- name: devicesDataApi
+  url: ../openapi/metriport-devices-data-api-openapi.yml
+  type: openapi
+- name: userApi
+  url: ../openapi/metriport-user-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: wearables-connect

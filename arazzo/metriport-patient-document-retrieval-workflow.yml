@@ -12,8 +12,11 @@ info:
     inlines its request so the flow is self-contained.
   version: 1.0.0
 sourceDescriptions:
-- name: metriportApi
-  url: ../openapi/metriport-openapi.yml
+- name: documentApi
+  url: ../openapi/metriport-document-api-openapi.yml
+  type: openapi
+- name: patientApi
+  url: ../openapi/metriport-patient-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: patient-document-retrieval
