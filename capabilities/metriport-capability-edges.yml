@@ -1,0 +1,36 @@
+slug: metriport
+provider: Metriport
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Healthcare Providers
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Consolidated
+  spec_file: metriport-consolidated-api-openapi.yml
+  capability_id: BC-2900.60
+  capability_id_l1: BC-2900
+  capability_name: Healthcare Interoperability Operations
+  confidence: 0.75
+  evidence: POST /medical/v1/patient/{id}/consolidated/query "Start Consolidated Data Query"; "exchanges
+    patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR
+    R4 data"
+  reason: Querying and returning consolidated patient records retrieved via health information exchange
+    networks is health information exchange / interoperability operations.
+- tag: Document
+  spec_file: metriport-document-api-openapi.yml
+  capability_id: BC-2900.60
+  capability_id_l1: BC-2900
+  capability_name: Healthcare Interoperability Operations
+  confidence: 0.75
+  evidence: POST /medical/v1/document/query "Start Document Query"; GET /medical/v1/document/download-url
+    "Get Document URL"; schema DocumentReference
+  reason: Document query and retrieval against the CommonWell/Carequality exchange networks is health
+    information exchange operation, not internal release-of-information workflow.

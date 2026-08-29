@@ -307,6 +307,9 @@ apis:
   - type: Overlay
     url: overlays/metriport-user-api-overlay.yaml
 common:
+- type: CapabilityMap
+  url: capabilities/metriport-capability-edges.yml
+  name: Metriport Business Capability Map
 - type: AgenticAccess
   url: agentic-access/metriport-agentic-access.yml
 - type: DomainSecurity
