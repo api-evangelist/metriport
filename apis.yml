@@ -7,6 +7,19 @@ description: Metriport is an open-source, universal API for healthcare data. The
   R4 data, while the Devices API hydrates activity, biometrics, nutrition, and sleep data from consumer
   wearables and mHealth apps. Companies can use the hosted Metriport cloud or self-host the open-source
   code to avoid vendor lock-in.
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
