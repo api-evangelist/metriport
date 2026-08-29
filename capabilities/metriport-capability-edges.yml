@@ -18,19 +18,21 @@ edges:
   capability_id: BC-2900.60
   capability_id_l1: BC-2900
   capability_name: Healthcare Interoperability Operations
-  confidence: 0.75
-  evidence: POST /medical/v1/patient/{id}/consolidated/query "Start Consolidated Data Query"; "exchanges
-    patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR
-    R4 data"
-  reason: Querying and returning consolidated patient records retrieved via health information exchange
-    networks is health information exchange / interoperability operations.
+  confidence: 0.85
+  evidence: POST /medical/v1/patient/{id}/consolidated/query 'Start Consolidated Data Query'; 'The Medical
+    API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated
+    FHIR R4 data'
+  reason: Operations initiate and track queries that retrieve a patient's records across health information
+    exchange networks and return consolidated FHIR data — directly Healthcare Interoperability Operations
+    (HIE connections, FHIR endpoints, patient data sharing).
 - tag: Document
   spec_file: metriport-document-api-openapi.yml
   capability_id: BC-2900.60
   capability_id_l1: BC-2900
   capability_name: Healthcare Interoperability Operations
   confidence: 0.75
-  evidence: POST /medical/v1/document/query "Start Document Query"; GET /medical/v1/document/download-url
-    "Get Document URL"; schema DocumentReference
-  reason: Document query and retrieval against the CommonWell/Carequality exchange networks is health
-    information exchange operation, not internal release-of-information workflow.
+  evidence: 'POST /medical/v1/document/query ''Start Document Query''; vendor: ''exchanges patient medical
+    records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data'''
+  reason: The operations query, list and retrieve download URLs for clinical documents pulled from health
+    information exchange networks — this is provider-side healthcare interoperability operation (HIE connections,
+    FHIR endpoints), not clinical documentation authoring.
