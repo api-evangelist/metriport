@@ -166,7 +166,7 @@ apis:
   humanURL: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
   baseURL: https://api.metriport.com/medical/v1
   tags:
-  - Facility
+  - Facilities
   tags_raw:
   - Facility
   properties:
