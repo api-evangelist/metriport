@@ -133,6 +133,8 @@ apis:
   humanURL: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
   baseURL: https://api.metriport.com/medical/v1
   tags:
+  - Documents
+  tags_raw:
   - Document
   properties:
   - type: OpenAPI
@@ -207,6 +209,8 @@ apis:
   humanURL: https://docs.metriport.com/medical-api/api-reference/patient/create-patient
   baseURL: https://api.metriport.com/medical/v1
   tags:
+  - Patients
+  tags_raw:
   - Patient
   properties:
   - type: OpenAPI
