@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Metriport Consolidated Patient API
+  title: Metriport Patient API
   description: Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data; the Devices API hydrates activity, biometrics, nutrition, and sleep data from connected wearables and mHealth apps. This specification documents the hosted Metriport cloud surface at https://api.metriport.com. The same code may be self-hosted from the open-source repository.
   termsOfService: https://www.metriport.com/terms
   contact:
@@ -150,17 +150,36 @@ paths:
                 $ref: '#/components/schemas/Patient'
 components:
   schemas:
-    Patient:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: string
-          facilityIds:
-            type: array
-            items:
-              type: string
-      - $ref: '#/components/schemas/BasePatient'
+    Address:
+      type: object
+      required:
+      - addressLine1
+      - city
+      - state
+      - zip
+      - country
+      properties:
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        country:
+          type: string
+          default: USA
+    Contact:
+      type: object
+      properties:
+        phone:
+          type: string
+        email:
+          type: string
+          format: email
     BasePatient:
       type: object
       required:
@@ -195,36 +214,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Address'
-    Contact:
-      type: object
-      properties:
-        phone:
-          type: string
-        email:
-          type: string
-          format: email
-    Address:
-      type: object
-      required:
-      - addressLine1
-      - city
-      - state
-      - zip
-      - country
-      properties:
-        addressLine1:
-          type: string
-        addressLine2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        zip:
-          type: string
-        country:
-          type: string
-          default: USA
+    Patient:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: string
+          facilityIds:
+            type: array
+            items:
+              type: string
+      - $ref: '#/components/schemas/BasePatient'
   parameters:
     PatientId:
       name: id

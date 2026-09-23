@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Metriport Consolidated Devices Data API
+  title: Metriport Devices Data API
   description: Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data; the Devices API hydrates activity, biometrics, nutrition, and sleep data from connected wearables and mHealth apps. This specification documents the hosted Metriport cloud surface at https://api.metriport.com. The same code may be self-hosted from the open-source repository.
   termsOfService: https://www.metriport.com/terms
   contact:
@@ -115,22 +115,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/DevicesData'
 components:
-  parameters:
-    DevicesDate:
-      name: date
-      in: query
-      required: true
-      description: The day to fetch data for, in YYYY-MM-DD format.
-      schema:
-        type: string
-        format: date
-    DevicesUserId:
-      name: userId
-      in: query
-      required: true
-      description: The Metriport user ID.
-      schema:
-        type: string
   schemas:
     DevicesData:
       type: object
@@ -155,6 +139,22 @@ components:
           type: object
         sleep:
           type: object
+  parameters:
+    DevicesDate:
+      name: date
+      in: query
+      required: true
+      description: The day to fetch data for, in YYYY-MM-DD format.
+      schema:
+        type: string
+        format: date
+    DevicesUserId:
+      name: userId
+      in: query
+      required: true
+      description: The Metriport user ID.
+      schema:
+        type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

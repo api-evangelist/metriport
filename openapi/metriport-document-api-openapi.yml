@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Metriport Consolidated Document API
+  title: Metriport Document API
   description: Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data; the Devices API hydrates activity, biometrics, nutrition, and sleep data from connected wearables and mHealth apps. This specification documents the hosted Metriport cloud surface at https://api.metriport.com. The same code may be self-hosted from the open-source repository.
   termsOfService: https://www.metriport.com/terms
   contact:
@@ -140,6 +140,21 @@ components:
           $ref: '#/components/schemas/Progress'
         convert:
           $ref: '#/components/schemas/Progress'
+    Progress:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - processing
+          - completed
+          - failed
+        total:
+          type: integer
+        successful:
+          type: integer
+        errors:
+          type: integer
     DocumentReference:
       type: object
       description: A FHIR R4 DocumentReference describing a retrieved clinical document.
@@ -159,21 +174,6 @@ components:
         indexed:
           type: string
           format: date-time
-    Progress:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - processing
-          - completed
-          - failed
-        total:
-          type: integer
-        successful:
-          type: integer
-        errors:
-          type: integer
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

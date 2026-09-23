@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Metriport Consolidated Facility API
+  title: Metriport Facility API
   description: Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data; the Devices API hydrates activity, biometrics, nutrition, and sleep data from connected wearables and mHealth apps. This specification documents the hosted Metriport cloud surface at https://api.metriport.com. The same code may be self-hosted from the open-source repository.
   termsOfService: https://www.metriport.com/terms
   contact:
@@ -112,6 +112,33 @@ components:
       schema:
         type: string
   schemas:
+    Facility:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: string
+          oid:
+            type: string
+      - $ref: '#/components/schemas/BaseFacility'
+    BaseFacility:
+      type: object
+      required:
+      - name
+      - npi
+      - address
+      properties:
+        name:
+          type: string
+        npi:
+          type: string
+          description: The 10-digit National Provider Identifier.
+        tin:
+          type: string
+        active:
+          type: boolean
+        address:
+          $ref: '#/components/schemas/Address'
     Address:
       type: object
       required:
@@ -134,33 +161,6 @@ components:
         country:
           type: string
           default: USA
-    BaseFacility:
-      type: object
-      required:
-      - name
-      - npi
-      - address
-      properties:
-        name:
-          type: string
-        npi:
-          type: string
-          description: The 10-digit National Provider Identifier.
-        tin:
-          type: string
-        active:
-          type: boolean
-        address:
-          $ref: '#/components/schemas/Address'
-    Facility:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: string
-          oid:
-            type: string
-      - $ref: '#/components/schemas/BaseFacility'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
