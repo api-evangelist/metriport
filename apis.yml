@@ -9,6 +9,10 @@ description: Metriport is an open-source, universal API for healthcare data. The
   code to avoid vendor lock-in.
 deliveryModel:
   model: unknown
+  license_evidence:
+    repo: metriport/metriport
+    spdx: NOASSERTION
+    stars: 784
   open_source: unknown
   commercial: true
   callable_host: true
@@ -18,7 +22,7 @@ deliveryModel:
   - openapi
   - pricing
   - repository-unlicensed
-  generated: '2026-08-28'
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -43,7 +47,8 @@ tags:
 - FHIR
 - Health Data
 - Wearables
-- Open-Source
+- Open Source
+- A2A
 tags_raw:
 - Healthcare
 - Medical Records
@@ -51,6 +56,8 @@ tags_raw:
 - Health Data
 - Wearables
 - Open Source
+- Open-Source
+- A2A
 created: '2026-06-21'
 modified: '2026-08-14'
 specificationVersion: '0.23'
@@ -427,3 +434,10 @@ x-enrichment:
   status: enriched
   artifacts_added: 30
   pass: local-v1
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://docs.metriport.com/.well-known/agent-card.json"
+  grade: "conformant"
+  protocol_version: "0.3"
+  control: 404

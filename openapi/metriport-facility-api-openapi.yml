@@ -103,14 +103,6 @@ paths:
         '200':
           description: Facility deleted.
 components:
-  parameters:
-    FacilityId:
-      name: id
-      in: path
-      required: true
-      description: The Metriport Facility ID.
-      schema:
-        type: string
   schemas:
     Facility:
       allOf:
@@ -121,24 +113,6 @@ components:
           oid:
             type: string
       - $ref: '#/components/schemas/BaseFacility'
-    BaseFacility:
-      type: object
-      required:
-      - name
-      - npi
-      - address
-      properties:
-        name:
-          type: string
-        npi:
-          type: string
-          description: The 10-digit National Provider Identifier.
-        tin:
-          type: string
-        active:
-          type: boolean
-        address:
-          $ref: '#/components/schemas/Address'
     Address:
       type: object
       required:
@@ -161,6 +135,32 @@ components:
         country:
           type: string
           default: USA
+    BaseFacility:
+      type: object
+      required:
+      - name
+      - npi
+      - address
+      properties:
+        name:
+          type: string
+        npi:
+          type: string
+          description: The 10-digit National Provider Identifier.
+        tin:
+          type: string
+        active:
+          type: boolean
+        address:
+          $ref: '#/components/schemas/Address'
+  parameters:
+    FacilityId:
+      name: id
+      in: path
+      required: true
+      description: The Metriport Facility ID.
+      schema:
+        type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

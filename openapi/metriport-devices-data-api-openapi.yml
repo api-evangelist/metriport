@@ -115,6 +115,22 @@ paths:
                 items:
                   $ref: '#/components/schemas/DevicesData'
 components:
+  parameters:
+    DevicesDate:
+      name: date
+      in: query
+      required: true
+      description: The day to fetch data for, in YYYY-MM-DD format.
+      schema:
+        type: string
+        format: date
+    DevicesUserId:
+      name: userId
+      in: query
+      required: true
+      description: The Metriport user ID.
+      schema:
+        type: string
   schemas:
     DevicesData:
       type: object
@@ -139,22 +155,6 @@ components:
           type: object
         sleep:
           type: object
-  parameters:
-    DevicesDate:
-      name: date
-      in: query
-      required: true
-      description: The day to fetch data for, in YYYY-MM-DD format.
-      schema:
-        type: string
-        format: date
-    DevicesUserId:
-      name: userId
-      in: query
-      required: true
-      description: The Metriport user ID.
-      schema:
-        type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
