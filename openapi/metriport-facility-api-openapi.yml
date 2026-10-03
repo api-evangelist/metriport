@@ -103,6 +103,14 @@ paths:
         '200':
           description: Facility deleted.
 components:
+  parameters:
+    FacilityId:
+      name: id
+      in: path
+      required: true
+      description: The Metriport Facility ID.
+      schema:
+        type: string
   schemas:
     Facility:
       allOf:
@@ -153,14 +161,6 @@ components:
           type: boolean
         address:
           $ref: '#/components/schemas/Address'
-  parameters:
-    FacilityId:
-      name: id
-      in: path
-      required: true
-      description: The Metriport Facility ID.
-      schema:
-        type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
