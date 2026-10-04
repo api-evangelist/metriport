@@ -149,23 +149,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Patient'
 components:
-  parameters:
-    PatientId:
-      name: id
-      in: path
-      required: true
-      description: The Metriport Patient ID.
-      schema:
-        type: string
   schemas:
-    Contact:
-      type: object
-      properties:
-        phone:
-          type: string
-        email:
-          type: string
-          format: email
     BasePatient:
       type: object
       required:
@@ -200,6 +184,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Address'
+    Contact:
+      type: object
+      properties:
+        phone:
+          type: string
+        email:
+          type: string
+          format: email
     Patient:
       allOf:
       - type: object
@@ -233,6 +225,14 @@ components:
         country:
           type: string
           default: USA
+  parameters:
+    PatientId:
+      name: id
+      in: path
+      required: true
+      description: The Metriport Patient ID.
+      schema:
+        type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

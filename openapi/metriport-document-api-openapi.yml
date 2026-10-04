@@ -133,28 +133,6 @@ paths:
                     format: uri
 components:
   schemas:
-    DocumentQuery:
-      type: object
-      properties:
-        download:
-          $ref: '#/components/schemas/Progress'
-        convert:
-          $ref: '#/components/schemas/Progress'
-    Progress:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - processing
-          - completed
-          - failed
-        total:
-          type: integer
-        successful:
-          type: integer
-        errors:
-          type: integer
     DocumentReference:
       type: object
       description: A FHIR R4 DocumentReference describing a retrieved clinical document.
@@ -174,6 +152,28 @@ components:
         indexed:
           type: string
           format: date-time
+    Progress:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - processing
+          - completed
+          - failed
+        total:
+          type: integer
+        successful:
+          type: integer
+        errors:
+          type: integer
+    DocumentQuery:
+      type: object
+      properties:
+        download:
+          $ref: '#/components/schemas/Progress'
+        convert:
+          $ref: '#/components/schemas/Progress'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
