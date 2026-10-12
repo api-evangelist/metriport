@@ -21,7 +21,7 @@
     matched_domain: metriport.com
     detected_by: sweep-health-networks.py
     detected: '2026-10-12'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
 - slug: metriport-commonwell-health-alliance
   label: CommonWell Health Alliance
@@ -41,5 +41,5 @@
     matched_domain: metriport.com
     detected_by: sweep-health-networks.py
     detected: '2026-10-12'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
