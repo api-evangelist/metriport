@@ -1,5 +1,5 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/metriport/integrations
 - https://n8n.io/integrations/metriport/
@@ -9,8 +9,62 @@ checked:
 - https://composio.dev/toolkits/metriport
 - https://monid.ai/tools/metriport
 - https://n8n.io/integrations/metriport/
+- https://rce.sequoiaproject.org/wp-json/wp/v2/qhins
+- https://www.commonwellalliance.org/wp-json/wp/v2/pages?slug=commonwell-connected-products&_fields=id,link,content
+- https://www.commonwellalliance.org/wp-json/wp/v2/pages?slug=commonwell-members&_fields=id,link,content
 - https://zapier.com/apps/metriport/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: TEFCA (RCE, The Sequoia Project)
+  partner: null
+  type: contract
+  channel: network-directory
+  relationship: network-participant
+  direction: partner-built
+  evidence: https://rce.sequoiaproject.org/wp-json/wp/v2/qhins
+  contract_reference:
+    network: TEFCA (RCE, The Sequoia Project)
+    spec_file: null
+    role: candidate-QHIN
+    listed_name: Metriport
+    listing_page: https://rce.sequoiaproject.org/qhins/metriport/
+    network_id: 459943
+    matched_domain: metriport.com
+    detected_by: sweep-health-networks.py
+    detected: '2026-10-12'
+- partner_name: CommonWell Health Alliance
+  partner: null
+  type: contract
+  channel: network-directory
+  relationship: network-participant
+  direction: partner-built
+  evidence: https://www.commonwellalliance.org/wp-json/wp/v2/pages?slug=commonwell-members&_fields=id,link,content
+  contract_reference:
+    network: CommonWell Health Alliance
+    spec_file: null
+    role: member
+    listed_name: Metriport
+    listing_page: https://www.commonwellalliance.org/how-to-participate/commonwell-members/
+    network_id: metriport.com
+    matched_domain: metriport.com
+    detected_by: sweep-health-networks.py
+    detected: '2026-10-12'
+- partner_name: CommonWell Health Alliance
+  partner: null
+  type: contract
+  channel: network-directory
+  relationship: network-participant
+  direction: partner-built
+  evidence: https://www.commonwellalliance.org/wp-json/wp/v2/pages?slug=commonwell-connected-products&_fields=id,link,content
+  contract_reference:
+    network: CommonWell Health Alliance
+    spec_file: null
+    role: connected-product
+    listed_name: Metriport
+    listing_page: https://www.commonwellalliance.org/connect-to-the-network/commonwell-connected-products/
+    network_id: metriport.com
+    matched_domain: metriport.com
+    detected_by: sweep-health-networks.py
+    detected: '2026-10-12'
 templates: []
