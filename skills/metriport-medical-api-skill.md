@@ -1,5 +1,5 @@
 ---
-name: Metriport
+name: metriport-medical-api-skill
 description: Use when building healthcare applications that need to access, manage, and exchange patient medical data across health information exchanges (HIEs), pharmacies, and laboratories. Reach for this skill when creating patient records, querying consolidated medical data in FHIR format, sending secure messages between providers, managing facilities, or contributing data back to health networks.
 metadata:
     mintlify-proj: metriport

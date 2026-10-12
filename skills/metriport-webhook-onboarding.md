@@ -1,7 +1,7 @@
 ---
 generated: '2026-08-14'
 method: generated
-name: Wire up and verify Metriport webhooks
+name: metriport-webhook-onboarding
 description: Register a webhook URL over the API, answer the ping handshake, verify the HMAC signature, and replay failed deliveries.
 api: openapi/metriport-settings-api-openapi.yml
 operations: [updateSettings, getSettings, getWebhookStatus, retryWebhookRequests]

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/metriport/main/json-schema/metriport-devices-user-schema.json",
+  "title": "DevicesUser",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/metriport-user-api-openapi.yml#/components/schemas/DevicesUser",
+  "type": "object",
+  "properties": {
+    "userId": {
+      "type": "string"
+    },
+    "appUserId": {
+      "type": "string"
+    },
+    "connectedProviders": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

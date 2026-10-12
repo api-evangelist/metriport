@@ -1,0 +1,101 @@
+generated: '2026-10-12'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/metriport-consolidated-api-openapi.yml
+- openapi/metriport-devices-data-api-openapi.yml
+- openapi/metriport-document-api-openapi.yml
+- openapi/metriport-facility-api-openapi.yml
+- openapi/metriport-patient-api-openapi.yml
+vocabulary:
+  name: Metriport Domain Vocabulary
+  description: 'Terms declared by Metriport''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-12'
+  terms:
+  - term: Consolidated
+    definition: Medical API consolidated FHIR data.
+    tags:
+    - Resource Group
+    source: openapi/metriport-consolidated-api-openapi.yml
+  - term: Devices Data
+    definition: Devices API normalized health data.
+    tags:
+    - Resource Group
+    source: openapi/metriport-devices-data-api-openapi.yml
+  - term: Document
+    definition: Medical API clinical document query and retrieval.
+    tags:
+    - Resource Group
+    source: openapi/metriport-document-api-openapi.yml
+  - term: Facility
+    definition: Medical API facility management.
+    tags:
+    - Resource Group
+    source: openapi/metriport-facility-api-openapi.yml
+  - term: Patient
+    definition: Medical API patient management.
+    tags:
+    - Resource Group
+    source: openapi/metriport-patient-api-openapi.yml
+  - term: Settings
+    definition: Account settings and webhooks.
+    tags:
+    - Resource Group
+    source: openapi/metriport-settings-api-openapi.yml
+  - term: User
+    definition: Devices API user and connect management.
+    tags:
+    - Resource Group
+    source: openapi/metriport-user-api-openapi.yml
+  - term: ConsolidatedQuery
+    definition: 'Object declared by the contract with fields: requestId, status, conversionType, startedAt.'
+    tags:
+    - Object
+    source: openapi/metriport-consolidated-api-openapi.yml#/components/schemas/ConsolidatedQuery
+  - term: DevicesData
+    definition: Normalized device data returned per connected provider, containing a metadata block describing the source plus the normalized
+      samples.
+    tags:
+    - Object
+    source: openapi/metriport-devices-data-api-openapi.yml#/components/schemas/DevicesData
+  - term: DocumentReference
+    definition: A FHIR R4 DocumentReference describing a retrieved clinical document.
+    tags:
+    - Object
+    source: openapi/metriport-document-api-openapi.yml#/components/schemas/DocumentReference
+  - term: Progress
+    definition: 'Object declared by the contract with fields: status, total, successful, errors.'
+    tags:
+    - Object
+    source: openapi/metriport-document-api-openapi.yml#/components/schemas/Progress
+  - term: DocumentQuery
+    definition: 'Object declared by the contract with fields: download, convert.'
+    tags:
+    - Object
+    source: openapi/metriport-document-api-openapi.yml#/components/schemas/DocumentQuery
+  - term: Address
+    definition: 'Object declared by the contract with fields: addressLine1, addressLine2, city, state, zip, country.'
+    tags:
+    - Object
+    source: openapi/metriport-facility-api-openapi.yml#/components/schemas/Address
+  - term: BaseFacility
+    definition: 'Object declared by the contract with fields: name, npi, tin, active, address.'
+    tags:
+    - Object
+    source: openapi/metriport-facility-api-openapi.yml#/components/schemas/BaseFacility
+  - term: BasePatient
+    definition: 'Object declared by the contract with fields: firstName, lastName, dob, genderAtBirth, externalId, contact, address.'
+    tags:
+    - Object
+    source: openapi/metriport-patient-api-openapi.yml#/components/schemas/BasePatient
+  - term: Contact
+    definition: 'Object declared by the contract with fields: phone, email.'
+    tags:
+    - Object
+    source: openapi/metriport-patient-api-openapi.yml#/components/schemas/Contact
+  - term: DevicesUser
+    definition: 'Object declared by the contract with fields: userId, appUserId, connectedProviders.'
+    tags:
+    - Object
+    source: openapi/metriport-user-api-openapi.yml#/components/schemas/DevicesUser

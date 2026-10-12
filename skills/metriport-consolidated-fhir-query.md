@@ -1,7 +1,7 @@
 ---
 generated: '2026-08-14'
 method: generated
-name: Query a patient's consolidated FHIR data
+name: metriport-consolidated-fhir-query
 description: Register a patient, start a consolidated FHIR R4 query for the resources you need, wait for the webhook, then count what came back.
 api: openapi/metriport-consolidated-api-openapi.yml
 operations: [createPatient, startConsolidatedQuery, getConsolidatedQueryStatus, countConsolidatedData]

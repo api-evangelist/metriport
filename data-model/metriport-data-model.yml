@@ -25,23 +25,23 @@ id_scheme:
     form 00000000-0000-0000-0000-000000000000.
 
 entities:
-  - {name: Organization, domain: account, description: The account-level entity; the Metriport customer. Implicit in every request via the API key.}
-  - {name: Facility, domain: account, description: A place of care under the organization. Carries name, npi, tin, active and an address.}
-  - {name: Patient, domain: core, description: A person receiving care. Demographics (firstName, lastName, dob, genderAtBirth), contact, address, externalId, plus personalIdentifiers used for network matching.}
-  - {name: Address, domain: core, description: Value object — addressLine1/2, city, state, zip, country. Embedded in Patient and Facility.}
-  - {name: Contact, domain: core, description: Value object — phone and email. Embedded in Patient.}
-  - {name: DocumentQuery, domain: documents, description: An async job that queries the networks for a patient's documents. Reports download and convert Progress. Legacy — superseded by NetworkQuery.}
-  - {name: Progress, domain: documents, description: Value object — status, total, successful, errors. Embedded in DocumentQuery.}
-  - {name: DocumentReference, domain: documents, description: A retrieved clinical document — id, fileName, description, status, contentType, size, indexed. Downloaded via a presigned URL.}
-  - {name: ConsolidatedQuery, domain: fhir, description: An async job producing consolidated FHIR R4 data — requestId, status, conversionType, startedAt.}
-  - {name: ConsolidatedData, domain: fhir, description: The FHIR R4 Bundle of deduplicated, standardised resources for a patient.}
-  - {name: NetworkQuery, domain: networks, description: An async query fanned out to HIE, pharmacy and lab sources; one webhook per source. Documented but absent from the captured OpenAPI.}
-  - {name: Cohort, domain: cohorts, description: A named grouping of patients; the unit real-time patient notifications are configured on. Documented but absent from the captured OpenAPI.}
-  - {name: Message, domain: messaging, description: A secure clinical message sent to or received from another practitioner. Documented but absent from the captured OpenAPI.}
-  - {name: Settings, domain: account, description: Account settings — id, webhookUrl, webhookKey, webhookEnabled.}
-  - {name: EmbedToken, domain: embedding, description: Short-lived token authorising the hosted embedded app; max 10 hours.}
-  - {name: DevicesUser, domain: devices, description: A wearables end-user — userId, appUserId, connectedProviders. RETIRED, see lifecycle.}
-  - {name: DevicesData, domain: devices, description: Normalised activity, biometrics, body, nutrition and sleep readings. RETIRED, see lifecycle.}
+  - {name: Organization, domain: account, description: "The account-level entity; the Metriport customer. Implicit in every request via the API key."}
+  - {name: Facility, domain: account, description: "A place of care under the organization. Carries name, npi, tin, active and an address."}
+  - {name: Patient, domain: core, description: "A person receiving care. Demographics (firstName, lastName, dob, genderAtBirth), contact, address, externalId, plus personalIdentifiers used for network matching."}
+  - {name: Address, domain: core, description: "Value object \u2014 addressLine1/2, city, state, zip, country. Embedded in Patient and Facility."}
+  - {name: Contact, domain: core, description: "Value object \u2014 phone and email. Embedded in Patient."}
+  - {name: DocumentQuery, domain: documents, description: "An async job that queries the networks for a patient's documents. Reports download and convert Progress. Legacy \u2014 superseded by NetworkQuery."}
+  - {name: Progress, domain: documents, description: "Value object \u2014 status, total, successful, errors. Embedded in DocumentQuery."}
+  - {name: DocumentReference, domain: documents, description: "A retrieved clinical document \u2014 id, fileName, description, status, contentType, size, indexed. Downloaded via a presigned URL."}
+  - {name: ConsolidatedQuery, domain: fhir, description: "An async job producing consolidated FHIR R4 data \u2014 requestId, status, conversionType, startedAt."}
+  - {name: ConsolidatedData, domain: fhir, description: "The FHIR R4 Bundle of deduplicated, standardised resources for a patient."}
+  - {name: NetworkQuery, domain: networks, description: "An async query fanned out to HIE, pharmacy and lab sources; one webhook per source. Documented but absent from the captured OpenAPI."}
+  - {name: Cohort, domain: cohorts, description: "A named grouping of patients; the unit real-time patient notifications are configured on. Documented but absent from the captured OpenAPI."}
+  - {name: Message, domain: messaging, description: "A secure clinical message sent to or received from another practitioner. Documented but absent from the captured OpenAPI."}
+  - {name: Settings, domain: account, description: "Account settings \u2014 id, webhookUrl, webhookKey, webhookEnabled."}
+  - {name: EmbedToken, domain: embedding, description: "Short-lived token authorising the hosted embedded app; max 10 hours."}
+  - {name: DevicesUser, domain: devices, description: "A wearables end-user \u2014 userId, appUserId, connectedProviders. RETIRED, see lifecycle."}
+  - {name: DevicesData, domain: devices, description: "Normalised activity, biometrics, body, nutrition and sleep readings. RETIRED, see lifecycle."}
 
 relationships:
   - {from: Organization, to: Facility, type: has_many, via: implicit (account scope)}

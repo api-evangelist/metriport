@@ -1,7 +1,7 @@
 ---
 generated: '2026-08-14'
 method: generated
-name: Retrieve a patient's clinical documents
+name: metriport-patient-document-retrieval
 description: Register a patient, run a document query across the networks, list the results, and mint a signed download URL for each document.
 api: openapi/metriport-document-api-openapi.yml
 operations: [createPatient, startDocumentQuery, getDocumentQueryStatus, listDocuments, getDocumentUrl]
