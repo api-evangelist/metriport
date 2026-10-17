@@ -116,13 +116,6 @@ paths:
                   $ref: '#/components/schemas/DevicesData'
 components:
   parameters:
-    DevicesUserId:
-      name: userId
-      in: query
-      required: true
-      description: The Metriport user ID.
-      schema:
-        type: string
     DevicesDate:
       name: date
       in: query
@@ -131,6 +124,13 @@ components:
       schema:
         type: string
         format: date
+    DevicesUserId:
+      name: userId
+      in: query
+      required: true
+      description: The Metriport user ID.
+      schema:
+        type: string
   schemas:
     DevicesData:
       type: object

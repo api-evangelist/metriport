@@ -150,6 +150,25 @@ paths:
                 $ref: '#/components/schemas/Patient'
 components:
   schemas:
+    Patient:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: string
+          facilityIds:
+            type: array
+            items:
+              type: string
+      - $ref: '#/components/schemas/BasePatient'
+    Contact:
+      type: object
+      properties:
+        phone:
+          type: string
+        email:
+          type: string
+          format: email
     BasePatient:
       type: object
       required:
@@ -184,25 +203,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Address'
-    Contact:
-      type: object
-      properties:
-        phone:
-          type: string
-        email:
-          type: string
-          format: email
-    Patient:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: string
-          facilityIds:
-            type: array
-            items:
-              type: string
-      - $ref: '#/components/schemas/BasePatient'
     Address:
       type: object
       required:

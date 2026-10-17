@@ -104,15 +104,6 @@ paths:
           description: Facility deleted.
 components:
   schemas:
-    Facility:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: string
-          oid:
-            type: string
-      - $ref: '#/components/schemas/BaseFacility'
     Address:
       type: object
       required:
@@ -153,6 +144,15 @@ components:
           type: boolean
         address:
           $ref: '#/components/schemas/Address'
+    Facility:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: string
+          oid:
+            type: string
+      - $ref: '#/components/schemas/BaseFacility'
   parameters:
     FacilityId:
       name: id
