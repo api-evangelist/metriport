@@ -1,4 +1,4 @@
-# Metriport (metriport)
+# Metriport
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,182 +66,199 @@
 
 Metriport is an open-source, universal API for healthcare data. The Medical API exchanges patient medical records across the CommonWell and Carequality networks and returns consolidated FHIR R4 data, while the Devices API hydrates activity, biometrics, nutrition, and sleep data from consumer wearables and mHealth apps. Companies can use the hosted Metriport cloud or self-host the open-source code to avoid vendor lock-in.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/metriport/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/metriport/refs/heads/main/apis.yml)
+**Areas:** Healthcare · Medical Records · FHIR · Health Data · Wearables · Open Source · A2A
 
-## Tags
+## Metriport on APIs.io
 
-- Healthcare
-- Medical Records
-- FHIR
-- Health Data
-- Wearables
-- Open Source
+Everything profiled for Metriport is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/metriport/](https://apis.io/providers/metriport/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (7)
 
-- **Created:** 2026-06-21
-- **Modified:** 2026-06-21
+- [Metriport Consolidated API](https://apis.io/apis/metriport/metriport-consolidated-api/) — Medical API consolidated FHIR data.
+- [Metriport Devices Data API](https://apis.io/apis/metriport/metriport-devices-data-api/) — Devices API normalized health data.
+- [Metriport Document API](https://apis.io/apis/metriport/metriport-document-api/) — Medical API clinical document query and retrieval.
+- [Metriport Facility API](https://apis.io/apis/metriport/metriport-facility-api/) — Medical API facility management.
+- [Metriport Patient API](https://apis.io/apis/metriport/metriport-patient-api/) — Medical API patient management.
+- [Metriport Settings API](https://apis.io/apis/metriport/metriport-settings-api/) — Account settings and webhooks.
+- [Metriport User API](https://apis.io/apis/metriport/metriport-user-api/) — Devices API user and connect management.
 
-## APIs
+### Published properties
 
-### Metriport Medical Patients API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Create, read, update, delete, list, and match patients tied to a facility, plus demographic matching and external-ID lookups, as the entry point for medical record exchange.
+#### Arazzo workflows (4)
 
-- **Human URL:** [https://docs.metriport.com/medical-api/api-reference/patient/create-patient](https://docs.metriport.com/medical-api/api-reference/patient/create-patient)
-- **Base URL:** `https://api.metriport.com/medical/v1`
+Multi-step workflows that chain operations into a business task.
 
-#### Tags
+- [Metriport Consolidated FHIR Query](https://apis.io/arazzos/metriport/metriport-consolidated-fhir-query-workflow/)
+- [Metriport Patient Document Retrieval](https://apis.io/arazzos/metriport/metriport-patient-document-retrieval-workflow/)
+- [Metriport Patient Matching](https://apis.io/arazzos/metriport/metriport-patient-matching-workflow/)
+- [Metriport Wearables Connect](https://apis.io/arazzos/metriport/metriport-wearables-connect-workflow/)
 
-- Healthcare
-- Patients
-- FHIR
+#### AsyncAPI (1)
 
-#### Properties
+Event-driven and webhook contracts.
 
-- [Documentation](https://docs.metriport.com/medical-api/api-reference/patient/create-patient)
-- [API Reference](https://docs.metriport.com/medical-api/api-reference/patient/create-patient)
-- [OpenAPI](openapi/metriport-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/metriport.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/metriport.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Metriport Webhooks](https://apis.io/asyncapis/metriport/metriport-webhooks/)
 
-### Metriport Medical Facilities API
+#### MCP servers (1)
 
-Manage the facilities (care locations) under your organization where patients receive care, including create, get, list, update, and delete operations.
+Model Context Protocol servers that expose the API to agents.
 
-- **Human URL:** [https://docs.metriport.com/medical-api/api-reference/facility/create-facility](https://docs.metriport.com/medical-api/api-reference/facility/create-facility)
-- **Base URL:** `https://api.metriport.com/medical/v1`
+- [metriport-docs](https://apis.io/servers/metriport/metriport-docs/)
 
-#### Tags
+#### Agentic access (1)
 
-- Healthcare
-- Facilities
-- Organizations
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Properties
+- [Metriport Agentic Access](https://apis.io/agentic-access/metriport/metriport-agentic-access/)
 
-- [Documentation](https://docs.metriport.com/medical-api/api-reference/facility/create-facility)
-- [API Reference](https://docs.metriport.com/medical-api/api-reference/facility/create-facility)
-- [OpenAPI](openapi/metriport-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/metriport.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/metriport.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### JSON Schema (10)
 
-### Metriport Medical Document Query API
+The data models the API reads and writes.
 
-Trigger a network query for a patient's clinical documents across the HIE networks, list returned DocumentReferences, and retrieve signed download URLs for individual documents and bulk exports.
+- [BaseFacility](https://apis.io/schemas/metriport/metriport-base-facility/)
+- [BasePatient](https://apis.io/schemas/metriport/metriport-base-patient/)
+- [ConsolidatedQuery](https://apis.io/schemas/metriport/metriport-consolidated-query/)
+- [DevicesData](https://apis.io/schemas/metriport/metriport-devices-data/)
+- [DevicesUser](https://apis.io/schemas/metriport/metriport-devices-user/)
+- [DocumentQuery](https://apis.io/schemas/metriport/metriport-document-query/)
+- [DocumentReference](https://apis.io/schemas/metriport/metriport-document-reference/)
+- [Facility](https://apis.io/schemas/metriport/metriport-facility/)
+- [Patient](https://apis.io/schemas/metriport/metriport-patient/)
+- [Settings](https://apis.io/schemas/metriport/metriport-settings/)
 
-- **Human URL:** [https://docs.metriport.com/medical-api/api-reference/document/list-documents](https://docs.metriport.com/medical-api/api-reference/document/list-documents)
-- **Base URL:** `https://api.metriport.com/medical/v1`
+#### JSON-LD (1)
 
-#### Tags
+Linked-data contexts for the provider's vocabulary.
 
-- Healthcare
-- Documents
-- C-CDA
+- [Metriport Context](https://apis.io/jsonld/metriport/metriport-context/)
 
-#### Properties
+#### Collections (8)
 
-- [Documentation](https://docs.metriport.com/medical-api/api-reference/document/list-documents)
-- [API Reference](https://docs.metriport.com/medical-api/api-reference/document/list-documents)
-- [OpenAPI](openapi/metriport-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/metriport.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/metriport.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-### Metriport Medical Consolidated FHIR API
+- [Metriport API](https://apis.io/collections/metriport/open-metriport/)
+- [Metriport Consolidated API](https://apis.io/collections/metriport/open-metriport-consolidated-api/)
+- [Metriport Consolidated Devices Data API](https://apis.io/collections/metriport/open-metriport-devices-data-api/)
+- [Metriport Consolidated Document API](https://apis.io/collections/metriport/open-metriport-document-api/)
+- [Metriport Consolidated Facility API](https://apis.io/collections/metriport/open-metriport-facility-api/)
+- [Metriport Consolidated Patient API](https://apis.io/collections/metriport/open-metriport-patient-api/)
+- [Metriport Consolidated Settings API](https://apis.io/collections/metriport/open-metriport-settings-api/)
+- [Metriport Consolidated User API](https://apis.io/collections/metriport/open-metriport-user-api/)
 
-Query and return a patient's consolidated, de-duplicated medical history as FHIR R4 (or PDF/HTML/AI medical record summary), count available resources, and contribute your own FHIR data back to the patient record.
+#### Overlays (7)
 
-- **Human URL:** [https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post](https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post)
-- **Base URL:** `https://api.metriport.com/medical/v1`
+OpenAPI overlays, including conversational phrasing for each operation.
 
-#### Tags
+- [Metriport Consolidated Api Overlay](https://apis.io/overlays/metriport/metriport-consolidated-api-overlay/)
+- [Metriport Devices Data Api Overlay](https://apis.io/overlays/metriport/metriport-devices-data-api-overlay/)
+- [Metriport Document Api Overlay](https://apis.io/overlays/metriport/metriport-document-api-overlay/)
+- [Metriport Facility Api Overlay](https://apis.io/overlays/metriport/metriport-facility-api-overlay/)
+- [Metriport Patient Api Overlay](https://apis.io/overlays/metriport/metriport-patient-api-overlay/)
+- [Metriport Settings Api Overlay](https://apis.io/overlays/metriport/metriport-settings-api-overlay/)
+- [Metriport User Api Overlay](https://apis.io/overlays/metriport/metriport-user-api-overlay/)
 
-- Healthcare
-- FHIR
-- Medical Records
+#### Governance rules (1)
 
-#### Properties
+Spectral rulesets for the provider's contracts.
 
-- [Documentation](https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post)
-- [API Reference](https://docs.metriport.com/medical-api/api-reference/fhir/consolidated-data-query-post)
-- [OpenAPI](openapi/metriport-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/metriport.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/metriport.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Metriport API Rules](https://apis.io/rules/metriport/metriport-rules/)
 
-### Metriport Devices Users API
+#### Security (4)
 
-Register Metriport users, generate a Connect Token for the Connect Widget so end users can link wearables and mHealth apps (Apple Health, Fitbit, Garmin, Oura, WHOOP, Withings), and revoke or delete user connections.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.metriport.com/devices-api/getting-started/connect-quickstart](https://docs.metriport.com/devices-api/getting-started/connect-quickstart)
-- **Base URL:** `https://api.metriport.com`
+- [Metriport Authentication](https://apis.io/security/metriport/metriport-authentication/)
+- [Metriport Domain Security](https://apis.io/security/metriport/metriport-domain-security/)
+- [Metriport Trust Center](https://apis.io/security/metriport/metriport-trust-center/)
+- [Metriport Vulnerability Disclosure](https://apis.io/security/metriport/metriport-vulnerability-disclosure/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Wearables
-- Users
-- Connect
+Published plans, tiers and prices.
 
-#### Properties
+- [Metriport Plans Pricing](https://apis.io/plans/metriport/metriport-plans-pricing/)
 
-- [Documentation](https://docs.metriport.com/devices-api/getting-started/connect-quickstart)
-- [API Reference](https://docs.metriport.com/devices-api/getting-started/connect-quickstart)
-- [OpenAPI](openapi/metriport-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/metriport.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/metriport.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-### Metriport Devices Biometrics API
+Published request limits.
 
-Retrieve normalized health data hydrated from connected devices - activity, biometrics, body, nutrition, and sleep - for a given user and date.
+- [Metriport Rate Limits](https://apis.io/rate-limits/metriport/metriport-rate-limits/)
 
-- **Human URL:** [https://docs.metriport.com/devices-api/getting-started/connect-quickstart](https://docs.metriport.com/devices-api/getting-started/connect-quickstart)
-- **Base URL:** `https://api.metriport.com`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Wearables
-- Biometrics
-- Health Data
+- [Metriport Finops](https://apis.io/finops/metriport/metriport-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://docs.metriport.com/devices-api/getting-started/connect-quickstart)
-- [API Reference](https://docs.metriport.com/devices-api/getting-started/connect-quickstart)
-- [OpenAPI](openapi/metriport-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/metriport.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/metriport.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### Metriport Webhooks API
-
-Configure the account webhook URL and key, check webhook delivery status, and retry failed webhook requests so document-query, consolidated-data, and devices-data events are delivered asynchronously to your application.
-
-- **Human URL:** [https://docs.metriport.com/medical-api/api-reference/settings/get-settings](https://docs.metriport.com/medical-api/api-reference/settings/get-settings)
-- **Base URL:** `https://api.metriport.com`
-
-#### Tags
-
-- Webhooks
-- Events
-- Settings
-
-#### Properties
-
-- [Documentation](https://docs.metriport.com/medical-api/api-reference/settings/get-settings)
-- [API Reference](https://docs.metriport.com/medical-api/api-reference/settings/get-settings)
-- [OpenAPI](openapi/metriport-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/metriport.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/metriport.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/metriport)
-- [LinkedIn](https://www.linkedin.com/company/metriport)
 - [Website](https://www.metriport.com)
 - [Documentation](https://docs.metriport.com)
-- [Plans](plans/metriport-plans-pricing.yml)
-- [Rate Limits](rate-limits/metriport-rate-limits.yml)
-- [Fin Ops](finops/metriport-finops.yml)
+- [Getting started](https://docs.metriport.com/medical-api/getting-started/quickstart)
+- [API reference](https://docs.metriport.com/medical-api/api-reference/patient/create-patient)
+- [Sign up](https://dash.metriport.com)
+- [Support](https://www.metriport.com/contact-us)
+- [Blog](https://www.metriport.com/blog)
+- [Terms of service](https://www.metriport.com/terms)
+- [Privacy policy](https://www.metriport.com/privacy-policy)
+- [GitHub](https://github.com/metriport)
+- [Status](https://status.metriport.com)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 64.0** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 76.7 |
+| Contract quality | 69.9 |
+| Contract governance | 35.6 |
+| Operational transparency | 60.5 |
+| Developer ergonomics | 71.4 |
+| Access clarity | 36.8 |
+
+**Agent readiness 33.0** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 32.0** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/metriport/](https://apis.io/providers/metriport/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Metriport: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/metriport/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
